@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceWeb.Domain", "EcommerceWeb.Domain\EcommerceWeb.Domain.csproj", "{CD52FCF2-93B6-4DD9-882A-934976296760}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceWeb.Domain", "src\EcommerceWeb.Domain\EcommerceWeb.Domain.csproj", "{CD52FCF2-93B6-4DD9-882A-934976296760}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceWeb.Application", "EcommerceWeb.Application\EcommerceWeb.Application.csproj", "{EEF9DBEA-F920-4B13-8811-13AFB4A03444}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceWeb.Application", "src\EcommerceWeb.Application\EcommerceWeb.Application.csproj", "{EEF9DBEA-F920-4B13-8811-13AFB4A03444}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceWeb.Infrastructure", "EcommerceWeb.Infrastructure\EcommerceWeb.Infrastructure.csproj", "{82B02E80-D2B4-4F75-BC7B-47693760C59B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceWeb.Infrastructure", "src\EcommerceWeb.Infrastructure\EcommerceWeb.Infrastructure.csproj", "{82B02E80-D2B4-4F75-BC7B-47693760C59B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceWeb.Presentation", "EcommerceWeb.Presentation\EcommerceWeb.Presentation.csproj", "{C29716EE-E089-42F8-997C-2A795AABDB23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceWeb.Presentation", "src\EcommerceWeb.Presentation\EcommerceWeb.Presentation.csproj", "{C29716EE-E089-42F8-997C-2A795AABDB23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceWeb.WebApi", "EcommerceWeb.WebApi\EcommerceWeb.WebApi.csproj", "{E7132A11-A65E-4CE8-9DB8-C3FA5AEB920A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceWeb.WebApi", "src\EcommerceWeb.WebApi\EcommerceWeb.WebApi.csproj", "{E7132A11-A65E-4CE8-9DB8-C3FA5AEB920A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B04A2109-BA24-4CBF-8476-28C1571952FD}"
 EndProject
