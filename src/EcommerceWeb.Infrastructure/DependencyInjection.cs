@@ -1,11 +1,13 @@
 ﻿using EcommerceWeb.Application.Authentication.Common.Interfaces;
 using EcommerceWeb.Application.Common.Services;
+using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Infrastructure.Authentication;
 using EcommerceWeb.Infrastructure.Authentication.Repository;
 using EcommerceWeb.Infrastructure.Common.Service;
 using EcommerceWeb.Presentation.Persistences;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +39,7 @@ namespace EcommerceWeb.Infrastructure
                 options.UseSqlServer("Data Source=.;Initial Catalog=EcommerceDb;Integrated Security=True;TrustServerCertificate=true"));
 
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+            services.AddScoped<IPasswordHasher<Customer>, PasswordHasher<Customer>>();
             //services.AddScoped<IMenuRepository, MenuRepository>();
             //services.AddScoped<IDinnerRepository, DinnerRepository>();
 

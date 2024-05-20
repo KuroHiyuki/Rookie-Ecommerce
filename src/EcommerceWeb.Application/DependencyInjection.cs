@@ -19,7 +19,7 @@ namespace EcommerceWeb.Application
                 options.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
 
             });
-            
+
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssemblyContaining(typeof(DependencyInjection));
             return services;

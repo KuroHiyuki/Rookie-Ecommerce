@@ -3,12 +3,15 @@ using EcommerceWeb.Application.Authentication.Common.Response;
 using EcommerceWeb.Domain.Entities;
 using ErrorOr;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
+using System.Reflection;
 
 namespace EcommerceWeb.Application.Authentication.Queries.Login
 {
     public class LoginQueryHandler(
         IJwtTokenGenerator _jwtTokenGenerator,
-        IAuthenticationRepository _authenticationRepository) : 
+        IAuthenticationRepository _authenticationRepository,
+        IPasswordHasher<Customer> _passwordHasher) : 
         IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
     {
         public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
@@ -19,7 +22,7 @@ namespace EcommerceWeb.Application.Authentication.Queries.Login
                 return Errors.Errors.UserAuthentication.InvalidCredentials;
             }
 
-            if (user.Password != query.Password)
+            if (_passwordHasher.VerifyHashedPassword(user, user.Password!, query.Password) == PasswordVerificationResult.Failed)
             {
                 return Errors.Errors.UserAuthentication.InvalidCredentials;
             }
