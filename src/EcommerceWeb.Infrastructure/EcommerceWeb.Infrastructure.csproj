@@ -27,10 +27,10 @@
 
   <ItemGroup>
     <Folder Include="Common\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Middleware\" />
+    <Folder Include="Persistences\Configurations\" />
+    <Folder Include="Persistences\Repositories\" />
     <Folder Include="Services\" />
-    <Folder Include="Persistence\" />
   </ItemGroup>
 
 </Project>

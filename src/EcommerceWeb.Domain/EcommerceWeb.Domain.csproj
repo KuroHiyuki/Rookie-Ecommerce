@@ -12,8 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\" />
-    <Folder Include="Entities\" />
+    <Folder Include="Common\AgregateRoots\" />
     <Folder Include="Enum\" />
     <Folder Include="Aggregate\" />
     <Folder Include="ValueObjects\" />

@@ -1,16 +1,12 @@
 using EcommerceWeb.Application;
 using EcommerceWeb.Infrastructure;
+using EcommerceWeb.WebApi;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services
-        .AddApplication()
-        .AddInfrastructure(builder.Configuration);
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    .AddPresentation()
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
@@ -22,6 +18,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
