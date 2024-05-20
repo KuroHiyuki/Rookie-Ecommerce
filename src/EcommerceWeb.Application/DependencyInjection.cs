@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using EcommerceWeb.Application.Common.Behaviors;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,8 @@ namespace EcommerceWeb.Application
                 options.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
 
             });
-
+            
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssemblyContaining(typeof(DependencyInjection));
             return services;
         }

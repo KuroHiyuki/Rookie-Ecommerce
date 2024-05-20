@@ -26,11 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\" />
     <Folder Include="Middleware\" />
     <Folder Include="Persistences\Configurations\" />
-    <Folder Include="Persistences\Repositories\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

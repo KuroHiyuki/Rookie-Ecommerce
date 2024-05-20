@@ -7,7 +7,7 @@ namespace EcommerceWeb.WebApi.Controllers
 {
     public class ErrorController : ControllerBase
     {
-        [Route("/errorHandle")]
+        //[Route("/errorHandle")]
         public IActionResult Error()
         {
             Exception exception = HttpContext.Features.Get<IExceptionHandlerFeature>()!.Error;

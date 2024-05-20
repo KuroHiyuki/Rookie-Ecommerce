@@ -15,6 +15,7 @@
     <Folder Include="Common\AgregateRoots\" />
     <Folder Include="Enum\" />
     <Folder Include="Aggregate\" />
+    <Folder Include="Errors\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 

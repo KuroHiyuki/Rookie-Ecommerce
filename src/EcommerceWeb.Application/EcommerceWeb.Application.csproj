@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Behaviors\" />
+    <Folder Include="Common\Interface\" />
   </ItemGroup>
 
 </Project>
