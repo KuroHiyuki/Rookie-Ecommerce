@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EcommerceWeb.Domain.Entities.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -7,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Domain.Entities
 {
-    public class Product
+    public class Product : BaseEntity
     {
-        public string? Id { get; set; }
         public string? Name { get; set; }
         public string? AliasName { get; set; }
         public string? Description { get; set; }
         public string? ImageURL { get; set; }
         public decimal UnitPrice { get; set; }
-        public DateTime CreateDate { get; set; }
+        public int Inventory {  get; set; }
         public int CountView { get; set; }
-        public virtual ICollection<OrderDetail> Details { get; set; } = new List<OrderDetail>();
+        public DateTime UpdateAt { get; set; } = DateTime.Now;
+        public virtual ICollection<CartDetail> CartDetails { get; set; } = new List<CartDetail>();
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
         public virtual ICollection<WishList> WishList { get; set; } = new List<WishList>();
         public virtual Category? Category { get; set; }
         public virtual Vendor? Vendor { get; set; }

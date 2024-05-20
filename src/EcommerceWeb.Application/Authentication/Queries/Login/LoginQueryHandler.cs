@@ -11,18 +11,18 @@ namespace EcommerceWeb.Application.Authentication.Queries.Login
     public class LoginQueryHandler(
         IJwtTokenGenerator _jwtTokenGenerator,
         IAuthenticationRepository _authenticationRepository,
-        IPasswordHasher<Customer> _passwordHasher) : 
+        IPasswordHasher<User> _passwordHasher) : 
         IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
     {
         public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
         {
             await Task.CompletedTask;
-            if (_authenticationRepository.GetByEmail(query.Email) is not Customer user)
+            if (_authenticationRepository.GetByEmail(query.Email) is not User user)
             {
                 return Errors.Errors.UserAuthentication.InvalidCredentials;
             }
 
-            if (_passwordHasher.VerifyHashedPassword(user, user.Password!, query.Password) == PasswordVerificationResult.Failed)
+            if (_passwordHasher.VerifyHashedPassword(user, user.PasswordHash!, query.Password) == PasswordVerificationResult.Failed)
             {
                 return Errors.Errors.UserAuthentication.InvalidCredentials;
             }

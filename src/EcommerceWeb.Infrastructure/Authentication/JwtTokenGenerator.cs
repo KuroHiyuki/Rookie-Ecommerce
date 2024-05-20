@@ -24,7 +24,7 @@ namespace EcommerceWeb.Infrastructure.Authentication
             _dateTimeProvider = dateTimeProvider;
             _jwtSetting = jwtSetting.Value;
         }
-        public string GenerateToken(Customer user)
+        public string GenerateToken(User user)
         {
             var siginingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(

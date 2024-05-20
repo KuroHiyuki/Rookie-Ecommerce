@@ -12,7 +12,7 @@ namespace EcommerceWeb.Application.Authentication.Commands.Register
     public class RegisterCommandHandler(
         IJwtTokenGenerator _jwtTokenGenerator,
         IAuthenticationRepository _authenticationRepository,
-        IPasswordHasher<Customer> _passwordHasher) : 
+        IPasswordHasher<User> _passwordHasher) : 
         IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResult>>
     {
         public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
@@ -22,17 +22,17 @@ namespace EcommerceWeb.Application.Authentication.Commands.Register
             {
                 return Errors.Errors.EmailAlreadyUse.EmailExists;
             }
-            var user = new Customer
+            var user = new User
             {
                 Id = Guid.NewGuid().ToString(),
                 FirstName = command.FirstName,
                 LastName = command.LastName,
                 Email = command.Email,
-                Password = command.Password,
+                PasswordHash = command.Password,
                 Sex = command.Sex,
                 BirthDate = command.Birthday
             };
-            user.Password = _passwordHasher.HashPassword(user, command.Password);
+            user.PasswordHash = _passwordHasher.HashPassword(user, command.Password);
             var token = _jwtTokenGenerator.GenerateToken(user);
             user.AccessToken = token;
 

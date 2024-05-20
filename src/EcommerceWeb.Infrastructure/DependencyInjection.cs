@@ -1,9 +1,11 @@
 ﻿using EcommerceWeb.Application.Authentication.Common.Interfaces;
 using EcommerceWeb.Application.Common.Services;
+using EcommerceWeb.Application.Products.Common.Interfaces;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Infrastructure.Authentication;
 using EcommerceWeb.Infrastructure.Authentication.Repository;
 using EcommerceWeb.Infrastructure.Common.Service;
+using EcommerceWeb.Infrastructure.Product;
 using EcommerceWeb.Presentation.Persistences;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +27,7 @@ namespace EcommerceWeb.Infrastructure
         {
             services
                 .AddAuth(configuration)
-                .AddPersistance();
+                .AddPersistance(configuration);
 
             //services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
@@ -33,16 +35,27 @@ namespace EcommerceWeb.Infrastructure
         }
 
         public static IServiceCollection AddPersistance(
-            this IServiceCollection services)
+            this IServiceCollection services, ConfigurationManager configuration)
         {
-            services.AddDbContext<EcommerceDbContext>(options =>
-                options.UseSqlServer("Data Source=.;Initial Catalog=EcommerceDb;Integrated Security=True;TrustServerCertificate=true"));
 
+            
+            string? connectionString = configuration.GetConnectionString("DefaultConnection");
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                Console.WriteLine("Connection string not found");
+                throw new Exception("Connection string not found");
+            }
+            services.AddDbContext<EcommerceDbContext>(opt =>
+                opt.UseSqlServer(connectionString,
+                    providerOptions =>
+                    {
+                        providerOptions.EnableRetryOnFailure();
+                    }));
+            services.AddIdentityApiEndpoints<User>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<EcommerceDbContext>();
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
-            services.AddScoped<IPasswordHasher<Customer>, PasswordHasher<Customer>>();
-            //services.AddScoped<IMenuRepository, MenuRepository>();
-            //services.AddScoped<IDinnerRepository, DinnerRepository>();
-
+            services.AddScoped<IProductRepository, ProductRepository>();
             return services;
         }
 
@@ -53,8 +66,6 @@ namespace EcommerceWeb.Infrastructure
             var JwtSetting = new JwtSetting();
             configuration.Bind(JwtSetting.SectionName, JwtSetting);
             services.AddSingleton(Options.Create(JwtSetting));
-
-            //services.Configure<JwtSetting>(configuration.GetSection(JwtSetting.SectionName));
 
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IDateTimeProvider, DateTimProvider>();

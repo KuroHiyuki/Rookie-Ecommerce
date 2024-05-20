@@ -1,4 +1,5 @@
 ﻿using EcommerceWeb.Domain.Common.Enum;
+using EcommerceWeb.Domain.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Domain.Entities
 {
-    public class Order
+    public class Order : BaseEntity
     {
-        public string? Id { get; set; }
         public DateTime? OrderDate { get; set; }
         public DateTime? DeliveryTime { get; set;}
         public DateTime NeedDate { get; set; }
@@ -21,7 +21,6 @@ namespace EcommerceWeb.Domain.Entities
         public OrderStatus? Status { get; set; }
         public string? Note { get; set; }
         public virtual ICollection<OrderDetail> Details { get; set; } = new List<OrderDetail>();
-        public virtual Customer? Customer { get; set; }
-        public virtual Admin? Admin { get; set; }
+        public virtual User? User { get; set; }
     }
 }

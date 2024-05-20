@@ -9,6 +9,6 @@ namespace EcommerceWeb.Application.Authentication.Common.Interfaces
 {
     public interface IJwtTokenGenerator
     {
-        string GenerateToken(Customer user);
+        string GenerateToken(User user);
     }
 }

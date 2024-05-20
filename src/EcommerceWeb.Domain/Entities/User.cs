@@ -1,29 +1,24 @@
 ﻿using EcommerceWeb.Domain.Common.Enum;
-using Microsoft.Win32.SafeHandles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+
+
 
 namespace EcommerceWeb.Domain.Entities
 {
-    public class Customer
+    public class User : IdentityUser
     {
-        public string? Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set;}
-        public string? Email { get; set; }
-        public string? Password { get; set; }
         public DateTime BirthDate { get; set; }
         public Sex Sex { get; set; }
         public string? AvatarUrl { get; set; }
         public IsActive IsActive { get; set; }
-        public int Role {  get; set; }
         public string? AccessToken { get; set; }
         public string? RefeshToken { get; set; }
+        public Role Role { get; set; }
+        public virtual Cart? Cart { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
         public virtual ICollection<Order> Orders { get; set; }  = new List<Order>();
-        public virtual ICollection<OrderDetail> Details { get; } = new List<OrderDetail>();
-        public virtual ICollection<Cart> Carts { get; } = new List<Cart>();
+        //public virtual ICollection<OrderDetail> OrderDetails { get; } = new List<OrderDetail>();
     }
 }

@@ -18,17 +18,18 @@ namespace EcommerceWeb.Infrastructure.Authentication.Repository
             _dbContext = dbContext;
         }
 
-        public void Add(Customer user)
+        public void Add(User user)
         {
             _dbContext.Add(user);
 
             _dbContext.SaveChanges();
         }
 
-        public Customer GetByEmail(string email)
+        public User GetByEmail(string email)
         {
-            return _dbContext.Customers
-               .SingleOrDefault(u => u.Email == email)!;
+            throw new NotImplementedException();
+            //return _dbContext.Users
+            //   .SingleOrDefault(u => u.Email == email)!;
         }
     }
 }
