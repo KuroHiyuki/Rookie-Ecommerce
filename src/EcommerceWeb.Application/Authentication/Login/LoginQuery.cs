@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceWeb.Application.Authentication.Queries.Login
+namespace EcommerceWeb.Application.Authentication.Login
 {
     public record LoginQuery(
        string Email,

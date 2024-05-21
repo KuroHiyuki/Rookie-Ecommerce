@@ -6,12 +6,12 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 
-namespace EcommerceWeb.Application.Authentication.Queries.Login
+namespace EcommerceWeb.Application.Authentication.Login
 {
     public class LoginQueryHandler(
         IJwtTokenGenerator _jwtTokenGenerator,
         IAuthenticationRepository _authenticationRepository,
-        IPasswordHasher<User> _passwordHasher) : 
+        IPasswordHasher<User> _passwordHasher) :
         IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
     {
         public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceWeb.Application.Authentication.Commands.Register
+namespace EcommerceWeb.Application.Authentication.Register
 {
     public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {

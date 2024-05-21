@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 
 
-namespace EcommerceWeb.Application.Authentication.Commands.Register
+namespace EcommerceWeb.Application.Authentication.Register
 {
     public class RegisterCommandHandler(
         IJwtTokenGenerator _jwtTokenGenerator,
         IAuthenticationRepository _authenticationRepository,
-        IPasswordHasher<User> _passwordHasher) : 
+        IPasswordHasher<User> _passwordHasher) :
         IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResult>>
     {
         public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
@@ -37,7 +37,7 @@ namespace EcommerceWeb.Application.Authentication.Commands.Register
             user.AccessToken = token;
 
             _authenticationRepository.Add(user);
-            
+
             return new AuthenticationResult(user, token);
         }
     }

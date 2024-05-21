@@ -1,62 +1,39 @@
 ﻿using EcommerceWeb.Application.Products.Common.Interfaces;
-using EcommerceWeb.Application.Products.Common.Response;
+using EcommerceWeb.Infrastructure.Common.BaseRepository;
 using EcommerceWeb.Presentation.Persistences;
-using FluentEmail.Core;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace EcommerceWeb.Infrastructure.Product
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly EcommerceDbContext _context;
-
-        public ProductRepository(EcommerceDbContext context)
-        {
-            _context = context;
-        }
-
-        public Task<ProductResult> Create(ProductResult productModel)
+        public void Create(Domain.Entities.Product entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task Delete(ProductResult productModel)
+        public void Delete(Domain.Entities.Product entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ProductResult> GetProductByAliasA(string slug)
+        public Task<Domain.Entities.Product?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<ProductResult>> GetProductByCategory(int categoryId)
+        public Task<IEnumerable<Domain.Entities.Product>> GetListAsync(Expression<Func<Domain.Entities.Product, bool>>? filter = null, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public ProductResult GetProductById(string productId)
-        {
-            throw new Exception();
-
-        }
-
-        public Task<IEnumerable<ProductResult>> GetProductByName(string productName)
+        public void SoftDelete(Domain.Entities.Product product)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<ProductResult>> GetProductList()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(ProductResult productModel)
+        public void Update(Domain.Entities.Product entity)
         {
             throw new NotImplementedException();
         }

@@ -1,7 +1,7 @@
-﻿using EcommerceWeb.Application.Authentication.Commands.Register;
-using EcommerceWeb.Application.Authentication.Common.Response;
+﻿using EcommerceWeb.Application.Authentication.Common.Response;
 using EcommerceWeb.Application.Authentication.Errors;
-using EcommerceWeb.Application.Authentication.Queries.Login;
+using EcommerceWeb.Application.Authentication.Login;
+using EcommerceWeb.Application.Authentication.Register;
 using EcommerceWeb.Presentation.Authutentication;
 using ErrorOr;
 using MapsterMapper;
