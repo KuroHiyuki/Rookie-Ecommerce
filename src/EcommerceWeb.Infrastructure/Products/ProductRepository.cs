@@ -1,5 +1,4 @@
 ﻿using EcommerceWeb.Application.Categories.Common.Response;
-using EcommerceWeb.Application.Common.Paginations;
 using EcommerceWeb.Application.Products.Common.Interfaces;
 using EcommerceWeb.Application.Products.Common.Response;
 using EcommerceWeb.Domain.Entities;
@@ -9,13 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using EcommerceWeb.Infrastructure.Common.Service;
 using Microsoft.Data.SqlClient;
+using EcommerceWeb.Application.Common.Services.Paginations;
+using EcommerceWeb.Application.Common.Services;
 
 namespace EcommerceWeb.Infrastructure.Products
 {
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
-        public ProductRepository(EcommerceDbContext context) : base(context)
+        private readonly IFileStorage _fileStorage;
+        public ProductRepository(EcommerceDbContext context, IFileStorage fileStorage) : base(context)
         {
+            _fileStorage = fileStorage;
         }
         public void SoftDelete(Product product)
         {
@@ -91,7 +94,38 @@ namespace EcommerceWeb.Infrastructure.Products
 
             return await PaginatedList<ProductModelAppLayer>.CreateAsync(productResponsesQuery, page.Page, page.PageSize);
         }
-        
 
+        public Task UpdateAsync(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveProductImagesAsync(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<Image>> SaveProductImagesAsync(List<Image> images)
+        {
+            List<Image> productImages = new List<Image>();
+            List<Task<string>> imgSaveTasks = new();
+            foreach (var image in images)
+            {
+                imgSaveTasks.Add(_fileStorage.SaveFileAsync((Microsoft.AspNetCore.Http.IFormFile)image));
+            }
+
+            await Task.WhenAll(imgSaveTasks);
+
+            imgSaveTasks.ForEach(task =>
+            {
+                var productImage = new Image()
+                {
+                    Url = task.Result
+                };
+                productImages.Add(productImage);
+            });
+
+            return productImages;
+        }
     }
 }

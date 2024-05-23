@@ -1,5 +1,6 @@
 ﻿using ErrorOr;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,7 @@ namespace EcommerceWeb.Application.Products.UpdateProduct
         string Description,
         decimal UnitPrice,
         int Inventorry,
-        string CategoryId,
-        string VendorId
+        IFormFileCollection? Images 
         ) : IRequest;
     
 }

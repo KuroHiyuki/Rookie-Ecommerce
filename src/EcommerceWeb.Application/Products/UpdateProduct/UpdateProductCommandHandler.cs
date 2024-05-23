@@ -1,8 +1,10 @@
 ﻿using EcommerceWeb.Application.Common.Errors;
 using EcommerceWeb.Application.Common.Interface;
 using EcommerceWeb.Application.Products.Common.Interfaces;
+using EcommerceWeb.Domain.Entities;
 using ErrorOr;
 using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,21 +25,32 @@ namespace EcommerceWeb.Application.Products.UpdateProduct
         }
         public async Task Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetByIdAsync(command.Id);
+            var existingProduct = await _productRepository.GetByIdAsync(command.Id);
 
-            if (product is null)
+            if (existingProduct == null)
+                throw new NotFoundException($"Product with id {command.Id} not found!");
+
+            await _productRepository.RemoveProductImagesAsync(existingProduct);
+
+            List<Image> productImages = new List<Image>();
+            if (command.Images != null && command.Images.Count > 0)
             {
-                throw new NotFoundException(command.Id);
+                productImages = await _productRepository.SaveProductImagesAsync((List<Image>)command.Images);
             }
-            product.Name = command.Name;
-            product.Description = command.Description;
-            product.UnitPrice = command.UnitPrice;
-            product.Inventory = command.Inventorry;
-            product.CategoryId = command.CategoryId;
-          
-            _productRepository.Update(product);
+
+            UpdateProduct(existingProduct, command, productImages);
+
+            await _productRepository.UpdateAsync(existingProduct);
 
             await _unitOfWork.SaveAsync(cancellationToken);
+        }
+        private static void UpdateProduct(Product existingProduct, UpdateProductCommand command, List<Image> productImages)
+        {
+            existingProduct.Name = command.Name;
+            existingProduct.Description = command.Description;
+            existingProduct.UnitPrice = command.UnitPrice;
+            existingProduct.Inventory = command.Inventorry;
+            existingProduct.Images = productImages;
         }
     }
 }

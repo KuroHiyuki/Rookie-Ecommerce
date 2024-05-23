@@ -1,4 +1,4 @@
-﻿using EcommerceWeb.Application.Common.Paginations;
+﻿using EcommerceWeb.Application.Common.Services.Paginations;
 using EcommerceWeb.Application.Products.Common.Interfaces;
 using EcommerceWeb.Application.Products.Common.Response;
 using EcommerceWeb.Domain.Entities;

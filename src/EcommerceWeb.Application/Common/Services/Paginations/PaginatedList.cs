@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceWeb.Application.Common.Paginations
+namespace EcommerceWeb.Application.Common.Services.Paginations
 {
     internal class PaginatedList
     {
