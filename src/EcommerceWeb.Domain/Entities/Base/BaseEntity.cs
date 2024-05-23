@@ -9,6 +9,6 @@ namespace EcommerceWeb.Domain.Entities.Base
     public abstract class BaseEntity
     {
         public string? Id { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EcommerceWeb.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class Dbinit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,16 +30,15 @@ namespace EcommerceWeb.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Sex = table.Column<int>(type: "int", nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Sex = table.Column<int>(type: "int", nullable: false),
                     AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<int>(type: "int", nullable: false),
                     AccessToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RefeshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Role = table.Column<int>(type: "int", nullable: true),
+                    Role = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -66,32 +65,19 @@ namespace EcommerceWeb.Infrastructure.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AliasName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Vendors",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Logo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContractAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Vendors", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -260,7 +246,7 @@ namespace EcommerceWeb.Infrastructure.Migrations
                     CountView = table.Column<int>(type: "int", nullable: false),
                     UpdateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    VendorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -270,11 +256,6 @@ namespace EcommerceWeb.Infrastructure.Migrations
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Products_Vendors_VendorId",
-                        column: x => x.VendorId,
-                        principalTable: "Vendors",
                         principalColumn: "Id");
                 });
 
@@ -298,6 +279,25 @@ namespace EcommerceWeb.Infrastructure.Migrations
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_CartDetails_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Images_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id");
@@ -440,6 +440,16 @@ namespace EcommerceWeb.Infrastructure.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categories_CategoryId",
+                table: "Categories",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_ProductId",
+                table: "Images",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderId",
                 table: "OrderDetails",
                 column: "OrderId");
@@ -458,11 +468,6 @@ namespace EcommerceWeb.Infrastructure.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_VendorId",
-                table: "Products",
-                column: "VendorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_ProductId",
@@ -507,6 +512,9 @@ namespace EcommerceWeb.Infrastructure.Migrations
                 name: "CartDetails");
 
             migrationBuilder.DropTable(
+                name: "Images");
+
+            migrationBuilder.DropTable(
                 name: "OrderDetails");
 
             migrationBuilder.DropTable(
@@ -532,9 +540,6 @@ namespace EcommerceWeb.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Vendors");
         }
     }
 }

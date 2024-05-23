@@ -5,16 +5,16 @@ namespace EcommerceWeb.Presentation.Products
     public record ProductRequest(
         string Name,
         string Description,
-        decimal UnitPrice,
-        int Inventory,
+        decimal Price,
+        int Stock,
         string CategoryId,
-        string VendorId,
-        string ImageURl);
+        IFormFileCollection? Images);
     public record UpdateProductRequest(
         string Name,
         string Description,
         decimal UnitPrice,
         int Inventorry,
-        string CategoryId
+        string CategoryId,
+        IFormFileCollection? Images
         );
 }

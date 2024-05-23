@@ -2,9 +2,10 @@
 using EcommerceWeb.Application.Products.Common.Response;
 using FluentResults;
 using MediatR;
-namespace EcommerceWeb.Application.Products.GetAll
+namespace EcommerceWeb.Application.Products.GetListProducts
+
 {
-    public record GetAllProductQuery (
+    public record GetListProductQuery (
         PageQuery page) : IRequest<PaginatedList<ProductModelAppLayer>>
     {
     }

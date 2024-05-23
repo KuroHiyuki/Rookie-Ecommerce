@@ -12,6 +12,6 @@ namespace EcommerceWeb.Application.Products.Common.Response
         public int Stock { get; set; }
         public string? CategoryId { get; set; }
         public CategoryModelAppLayer Category { get; set; } = null!;
-        public IFormFileCollection? Images { get; set; }
+        public IEnumerable<string>? Images { get; set; }
     }
 }

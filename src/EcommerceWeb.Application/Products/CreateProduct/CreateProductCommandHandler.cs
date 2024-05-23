@@ -7,62 +7,57 @@ using EcommerceWeb.Application.Users.Common.Repository;
 using EcommerceWeb.Domain.Entities;
 
 using MediatR;
+using Microsoft.VisualBasic;
 
 namespace EcommerceWeb.Application.Products.CreateProduct
 {
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
     {
         private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFileStorage _fileStorageService;
 
         public CreateProductCommandHandler(
             IProductRepository productRepository,
-            ICategoryRepository categoryRepository,
             IUnitOfWork unitOfWork,
             IFileStorage fileStorageService)
         {
             _productRepository = productRepository;
-            _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
             _fileStorageService = fileStorageService;
         }
 
         public async Task Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            var category = await _categoryRepository.GetByIdAsync(command.product.CategoryId!);
+            //throw new NotFoundException("Category not found");
 
-            if (category == null)
-                throw new NotFoundException("Category not found");
-
+            var newProduct = new Common.Response.ProductModelAppLayer
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = command.Name,
+                Description = command.Description,
+                Price = command.Price,
+                Stock = command.Stock,
+                CategoryId = command.CategoryId,
+            };
 
             List<Image> productImages = new List<Image>();
-            if (command.product.Images is not null && command.product.Images.Count() > 0)
+            if (command.Images is not null && command.Images.Count() > 0)
             {
-
                 productImages = await SaveProductImages(command);
             }
 
-            var newProduct = new Product()
-            {
-                Name = command.product.Name,
-                Description = command.product.Description,
-                UnitPrice = command.product.Price,
-                Inventory = command.product.Stock,
-                Category = category,
-                Images = productImages
-            };
-            _productRepository.Create(newProduct);
+            
+            await _productRepository.CreateProductAsync(newProduct,productImages);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
         private async Task<List<Image>> SaveProductImages(CreateProductCommand command)
         {
             List<Image> productImages = new List<Image>();
             List<Task<string>> imgSaveTasks = new();
-            if (command.product.Images is not null)
+            if (command.Images is not null)
             {
-                foreach (var image in command.product.Images)
+                foreach (var image in command.Images)
                 {
                     // Save image to storage and get the path
                     imgSaveTasks.Add(_fileStorageService.SaveFileAsync(image));
@@ -75,6 +70,7 @@ namespace EcommerceWeb.Application.Products.CreateProduct
             {
                 var productImage = new Image()
                 {
+                    Id= Guid.NewGuid().ToString(),
                     Url = task.Result
                 };
                 productImages.Add(productImage);

@@ -12,8 +12,11 @@ namespace EcommerceWeb.WebApi.Common.Mapping
         {
             //config.NewConfig<ProductRequest, ProductQuery>();
             config.NewConfig<ProductModels, ProductModelAppLayer>();
-            config.NewConfig<CreateProductCommand, ProductRequest>();
+            //config.NewConfig<CreateProductCommand, ProductRequest>();
+
+
             config.NewConfig<UpdateProductCommand, UpdateProductRequest>();
+            //config.NewConfig<ProductRequest, ProductModelAppLayer>();
         }
     }
 }

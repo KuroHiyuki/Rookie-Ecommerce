@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceWeb.Infrastructure.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20240521182829_FixAspUsertoUser")]
-    partial class FixAspUsertoUser
+    [Migration("20240523082906_Dbinit")]
+    partial class Dbinit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -226,6 +226,9 @@ namespace EcommerceWeb.Infrastructure.Migrations
                     b.Property<int>("Inventory")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -235,14 +238,9 @@ namespace EcommerceWeb.Infrastructure.Migrations
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Products");
                 });
@@ -400,7 +398,7 @@ namespace EcommerceWeb.Infrastructure.Migrations
                     b.ToTable("WishLists");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -603,13 +601,7 @@ namespace EcommerceWeb.Infrastructure.Migrations
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("EcommerceWeb.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Category");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EcommerceWeb.Domain.Entities.Review", b =>
@@ -644,7 +636,7 @@ namespace EcommerceWeb.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<string>", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -671,7 +663,7 @@ namespace EcommerceWeb.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<string>", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -24,9 +24,8 @@ namespace EcommerceWeb.Infrastructure.Products
         {
             _dbContext.Entry(product).Property("IsDeleted").CurrentValue = true;
         }
-        public override async Task<Product?> GetByIdAsync(string id, CancellationToken cancellationToken = default(CancellationToken))
+        public override async Task<Product?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
         {
-
             return await _dbContext.Products
                 .Include(p => p.Category)
                 .Include(p => p.Images)
@@ -63,7 +62,7 @@ namespace EcommerceWeb.Infrastructure.Products
                     Id = p.Category!.Id,
                     Name = p.Category.Name!
                 },
-                Images = (Microsoft.AspNetCore.Http.IFormFileCollection)p.Images.Select(i => i.Url).ToList()
+                Images = p.Images.Select(i => i.Url).ToList()
             });
 
             return await PaginatedList<ProductModelAppLayer>.CreateAsync(productResponsesQuery, page, pageSize);
@@ -89,20 +88,16 @@ namespace EcommerceWeb.Infrastructure.Products
                     Id = p.Category!.Id,
                     Name = p.Category.Name!
                 },
-                Images = (Microsoft.AspNetCore.Http.IFormFileCollection)p.Images.Select(i => i.Url).ToList()
+                Images =p.Images.Select(i => i.Url).ToList()
             });
 
             return await PaginatedList<ProductModelAppLayer>.CreateAsync(productResponsesQuery, page.Page, page.PageSize);
         }
 
-        public Task UpdateAsync(Product product)
+        public async Task UpdateAsync(Product product)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveProductImagesAsync(Product product)
-        {
-            throw new NotImplementedException();
+            _dbContext.Products.Update(product);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<List<Image>> SaveProductImagesAsync(List<Image> images)
@@ -126,6 +121,50 @@ namespace EcommerceWeb.Infrastructure.Products
             });
 
             return productImages;
+        }
+
+        public async Task CreateProductAsync(ProductModelAppLayer model, List<Image> images)
+        {
+            var category = await _dbContext.Categories.FindAsync(model.CategoryId) ;
+            if(category is null )
+            {
+                var newCategory = new Category()
+                {
+                    Id = model.CategoryId,
+                    Name = model.Name,
+                };
+                _dbContext.Categories.Add(newCategory);
+                _dbContext.SaveChanges();
+            }
+            var product = new Product()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = model.Name,
+                Description = model.Description,
+                UnitPrice = model.Price,
+                Inventory = model.Stock,
+                CategoryId = model.CategoryId
+            };
+            _dbContext.Products.Add(product);
+            _dbContext.SaveChanges();
+            foreach(var image in images)
+            {
+                image.ProductId = product.Id;
+                _dbContext.Images.Add(image);
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task RemoveProductImagesAsync(Product product)
+        {
+            List<Task> imgDeleteTasks = new();
+            foreach (var image in product.Images)
+            {
+                imgDeleteTasks.Add(_fileStorage.DeleteFileAsync(image.Url));
+            }
+
+            await Task.WhenAll(imgDeleteTasks);
+            product.Images.Clear();
         }
     }
 }

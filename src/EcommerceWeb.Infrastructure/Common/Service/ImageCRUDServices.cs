@@ -1,12 +1,7 @@
 ﻿using EcommerceWeb.Application.Common.Services;
 using EcommerceWeb.Application.Products.Common.Response;
-using EcommerceWeb.Application.Products.UpdateProduct;
 using EcommerceWeb.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace EcommerceWeb.Infrastructure.Common.Service
 {
@@ -30,7 +25,7 @@ namespace EcommerceWeb.Infrastructure.Common.Service
             existingProduct.Images.Clear();
         }
 
-        public async Task<List<Image>> SaveProductImages(ProductModelAppLayer command)
+        public async Task<List<Image>> SaveProductImages(ProductRequest command)
         {
             List<Image> productImages = new List<Image>();
             List<Task<string>> imgSaveTasks = new();

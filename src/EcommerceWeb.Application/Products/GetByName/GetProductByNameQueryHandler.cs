@@ -38,7 +38,6 @@ namespace EcommerceWeb.Application.Products.GetByName
                     Id = p.Category!.Id!,
                     Name = p.Category.Name!
                 },
-                Images = (Microsoft.AspNetCore.Http.IFormFileCollection)p.Images
             }));
         }
     }

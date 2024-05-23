@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Application.Products.GetbyCategory
 {
-    public record GetByCategoryCommand(
+    public record GetProductByCategoryQuery(
         string CategoryName,
         PageQuery Query
         ) : IRequest<PaginatedList<ProductModelAppLayer>>

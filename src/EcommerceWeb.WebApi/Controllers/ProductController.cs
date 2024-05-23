@@ -1,8 +1,12 @@
 ﻿using Azure.Core;
 using EcommerceWeb.Application.Common.Errors;
+using EcommerceWeb.Application.Common.Services.Paginations;
 using EcommerceWeb.Application.Products.CreateProduct;
 using EcommerceWeb.Application.Products.DeleteProduct;
+using EcommerceWeb.Application.Products.GetbyCategory;
 using EcommerceWeb.Application.Products.GetById;
+using EcommerceWeb.Application.Products.GetByName;
+using EcommerceWeb.Application.Products.GetListProducts;
 using EcommerceWeb.Application.Products.UpdateProduct;
 using EcommerceWeb.Presentation.Products;
 using ErrorOr;
@@ -26,28 +30,84 @@ namespace EcommerceWeb.WebApi.Controllers
             _mapper = mapper;
             _mediator = mediator;
         }
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GetProducts([FromQuery] PageQuery? pageQuery)
+        {
+            try
+            {
+                var query = new GetListProductQuery(pageQuery!);
+
+                return Ok(await _mediator.Send(query));
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            
+        }
+        [AllowAnonymous]
+        [HttpGet("collections/{categoryName}")]
+        public async Task<IActionResult> GetProductsByCategoryName(string categoryName, [FromQuery] PageQuery pageQuery)
+        {
+            try
+            {
+                var query = new GetProductByCategoryQuery(categoryName,pageQuery);
+                return Ok(await _mediator.Send(query));
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProductById(string id)
+        {
+            try
+            {
+                var query = new GetProductByIdQuery(id);
+
+                return Ok(await _mediator.Send(query));
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromForm] ProductRequest product)
         {
             try
             {
-                var command = _mapper.Map<CreateProductCommand>(product);
+                var command = new CreateProductCommand
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    CategoryId = product.CategoryId,
+                    Stock = product.Stock,
+                    Images = product.Images,
+                };
                 await _mediator.Send(command);
                 return Created();
             }
-            catch (Exception ex)
+            catch (NotFoundException ex)
             {
                 return BadRequest(ex.Message);
             }
 
         }
 
-        [HttpDelete("{id:string}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(string id)
         {
             try
             {
-                await _mediator.Send(new DeleteProductCommand(new string(id)));
+                await _mediator.Send(new DeleteProductCommand(id));
 
                 return NoContent();
             }
@@ -56,6 +116,7 @@ namespace EcommerceWeb.WebApi.Controllers
                 return NotFound(e.Message);
             }
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProductById(string id, [FromForm] UpdateProductRequest request)
         {
@@ -73,64 +134,5 @@ namespace EcommerceWeb.WebApi.Controllers
             }
             
         }
-        [AllowAnonymous]
-        [HttpGet("{id:string}")]
-        public async Task<IActionResult> GetProductById(string id)
-        {
-            try
-            {
-                var query = new GetProductByIdQuery(new string(id));
-
-                var result = await _mediator.Send(query);
-
-                return Ok(result);
-            }
-            catch (NotFoundException e)
-            {
-                return NotFound(e.Message);
-            }
-            
-        }
-        //[AllowAnonymous]
-        //[HttpGet]
-        //public async Task<IActionResult> GetProducts(
-        //    string? searchTerm,
-        //string? sortOrder,
-        //    string? sortColumn,
-        //    int page = 1,
-        //    int pageSize = 10)
-        //{
-        //    var query = new GetListProductQuery(searchTerm, sortOrder, sortColumn, page, pageSize);
-
-        //    var result = await _sender.Send(query);
-
-        //    return Ok(result.Value);
-        //}
-
-        //[AllowAnonymous]
-        //[HttpGet("collections/{categoryName}")]
-        //public async Task<IActionResult> GetProductsByCategoryId(string categoryName)
-        //{
-        //    var query = new GetProductsByCategoryNameQuery { CategoryName = categoryName };
-
-        //    var result = await _sender.Send(query);
-        //    return Ok(result.Value);
-        //}
-
-
-
-
-
-        //[HttpPatch("{id}/status")]
-        //public async Task<IActionResult> UpdateProductStatus(int id, [FromQuery] ProductStatus status)
-        //{
-        //    var command = new UpdateProductStatusCommand { Id = id, Status = status };
-
-        //    await _sender.Send(command);
-
-        //    return Ok("Update product status successfully!");
-        //}
-
-
     }
 }

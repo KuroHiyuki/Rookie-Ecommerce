@@ -11,5 +11,6 @@ namespace EcommerceWeb.Domain.Entities
     {
         public string Url { get; set; } = null!;
         public Product Product { get; set; } = null!;
+        public string? ProductId { get; set; }
     }
 }

@@ -11,11 +11,11 @@ namespace EcommerceWeb.Application.Products.CreateProduct
     {
         public CreateProductCommandValidator()
         {
-            RuleFor(x => x.product.Name).NotEmpty().MinimumLength(10).MaximumLength(100);
-            RuleFor(x => x.product.Description).NotEmpty().MaximumLength(500);
-            RuleFor(x => x.product.Price).NotEmpty().GreaterThan(0);
-            RuleFor(x => x.product.Stock).NotEmpty().GreaterThanOrEqualTo(0);
-            RuleFor(x => x.product.CategoryId).NotEmpty();
+            RuleFor(x => x.Name).NotEmpty().MinimumLength(10).MaximumLength(100);
+            RuleFor(x => x.Description).NotEmpty().MaximumLength(500);
+            RuleFor(x => x.Price).NotEmpty().GreaterThan(0);
+            RuleFor(x => x.Stock).NotEmpty().GreaterThanOrEqualTo(0);
+            RuleFor(x => x.CategoryId).NotEmpty();
         }
     }
 }
