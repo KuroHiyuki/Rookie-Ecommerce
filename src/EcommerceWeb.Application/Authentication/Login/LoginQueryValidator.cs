@@ -1,4 +1,4 @@
-﻿using EcommerceWeb.Application.Authentication.Commands.Register;
+﻿
 using FluentValidation;
 using System;
 using System.Collections.Generic;

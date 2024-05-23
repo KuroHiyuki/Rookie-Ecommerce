@@ -7,5 +7,6 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Application.Products.Common.Response
 {
-    public record ProductResult (Product Products);
+    public record ProductResult (
+        Product Products);
 }

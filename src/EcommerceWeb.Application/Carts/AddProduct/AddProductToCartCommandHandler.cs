@@ -1,4 +1,5 @@
 ﻿using EcommerceWeb.Application.Carts.Common.Repositories;
+using EcommerceWeb.Application.Common.Errors;
 using EcommerceWeb.Application.Common.Interface;
 using EcommerceWeb.Application.Products.Common.Interfaces;
 using EcommerceWeb.Domain.Entities;
@@ -30,33 +31,38 @@ namespace EcommerceWeb.Application.Carts.AddProduct
         }
         public async Task<ErrorOr<FluentResults.Result>> Handle(AddProductToCartCommand command, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetByIdAsync(command);
+            var product = await _productRepository.GetByIdAsync(command.Id,cancellationToken);
             if (product == null)
             {
                 throw new NotFoundException($"Product with id {command} not found!");
             }
 
-            var userContext = 2; // Assuming userContext is retrieved elsewhere
+            var userContext = "2"; // Assuming userContext is retrieved elsewhere
 
             var cart = await _cartRepository.GetCartByUserIdAsync(userContext);
-            cart = cart ?? await CreateCartIfNotExists(userContext, cancellationToken);
+            cart = cart ?? await CreateCartIfNotExists(command.Id, cancellationToken);
 
-            AddProductToCart(cart, product, command);
+            AddProductToCart(cart, product, 2);
 
             await _unitOfWork.SaveAsync(cancellationToken);
 
-            return Result.Ok();
+            return FluentResults.Result.Ok();
         }
 
-        private async Task<Cart> CreateCartIfNotExists(int userId, CancellationToken cancellationToken)
+        private async Task<Cart> CreateCartIfNotExists(string userId, CancellationToken cancellationToken)
         {
-            await _sender.Send(new CreateCartCommand { UserId = userId }, cancellationToken);
+            _cartRepository.Create(new Cart
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserId = userId
+            });
+            //await _sender.Send(new CreateCartCommand { UserId = userId }, cancellationToken);
             return (await _cartRepository.GetCartByUserIdAsync(userId))!;
         }
 
         private static void AddProductToCart(Cart cart, Product product, int quantity)
         {
-            var cartDetail = cart.CartDetails.FirstOrDefault(cd => cd.Product.Id == product.Id);
+            var cartDetail = cart.CartDetails.FirstOrDefault(cd => cd.Product!.Id == product.Id);
             if (cartDetail != null)
             {
                 cartDetail.Quantity += quantity;

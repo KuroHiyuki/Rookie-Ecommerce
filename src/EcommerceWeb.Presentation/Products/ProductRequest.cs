@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace EcommerceWeb.Presentation.Products
 {
-    public record ProductRequest(string id)
-    {
-    }
+    public record ProductRequest(
+        string Name,
+        string Description,
+        decimal UnitPrice,
+        int Inventory,
+        string CategoryId,
+        string VendorId,
+        string ImageURl);
+    public record UpdateProductRequest(
+        string Name,
+        string Description,
+        decimal UnitPrice,
+        int Inventorry,
+        string CategoryId
+        );
 }

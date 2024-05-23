@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace EcommerceWeb.Presentation.Products
 {
     public record ProductResponse (
-        string id,
+        string Id,
         string Name,
         string Description,
         string ImageURL,

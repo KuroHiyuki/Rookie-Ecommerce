@@ -1,11 +1,21 @@
 ﻿using EcommerceWeb.Application.Authentication.Common.Interfaces;
+using EcommerceWeb.Application.Carts.Common.Repositories;
+using EcommerceWeb.Application.Categories.Common.Repository;
+using EcommerceWeb.Application.Common.Interface;
 using EcommerceWeb.Application.Common.Services;
+using EcommerceWeb.Application.Orders.Common.Repository;
 using EcommerceWeb.Application.Products.Common.Interfaces;
+using EcommerceWeb.Application.Users.Common.Repository;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Infrastructure.Authentication;
 using EcommerceWeb.Infrastructure.Authentication.Repository;
+using EcommerceWeb.Infrastructure.Carts;
+using EcommerceWeb.Infrastructure.Categories;
+using EcommerceWeb.Infrastructure.Common.Interfaces;
 using EcommerceWeb.Infrastructure.Common.Service;
-using EcommerceWeb.Infrastructure.Product;
+using EcommerceWeb.Infrastructure.Orders;
+using EcommerceWeb.Infrastructure.Products;
+using EcommerceWeb.Infrastructure.Users;
 using EcommerceWeb.Presentation.Persistences;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +40,7 @@ namespace EcommerceWeb.Infrastructure
                 .AddPersistance(configuration);
 
             //services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
+            services.AddScoped<IFileStorage, FileStorage>();
             return services;
         }
 
@@ -56,6 +66,11 @@ namespace EcommerceWeb.Infrastructure
                 .AddEntityFrameworkStores<EcommerceDbContext>();
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
         }
 

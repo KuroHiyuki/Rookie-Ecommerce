@@ -23,12 +23,6 @@
     <Folder Include="Carts\GetProductInCart\" />
     <Folder Include="Carts\RemoveProductInCart\" />
     <Folder Include="Products\Common\Errors\" />
-    <Folder Include="Products\DeleteProduct\" />
-    <Folder Include="Products\GetById\" />
-    <Folder Include="Products\GetByName\" />
-    <Folder Include="Products\GetbyCategory\" />
-    <Folder Include="Products\GetAll\" />
-    <Folder Include="Products\UpdateProduct\" />
   </ItemGroup>
 
 </Project>

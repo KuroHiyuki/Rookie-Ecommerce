@@ -20,8 +20,8 @@ namespace EcommerceWeb.Infrastructure.Carts
                         .ThenInclude(cd => cd.Product)
                     .Include(e => e.CartDetails)
                         .ThenInclude(cd => cd.Product)
-                            .ThenInclude(p => p.Category)
-                    .FirstOrDefaultAsync(e => e.UserId.Equals(userId));
+                            .ThenInclude(p => p!.Category)
+                    .FirstOrDefaultAsync(e => e.UserId!.Equals(userId));
         }
     }
 }

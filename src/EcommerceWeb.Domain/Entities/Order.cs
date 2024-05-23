@@ -22,5 +22,6 @@ namespace EcommerceWeb.Domain.Entities
         public string? Note { get; set; }
         public virtual ICollection<OrderDetail> Details { get; set; } = new List<OrderDetail>();
         public virtual User? User { get; set; }
+        public string? UserId { get; set; }
     }
 }

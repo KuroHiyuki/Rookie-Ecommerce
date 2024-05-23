@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceWeb.Presentation.Persistences
 {
-    public class EcommerceDbContext: IdentityDbContext
+    public class EcommerceDbContext: IdentityDbContext<User>
     {
         public EcommerceDbContext(DbContextOptions<EcommerceDbContext> options): base(options) 
         { }
@@ -16,7 +16,7 @@ namespace EcommerceWeb.Presentation.Persistences
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
-        public virtual DbSet<Vendor> Vendors { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<WishList> WishLists { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

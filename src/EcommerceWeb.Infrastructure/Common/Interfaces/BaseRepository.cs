@@ -30,7 +30,7 @@ namespace EcommerceWeb.Infrastructure.Common.BaseRepository
             _dbContext.Remove(entity);
         }
 
-        public virtual async Task<T?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+        public virtual async Task<T?> GetByIdAsync(string id, CancellationToken cancellationToken = default(CancellationToken))
         {
             return await _dbContext.Set<T>().FindAsync(id, cancellationToken);
         }

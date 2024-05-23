@@ -20,14 +20,14 @@ namespace EcommerceWeb.Infrastructure.Users
             _dbcontext = dbcontext;
         }
 
-        public async Task<IdentityUser> GetUserByEmailAsync(string email)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
-            return await _dbcontext.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return await _dbcontext.Users.FirstOrDefaultAsync(x => x.Email == email)!;
         }
 
-        public async Task<IdentityUser> GetUserByIdAsync(string id)
+        public async Task<User> GetUserByIdAsync(string id)
         {
-            return await _dbcontext.Users.FindAsync(id);
+            return await _dbcontext.Users!.FindAsync(id)!;
         }
     }
 }

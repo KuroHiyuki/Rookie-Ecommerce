@@ -1,6 +1,7 @@
 ﻿using EcommerceWeb.Application.Common.Behaviors;
 using FluentValidation;
 using MediatR;
+using MediatR.NotificationPublishers;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace EcommerceWeb.Application
             services.AddMediatR(options =>
             {
                 options.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
-
+                options.NotificationPublisher = new TaskWhenAllPublisher();
             });
 
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
