@@ -23,6 +23,7 @@ namespace EcommerceWeb.Presentation.Persistences
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EcommerceDbContext).Assembly);
   
             base.OnModelCreating(modelBuilder);
+            
         }
 
     }

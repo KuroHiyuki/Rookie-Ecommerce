@@ -23,11 +23,9 @@ namespace EcommerceWeb.WebApi.Controllers
     [Route("[controller]")]
     public class ProductController : APIController
     {
-        private readonly IMapper _mapper;
         private readonly MediatR.ISender _mediator;
-        public ProductController(IMapper mapper, MediatR.ISender mediator)
+        public ProductController( MediatR.ISender mediator)
         {
-            _mapper = mapper;
             _mediator = mediator;
         }
         [AllowAnonymous]

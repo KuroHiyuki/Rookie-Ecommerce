@@ -16,7 +16,11 @@ namespace EcommerceWeb.Infrastructure.Categories
         public CategoryRepository(EcommerceDbContext context) : base(context)
         {
         }
-
+        public override async Task<Category?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.Categories
+                .FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
+        }
         public async Task<Category?> GetCategoryByName(string name)
         {
             return await _dbContext.Categories.FirstOrDefaultAsync(e => e.Name! == name);
