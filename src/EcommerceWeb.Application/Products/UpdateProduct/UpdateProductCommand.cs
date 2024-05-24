@@ -15,6 +15,7 @@ namespace EcommerceWeb.Application.Products.UpdateProduct
         string Description,
         decimal UnitPrice,
         int Inventorry,
+        string CategoryId,
         IFormFileCollection? Images 
         ) : IRequest;
     

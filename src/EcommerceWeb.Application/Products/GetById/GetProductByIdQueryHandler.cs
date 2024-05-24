@@ -9,7 +9,7 @@ using MediatR;
 
 namespace EcommerceWeb.Application.Products.GetById
 {
-    public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductResult>
+    public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductModelAppLayer>
     {
         private readonly IProductRepository _productRepository;
 
@@ -18,10 +18,20 @@ namespace EcommerceWeb.Application.Products.GetById
             _productRepository = productRepository;
         }
 
-        public async Task<ProductResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
+        public async Task<ProductModelAppLayer> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetByIdAsync(query.Id, cancellationToken);
-            return new ProductResult(product!);
+            var result = new ProductModelAppLayer
+            {
+                Id = product!.Id,
+                Name = product!.Name!,
+                Price = product.UnitPrice,
+                Stock = product.Inventory,
+                CategoryId = product.CategoryId,
+                Description = product.Description!,
+                Images = product.Images!.Select(u => u.Url).ToList(),
+            };
+            return result;
         }
     }
 }

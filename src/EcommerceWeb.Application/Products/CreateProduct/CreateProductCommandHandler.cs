@@ -44,38 +44,12 @@ namespace EcommerceWeb.Application.Products.CreateProduct
             List<Image> productImages = new List<Image>();
             if (command.Images is not null && command.Images.Count() > 0)
             {
-                productImages = await SaveProductImages(command);
+                productImages = await _productRepository.SaveProductImagesAsync(command.Images, newProduct.Id);
             }
 
             
             await _productRepository.CreateProductAsync(newProduct,productImages);
             await _unitOfWork.SaveAsync(cancellationToken);
-        }
-        private async Task<List<Image>> SaveProductImages(CreateProductCommand command)
-        {
-            List<Image> productImages = new List<Image>();
-            List<Task<string>> imgSaveTasks = new();
-            if (command.Images is not null)
-            {
-                foreach (var image in command.Images)
-                {
-                    // Save image to storage and get the path
-                    imgSaveTasks.Add(_fileStorageService.SaveFileAsync(image));
-                }
-            }
-
-            await Task.WhenAll(imgSaveTasks);
-
-            imgSaveTasks.ForEach(task =>
-            {
-                var productImage = new Image()
-                {
-                    Id= Guid.NewGuid().ToString(),
-                    Url = task.Result
-                };
-                productImages.Add(productImage);
-            });
-            return productImages;
         }
     }
 }

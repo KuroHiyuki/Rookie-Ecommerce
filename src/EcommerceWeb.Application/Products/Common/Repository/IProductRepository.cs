@@ -1,6 +1,7 @@
 ﻿using EcommerceWeb.Application.Common.Interface;
 using EcommerceWeb.Application.Common.Services.Paginations;
 using EcommerceWeb.Application.Products.Common.Response;
+using EcommerceWeb.Application.Products.CreateProduct;
 using EcommerceWeb.Application.Products.UpdateProduct;
 using EcommerceWeb.Domain.Entities;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +27,7 @@ namespace EcommerceWeb.Application.Products.Common.Interfaces
         Task<PaginatedList<ProductModelAppLayer>> GetListProductPageAsync(PageQuery page, CancellationToken cancellationToken = default);
         Task UpdateAsync(Product product);
         Task RemoveProductImagesAsync(Product product);
-        Task<List<Image>> SaveProductImagesAsync(List<Image> images);
+        Task<List<Image>> SaveProductImagesAsync(IFormFileCollection formFiles, string Id);
         Task CreateProductAsync(ProductModelAppLayer model, List<Image> images);
     }
 }

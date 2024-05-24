@@ -122,7 +122,7 @@ namespace EcommerceWeb.WebApi.Controllers
         {
             try
             {
-                var command = _mapper.Map<UpdateProductCommand>(request);
+                var command = new UpdateProductCommand( id, request.Name, request.Description, request.UnitPrice, request.Inventorry, request.CategoryId, request.Images );
 
                 await _mediator.Send(command);
 

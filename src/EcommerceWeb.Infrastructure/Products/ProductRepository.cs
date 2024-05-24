@@ -10,6 +10,8 @@ using EcommerceWeb.Infrastructure.Common.Service;
 using Microsoft.Data.SqlClient;
 using EcommerceWeb.Application.Common.Services.Paginations;
 using EcommerceWeb.Application.Common.Services;
+using EcommerceWeb.Application.Products.CreateProduct;
+using Microsoft.AspNetCore.Http;
 
 namespace EcommerceWeb.Infrastructure.Products
 {
@@ -100,13 +102,13 @@ namespace EcommerceWeb.Infrastructure.Products
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Image>> SaveProductImagesAsync(List<Image> images)
+        public async Task<List<Image>> SaveProductImagesAsync(IFormFileCollection formFiles, string Id)
         {
             List<Image> productImages = new List<Image>();
             List<Task<string>> imgSaveTasks = new();
-            foreach (var image in images)
+            foreach (var image in formFiles)
             {
-                imgSaveTasks.Add(_fileStorage.SaveFileAsync((Microsoft.AspNetCore.Http.IFormFile)image));
+                imgSaveTasks.Add(_fileStorage.SaveFileAsync(image));
             }
 
             await Task.WhenAll(imgSaveTasks);
@@ -115,7 +117,9 @@ namespace EcommerceWeb.Infrastructure.Products
             {
                 var productImage = new Image()
                 {
-                    Url = task.Result
+                    Id = Guid.NewGuid().ToString(),
+                    Url = task.Result,
+                    ProductId = Id
                 };
                 productImages.Add(productImage);
             });

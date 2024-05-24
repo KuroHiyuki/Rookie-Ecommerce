@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Application.Products.GetById
 {
-    public record GetProductByIdQuery(string Id) : IRequest<ProductResult>
+    public record GetProductByIdQuery(string Id) : IRequest<ProductModelAppLayer>
     {
     }
 }

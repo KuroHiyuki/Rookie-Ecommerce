@@ -35,7 +35,7 @@ namespace EcommerceWeb.Application.Products.UpdateProduct
             List<Image> productImages = new List<Image>();
             if (command.Images != null && command.Images.Count > 0)
             {
-                productImages = await _productRepository.SaveProductImagesAsync((List<Image>)command.Images);
+                productImages = await _productRepository.SaveProductImagesAsync(command.Images, command.Id);
             }
 
             UpdateProduct(existingProduct, command, productImages);
