@@ -22,7 +22,6 @@
     <Folder Include="Carts\CreateCart\" />
     <Folder Include="Carts\GetProductInCart\" />
     <Folder Include="Carts\RemoveProductInCart\" />
-    <Folder Include="Categories\CreateCategory\" />
     <Folder Include="Categories\GetAllCategory\" />
     <Folder Include="Categories\GetById\" />
     <Folder Include="Categories\UpdateCategory\" />

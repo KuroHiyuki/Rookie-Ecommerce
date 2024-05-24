@@ -1,4 +1,6 @@
 ﻿using EcommerceWeb.Application.Categories.Common.Repository;
+using EcommerceWeb.Application.Categories.Common.Response;
+using EcommerceWeb.Application.Products.Common.Response;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Infrastructure.Common.BaseRepository;
 using EcommerceWeb.Presentation.Persistences;
@@ -24,6 +26,19 @@ namespace EcommerceWeb.Infrastructure.Categories
         public async Task<Category?> GetCategoryByName(string name)
         {
             return await _dbContext.Categories.FirstOrDefaultAsync(e => e.Name! == name);
+        }
+        public async Task CreateCateogryAsync(CategoryModelAppLayer model)
+        {
+            var newCategory = new Category()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Description = model.Description,
+                ImageURL = "Chưa set",
+            };
+            _dbContext.Categories.Add(newCategory);
+            
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
