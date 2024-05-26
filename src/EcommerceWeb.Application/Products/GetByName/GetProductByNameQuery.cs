@@ -5,7 +5,7 @@ using MediatR;
 
 namespace EcommerceWeb.Application.Products.GetByName
 {
-    public record GetProductByNameQuery(string CategoryName) : IRequest<ErrorOr<FluentResults.Result<IEnumerable<ProductModelAppLayer>>>>
+    public record GetProductByNameQuery(string CategoryName) : IRequest<IEnumerable<ProductModelAppLayer>>
     {
     }
 }

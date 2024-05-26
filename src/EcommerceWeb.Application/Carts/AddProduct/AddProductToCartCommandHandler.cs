@@ -14,7 +14,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace EcommerceWeb.Application.Carts.AddProduct
 {
-    public class AddProductToCartCommandHandler : IRequestHandler<AddProductToCartCommand, ErrorOr<FluentResults.Result>>
+    public class AddProductToCartCommandHandler : IRequestHandler<AddProductToCartCommand>
     {
         private readonly ICartRepository _cartRepository;
         private readonly IProductRepository _productRepository;
@@ -29,7 +29,7 @@ namespace EcommerceWeb.Application.Carts.AddProduct
             _cartRepository = cartCategory;
             _unitOfWork = unitOfWork;
         }
-        public async Task<ErrorOr<FluentResults.Result>> Handle(AddProductToCartCommand command, CancellationToken cancellationToken)
+        public async Task Handle(AddProductToCartCommand command, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetByIdAsync(command.Id,cancellationToken);
             if (product == null)
@@ -45,8 +45,6 @@ namespace EcommerceWeb.Application.Carts.AddProduct
             AddProductToCart(cart, product, 2);
 
             await _unitOfWork.SaveAsync(cancellationToken);
-
-            return FluentResults.Result.Ok();
         }
 
         private async Task<Cart> CreateCartIfNotExists(string userId, CancellationToken cancellationToken)

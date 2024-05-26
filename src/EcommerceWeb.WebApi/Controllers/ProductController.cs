@@ -11,7 +11,6 @@ using EcommerceWeb.Application.Products.UpdateProduct;
 using EcommerceWeb.Presentation.Products;
 using ErrorOr;
 using FluentEmail.Core.Interfaces;
-using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

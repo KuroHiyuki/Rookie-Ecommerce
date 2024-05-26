@@ -1,6 +1,7 @@
 ﻿using EcommerceWeb.Application.Categories.Common.Response;
 using EcommerceWeb.Application.Categories.CreateCategory;
 using EcommerceWeb.Application.Categories.DeleteCategory;
+using EcommerceWeb.Application.Categories.GetAllCategory;
 using EcommerceWeb.Application.Common.Errors;
 using EcommerceWeb.Application.Products.DeleteProduct;
 using EcommerceWeb.Presentation.Categories;
@@ -41,6 +42,20 @@ namespace EcommerceWeb.WebApi.Controllers
                 return Created();
             }
             catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCategoryListAsync()
+        {
+            try
+            {
+                var categoryList = new GetCategoryListQuery();
+                return Ok( await _mediator.Send(categoryList));
+            }
+            catch(NotFoundException e)
             {
                 return BadRequest(e.Message);
             }

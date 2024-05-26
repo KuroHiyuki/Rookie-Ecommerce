@@ -13,7 +13,7 @@ namespace EcommerceWeb.WebApi
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddSingleton<ProblemDetailsFactory, CustomProblemDetailsFactory>();
-            services.AddMappingConfig();
+
 
             return services;
         }

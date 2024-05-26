@@ -1,8 +1,6 @@
 ﻿using EcommerceWeb.Application.Products.Common.Interfaces;
 using EcommerceWeb.Application.Products.Common.Response;
 using EcommerceWeb.Domain.Entities;
-using ErrorOr;
-using FluentResults;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,7 +11,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace EcommerceWeb.Application.Products.GetByName
 {
-    public class GetProductByNameQueryHandler : IRequestHandler<GetProductByNameQuery, ErrorOr<FluentResults.Result<IEnumerable<ProductModelAppLayer>>>>
+    public class GetProductByNameQueryHandler : IRequestHandler<GetProductByNameQuery, IEnumerable<ProductModelAppLayer>>
     {
         private readonly IProductRepository _productRepository;
 
@@ -22,11 +20,11 @@ namespace EcommerceWeb.Application.Products.GetByName
             _productRepository = productRepository;
         }
 
-        public async Task<ErrorOr<Result<IEnumerable<ProductModelAppLayer>>>> Handle(GetProductByNameQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductModelAppLayer>> Handle(GetProductByNameQuery query, CancellationToken cancellationToken)
         {
             var products = await _productRepository.GetListAsync(x => x.Category!.Name!.Contains(query.CategoryName, StringComparison.OrdinalIgnoreCase));
 
-            return FluentResults.Result.Ok(products.Select(p => new ProductModelAppLayer
+            return products.Select(p => new ProductModelAppLayer
             {
                 Id = p.Id!,
                 Name = p.Name!,
@@ -38,7 +36,7 @@ namespace EcommerceWeb.Application.Products.GetByName
                     Id = p.Category!.Id!,
                     Name = p.Category.Name!
                 },
-            }));
+            });
         }
     }
 }

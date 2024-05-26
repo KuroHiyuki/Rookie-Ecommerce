@@ -2,7 +2,6 @@
 using EcommerceWeb.Application.Common.Interface;
 using EcommerceWeb.Application.Products.Common.Interfaces;
 using EcommerceWeb.Domain.Entities;
-using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System;

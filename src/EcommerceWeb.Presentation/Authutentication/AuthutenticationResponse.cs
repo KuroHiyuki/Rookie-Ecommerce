@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace EcommerceWeb.Presentation.Authutentication
 {
     public record AuthenticationResponse(
-        Guid Id,
+        string Id,
         string FirstName,
         string LastName,
         string Email,
