@@ -23,7 +23,6 @@
     <Folder Include="Carts\CreateCart\" />
     <Folder Include="Carts\GetProductInCart\" />
     <Folder Include="Carts\RemoveProductInCart\" />
-    <Folder Include="Categories\UpdateCategory\" />
     <Folder Include="Products\Common\Errors\" />
   </ItemGroup>
 

@@ -2,9 +2,11 @@
 using EcommerceWeb.Application.Categories.CreateCategory;
 using EcommerceWeb.Application.Categories.DeleteCategory;
 using EcommerceWeb.Application.Categories.GetAllCategory;
+using EcommerceWeb.Application.Categories.UpdateCategory;
 using EcommerceWeb.Application.Common.Errors;
 using EcommerceWeb.Application.Products.DeleteProduct;
 using EcommerceWeb.Presentation.Categories;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +39,7 @@ namespace EcommerceWeb.WebApi.Controllers
         {
             try
             {
-                var command = new CreateCategoryCommand(model.Name!,model.Description!);
+                var command = new CreateCategoryCommand(model.Name!, model.Description!);
                 await _mediator.Send(command);
                 return Created();
             }
@@ -53,9 +55,23 @@ namespace EcommerceWeb.WebApi.Controllers
             try
             {
                 var categoryList = new GetCategoryListQuery();
-                return Ok( await _mediator.Send(categoryList));
+                return Ok(await _mediator.Send(categoryList));
             }
-            catch(NotFoundException e)
+            catch (NotFoundException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategoryAsync(string id,CategoryRequest model)
+        {
+            try
+            {
+                var command = new UpdateCategoryByIdCommand(id, model.Name!, model.Description!);
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception e) 
             {
                 return BadRequest(e.Message);
             }
