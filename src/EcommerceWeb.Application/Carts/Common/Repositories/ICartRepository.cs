@@ -12,5 +12,9 @@ namespace EcommerceWeb.Application.Carts.Common.Repositories
     {
         Task<Cart?> GetCartByUserIdAsync(string userId);
         Task AddProductToCart(string userId, string productId, int quantity, CancellationToken cancellationToken = default);
+        Task<Cart> GetCartByUserId(string userId);
+        Task UpdateProductQuantity(string CartId, string productId, int quantity);
+        Task DeleteProductFromCart(string CartId, int productId);
+        Task<List<Product>> GetProductsInCartByUserId(string userId);
     }
 }

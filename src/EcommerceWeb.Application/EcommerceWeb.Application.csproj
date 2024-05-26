@@ -19,8 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Carts\Common\Errors\" />
-    <Folder Include="Carts\Common\Response\" />
-    <Folder Include="Carts\CreateCart\" />
     <Folder Include="Carts\GetProductInCart\" />
     <Folder Include="Carts\RemoveProductInCart\" />
     <Folder Include="Products\Common\Errors\" />

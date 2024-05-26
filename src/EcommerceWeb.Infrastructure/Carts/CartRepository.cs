@@ -50,6 +50,24 @@ namespace EcommerceWeb.Infrastructure.Carts
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
+        public Task DeleteProductFromCart(string UserId, int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Cart> GetCartByUserId(string userId)
+        {
+            var cart = await _dbContext.Carts
+                .Include(c => c.CartDetails)
+                .ThenInclude(cd => cd.Product)
+                .FirstOrDefaultAsync(c => c.UserId == userId && c.CartDetails.Any());
+            if(cart is null)
+            {
+                throw new Exception($"User id {userId} haven't added a product to the cart yet");
+            }
+            return cart;
+        }
+
         public async Task<Cart?> GetCartByUserIdAsync(string userId)
         {
             return await _dbContext.Carts
@@ -59,6 +77,23 @@ namespace EcommerceWeb.Infrastructure.Carts
                         .ThenInclude(cd => cd.Product)
                             .ThenInclude(p => p!.Category)
                     .FirstOrDefaultAsync(e => e.UserId!.Equals(userId));
+        }
+
+        public Task<List<Product>> GetProductsInCartByUserId(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task UpdateProductQuantity(string cartId, string productId, int quantity)
+        {
+            var cartDetail = await _dbContext.CartDetails
+            .FirstOrDefaultAsync(cd => cd.CartId == cartId && cd.ProductId == productId);
+
+            if (cartDetail != null)
+            {
+                cartDetail.Quantity = quantity;
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }

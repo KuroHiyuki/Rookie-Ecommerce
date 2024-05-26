@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceWeb.Presentation.Carts
+namespace EcommerceWeb.Application.Carts.Common.Response
 {
     public class CartModel
     {

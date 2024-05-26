@@ -8,7 +8,6 @@ namespace EcommerceWeb.Presentation.Carts
 {
     public class CartRequest
     {
-        public string? UserId { get; set; }
         public int Quantity { get; set; }
         public string? ProductId { get; set; }
     }

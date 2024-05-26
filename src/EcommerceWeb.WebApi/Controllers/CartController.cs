@@ -1,4 +1,5 @@
 ﻿using EcommerceWeb.Application.Carts.AddProduct;
+using EcommerceWeb.Application.Carts.UpdateProductQuantity;
 using EcommerceWeb.Presentation.Carts;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +17,7 @@ namespace EcommerceWeb.WebApi.Controllers
             _mediator = mediator;
         }
         [HttpPost]
-        public async Task<IActionResult> AddProductToCart(CartRequest request)
+        public async Task<IActionResult> AddProductToCart(CartModel request)
         {
             try
             {
@@ -27,6 +28,20 @@ namespace EcommerceWeb.WebApi.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut("{CartId}")]
+        public async Task<IActionResult> UpdateProductQuantityAsync(string CartId,CartRequest request)
+        {
+            try
+            {
+                var command = new UpdateProductCartQuantityCommand(CartId,request.ProductId!,request.Quantity);
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);   
             }
         }
     }
