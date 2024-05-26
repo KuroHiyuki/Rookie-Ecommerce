@@ -38,7 +38,7 @@ namespace EcommerceWeb.Application.Authentication.Register
 
             _authenticationRepository.Add(user);
 
-            return new AuthenticationResult(user, token);
+            return new AuthenticationResult(user.Id,user.FirstName, user.LastName,user.Email, user.AvatarUrl!, token);
         }
     }
 }

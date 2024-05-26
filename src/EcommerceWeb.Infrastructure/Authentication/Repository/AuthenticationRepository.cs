@@ -27,9 +27,8 @@ namespace EcommerceWeb.Infrastructure.Authentication.Repository
 
         public User GetByEmail(string email)
         {
-            throw new NotImplementedException();
-            //return _dbContext.Users
-            //   .SingleOrDefault(u => u.Email == email)!;
+            return _dbContext.Users
+               .SingleOrDefault(u => u.Email == email)!;
         }
     }
 }

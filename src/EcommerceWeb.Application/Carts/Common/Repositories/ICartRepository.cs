@@ -11,6 +11,6 @@ namespace EcommerceWeb.Application.Carts.Common.Repositories
     public interface ICartRepository : IBaseRepository<Cart>
     {
         Task<Cart?> GetCartByUserIdAsync(string userId);
-
+        Task AddProductToCart(string userId, string productId, int quantity, CancellationToken cancellationToken = default);
     }
 }

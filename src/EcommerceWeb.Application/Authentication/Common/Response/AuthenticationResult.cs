@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 namespace EcommerceWeb.Application.Authentication.Common.Response
 {
     public record AuthenticationResult(
-        User User,
+        string Id,
+        string FirstName,
+        string LastName,
+        string Email,
+        string AvatarURL,
         string Token
         );
 }
