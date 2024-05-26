@@ -18,7 +18,7 @@ namespace EcommerceWeb.Infrastructure.Common.Service
 
             _fileContentFolder = Path.Combine(hostingEnvironment.ContentRootPath, FILES_FOLDER_NAME);
         }
-        private const string FILES_FOLDER_NAME = "upsloads";
+        private const string FILES_FOLDER_NAME = "uploads";
 
         public string GetFileUrl(string fileName)
         {
