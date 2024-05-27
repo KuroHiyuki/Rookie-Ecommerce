@@ -129,16 +129,9 @@ namespace EcommerceWeb.Infrastructure.Products
 
         public async Task CreateProductAsync(ProductModelAppLayer model, List<Image> images)
         {
-            var category = await _dbContext.Categories.FindAsync(model.CategoryId) ;
-            if(category is null )
+            if(await _dbContext.Categories.FindAsync(model.CategoryId) is null )
             {
-                var newCategory = new Category()
-                {
-                    Id = model.CategoryId,
-                    Name = model.Name,
-                };
-                _dbContext.Categories.Add(newCategory);
-                _dbContext.SaveChanges();
+                throw new Exception($"Invalid Category ID: {model.CategoryId}");
             }
             var product = new Product()
             {

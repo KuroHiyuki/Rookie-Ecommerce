@@ -19,6 +19,9 @@
 
   <ItemGroup>
     <Folder Include="Carts\Common\Errors\" />
+    <Folder Include="Orders\GetOrderList\" />
+    <Folder Include="Orders\GetorderByUserId\" />
+    <Folder Include="Orders\UpdateOrderStatus\" />
     <Folder Include="Products\Common\Errors\" />
   </ItemGroup>
 

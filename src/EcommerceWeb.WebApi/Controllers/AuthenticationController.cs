@@ -23,7 +23,14 @@ namespace EcommerceWeb.WebApi.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var command = new RegisterCommand(request.FirstName, request.LastName,request.Email,request.Password,(Sex)request.Sex,request.Birthday);
+            var command = new RegisterCommand(request.FirstName,
+                                              request.LastName,
+                                              request.Email,
+                                              request.Password,
+                                              (Sex)request.Sex,
+                                              request.Birthday,
+                                              request.NumberPhone,
+                                              request.Address);
             ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);
             return authResult.Match(
                 authResult => Ok(),

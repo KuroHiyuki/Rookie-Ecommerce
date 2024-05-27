@@ -13,6 +13,8 @@ namespace EcommerceWeb.Application.Authentication.Common.Response
         string LastName,
         string Email,
         string AvatarURL,
-        string Token
+        string Token,
+        string NumberPhone,
+        string Address
         );
 }

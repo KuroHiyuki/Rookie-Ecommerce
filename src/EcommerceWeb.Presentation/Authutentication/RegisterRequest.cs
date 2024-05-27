@@ -12,6 +12,8 @@ namespace EcommerceWeb.Presentation.Authutentication
         string Email,
         string Password,
         int Sex,
-        DateTime Birthday
+        DateTime Birthday,
+        string NumberPhone,
+        string Address
     );
 }

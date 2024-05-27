@@ -11,6 +11,8 @@ namespace EcommerceWeb.Application.Authentication.Register
         string Email,
         string Password,
         Sex Sex,
-        DateTime Birthday) : IRequest<ErrorOr<AuthenticationResult>>;
+        DateTime Birthday,
+        string NumberPhone,
+        string Address) : IRequest<ErrorOr<AuthenticationResult>>;
 }
 

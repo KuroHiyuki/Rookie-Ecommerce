@@ -16,6 +16,7 @@ namespace EcommerceWeb.Domain.Entities
         public string? AccessToken { get; set; }
         public string? RefeshToken { get; set; }
         public Role Role { get; set; }
+        public string? Address { get; set; }
         public virtual Cart? Cart { get; set; }
         public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
         public virtual ICollection<Order> Orders { get; set; }  = new List<Order>();

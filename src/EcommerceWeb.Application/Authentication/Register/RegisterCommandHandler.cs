@@ -30,7 +30,9 @@ namespace EcommerceWeb.Application.Authentication.Register
                 Email = command.Email,
                 PasswordHash = command.Password,
                 Sex = command.Sex,
-                BirthDate = command.Birthday
+                BirthDate = command.Birthday,
+                PhoneNumber = command.NumberPhone,
+                Address = command.Address
             };
             user.PasswordHash = _passwordHasher.HashPassword(user, command.Password);
             var token = _jwtTokenGenerator.GenerateToken(user);
@@ -38,7 +40,7 @@ namespace EcommerceWeb.Application.Authentication.Register
 
             _authenticationRepository.Add(user);
 
-            return new AuthenticationResult(user.Id,user.FirstName, user.LastName,user.Email, user.AvatarUrl!, token);
+            return new AuthenticationResult(user.Id,user.FirstName, user.LastName,user.Email, user.AvatarUrl!, token, user.PhoneNumber,user.Address);
         }
     }
 }
