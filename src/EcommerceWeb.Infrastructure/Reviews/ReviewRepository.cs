@@ -29,5 +29,17 @@ namespace EcommerceWeb.Infrastructure.Reviews
             _dbContext.Reviews.Add(review);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task DeleteReviewAsync(string reviewId)
+        {
+            var review = await _dbContext.Reviews.FindAsync(reviewId);
+            if (review == null)
+            {
+                throw new Exception($"Invalid Comment {reviewId}");
+            }
+
+            _dbContext.Reviews.Remove(review);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

@@ -1,4 +1,7 @@
-﻿using EcommerceWeb.Application.Reviews.CreateReview;
+﻿using Azure.Core;
+using EcommerceWeb.Application.Reviews.CreateReview;
+using EcommerceWeb.Application.Reviews.DeleteReview;
+using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Presentation.Reviews;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -23,6 +26,20 @@ namespace EcommerceWeb.WebApi.Controllers
                 var command = new CreateReviewCommand(UserId, ProductId, request.Rating, request.Comment!);
                 await _mediator.Send(command);
                 return Created();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete("{ReviewId}")]
+        public async Task<IActionResult> DeleteReviewProductAsync(string ReviewId)
+        {
+            try
+            {
+                var command = new DeleteReviewCommand(ReviewId);
+                await _mediator.Send(command);
+                return NoContent();
             }
             catch (Exception ex)
             {

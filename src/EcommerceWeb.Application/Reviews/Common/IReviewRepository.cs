@@ -11,5 +11,6 @@ namespace EcommerceWeb.Application.Reviews.Common
     public interface IReviewRepository : IBaseRepository<Review>
     {
         Task AddReviewAsync(string userId, string productId, int rating, string comment);
+        Task DeleteReviewAsync(string reviewId);
     }
 }
