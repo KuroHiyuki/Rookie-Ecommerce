@@ -29,7 +29,7 @@ namespace EcommerceWeb.Application.Authentication.Login
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 
-            return new AuthenticationResult(user.Id,user.FirstName!,user.LastName!,user.Email!,user.AvatarUrl!,token);
+            return new AuthenticationResult(user.Id,user.FirstName!,user.LastName!,user.Email!,user.AvatarUrl!,token,user.PhoneNumber!,user.Address!);
         }
     }
 }

@@ -18,11 +18,12 @@ namespace EcommerceWeb.Infrastructure.Orders
         {
         }
 
-        public async Task<Order> CreateOrderFromCart(string userId)
+        public async Task<Order> CreateOrderFromCartAsync(string userId)
         {
             var cart = await _dbContext.Carts
             .Include(c => c.CartDetails)
             .ThenInclude(cd => cd.Product)
+            .Include(c => c.User)
             .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart == null || !cart.CartDetails.Any())
@@ -35,11 +36,13 @@ namespace EcommerceWeb.Infrastructure.Orders
                 Id = Guid.NewGuid().ToString(),
                 UserId = userId,
                 OrderDate = DateTime.UtcNow,
-                TotalAmount = cart.CartDetails.Sum(cd => cd.Product!.UnitPrice * cd.Quantity),
+                TotalAmount = cart.CartDetails.Sum(cd => cd.Product!.UnitPrice * cd.Quantity ),
                 Status = OrderStatus.OrderPlaced,
+                Address = cart.User!.Address,
+                TelephoneNumber = cart.User.PhoneNumber,
                 Details = cart.CartDetails.Select(cd => new OrderDetail
                 {
-
+                    Id = Guid.NewGuid().ToString(),
                     ProductId = cd.ProductId,
                     Quantity = cd.Quantity,
                     UnitPrice = cd.Product!.UnitPrice

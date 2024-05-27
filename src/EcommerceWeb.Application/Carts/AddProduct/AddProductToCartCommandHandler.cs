@@ -28,18 +28,8 @@ namespace EcommerceWeb.Application.Carts.AddProduct
         }
         public async Task Handle(AddProductToCartCommand command, CancellationToken cancellationToken)
         {
-            var cart = await _cartRepository.GetCartByUserId(command.UserId);
-            var cartDetail = await _cartRepository.GetCartDetail(command.ProductId, cart.Id!);
-            if (cartDetail is null)
-            {
-                await _cartRepository.AddProductToCart(command.UserId, command.ProductId, command.Quantity);
-                
-            }
-            else
-            {
-                cartDetail.Quantity = command.Quantity + cartDetail.Quantity;
-                
-            }
+           
+            await _cartRepository.AddProductToCart(command.UserId, command.ProductId, command.Quantity);
             await _unitOfWork.SaveAsync(cancellationToken);
 
         }
