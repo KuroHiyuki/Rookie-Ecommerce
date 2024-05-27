@@ -1,27 +1,23 @@
 ﻿using EcommerceWeb.Application.Orders.Common.Repository;
 using EcommerceWeb.Application.Orders.Common.Response;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace EcommerceWeb.Application.Orders.GetorderByUserId
 {
-    public class GetOrderIdQueryHandler : IRequestHandler<GetOrderIdQuery, OrderModelAppLayer>
+    public class GetOrderListByUserQueryHandler : IRequestHandler<GetOrderListByUserQuery, List<OrderModelAppLayer>>
     {
         private readonly IOrderRepository _orderRepository;
 
-        public GetOrderIdQueryHandler(IOrderRepository orderRepository)
+        public GetOrderListByUserQueryHandler(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
         }
 
-        public async Task<OrderModelAppLayer> Handle(GetOrderIdQuery request, CancellationToken cancellationToken)
+        public async Task<List<OrderModelAppLayer>> Handle(GetOrderListByUserQuery request, CancellationToken cancellationToken)
         {
-            var order = await _orderRepository.GetOrderByIdAsync(request.OrderId);
-            var OrderModel = new OrderModelAppLayer
+            var order = await _orderRepository.GetOrderByIdAsync(request.UserId);
+            var orderDetail = order.Details.Select(c => new OrderModelAppLayer
             {
                 UserName = order.UserName,
                 Address = order.Address,
@@ -38,7 +34,8 @@ namespace EcommerceWeb.Application.Orders.GetorderByUserId
                     Quantity = x.Quantity,
                     ImageURL = x.Product.ImageURL
                 }).ToList()
-            };
+            });
+            var OrderModel = orderDetail.ToList();
             return OrderModel;
         }
     }

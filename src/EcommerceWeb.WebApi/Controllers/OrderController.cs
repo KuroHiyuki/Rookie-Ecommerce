@@ -46,12 +46,12 @@ namespace EcommerceWeb.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("{OrderId}")]
-        public async Task<IActionResult> GetOrderUserAsync(string OrderId)
+        [HttpGet("{UserId}")]
+        public async Task<IActionResult> GetOrderUserAsync(string UserId)
         {
             try
             {
-                var query = new GetOrderIdQuery(OrderId);
+                var query = new GetOrderListByUserQuery(UserId);
                 return Ok(await _mediator.Send(query));
             }
             catch (Exception ex)

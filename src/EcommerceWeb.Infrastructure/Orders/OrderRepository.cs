@@ -70,6 +70,15 @@ namespace EcommerceWeb.Infrastructure.Orders
             return orderUser;
         }
 
+        public async Task<List<Order>> GetOrdersByUserIdAsynce(string userId)
+        {
+            return await _dbContext.Orders
+            .Include(o => o.Details)
+            .ThenInclude(od => od.Product)
+            .Where(o => o.UserId == userId)
+            .ToListAsync();
+        }
+
         public async Task UpdateOrderStatusAsync(string orderId, OrderStatus status)
         {
             var order = await _dbContext.Orders.FindAsync(orderId);

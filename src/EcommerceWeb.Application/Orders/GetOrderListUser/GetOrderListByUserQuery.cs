@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Application.Orders.GetorderByUserId
 {
-    public record GetOrderIdQuery(string OrderId) : IRequest<OrderModelAppLayer>
+    public record GetOrderListByUserQuery(string UserId) : IRequest<List<OrderModelAppLayer>>
     {
     }
 }

@@ -9,5 +9,6 @@ namespace EcommerceWeb.Application.Orders.Common.Repository
         Task<Order> CreateOrderFromCartAsync(string userId);
         Task UpdateOrderStatusAsync(string orderId, OrderStatus status);
         Task<Order> GetOrderByIdAsync(string orderId);
+        Task<List<Order>> GetOrdersByUserIdAsynce(string userId);
     }
 }
