@@ -22,12 +22,22 @@ namespace EcommerceWeb.Infrastructure.Users
 
         public async Task<User> GetUserByEmailAsync(string email)
         {
-            return await _dbcontext.Users.FirstOrDefaultAsync(x => x.Email == email)!;
+            var user = await _dbcontext.Users.FirstOrDefaultAsync(x => x.Email == email);
+            if(user is null)
+            {
+                throw new Exception($"Not found User email: {email}");
+            }
+            return user;
         }
 
         public async Task<User> GetUserByIdAsync(string id)
         {
-            return await _dbcontext.Users!.FindAsync(id)!;
+            var user = await _dbcontext.Users!.FindAsync(id)!;
+            if (user is null)
+            {
+                throw new Exception($"Not found User ID: {id}");
+            }
+            return user;
         }
     }
 }

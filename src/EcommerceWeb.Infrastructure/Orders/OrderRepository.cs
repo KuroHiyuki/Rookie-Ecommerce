@@ -40,6 +40,7 @@ namespace EcommerceWeb.Infrastructure.Orders
                 Status = OrderStatus.OrderPlaced,
                 Address = cart.User!.Address,
                 TelephoneNumber = cart.User.PhoneNumber,
+                UserName = cart.User.FirstName +" "+cart.User.LastName,
                 Details = cart.CartDetails.Select(cd => new OrderDetail
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -54,6 +55,19 @@ namespace EcommerceWeb.Infrastructure.Orders
             await _dbContext.SaveChangesAsync();
 
             return order;
+        }
+
+        public async Task<Order> GetOrderByIdAsync(string orderId)
+        {
+            var orderUser = await _dbContext.Orders
+            .Include(o => o.Details)
+            .ThenInclude(od => od.Product)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
+            if(orderUser is null)
+            {
+                throw new Exception($"Order {orderId} is not exist");
+            }
+            return orderUser;
         }
 
         public async Task UpdateOrderStatusAsync(string orderId, OrderStatus status)

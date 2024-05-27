@@ -1,6 +1,8 @@
 ﻿using EcommerceWeb.Application.Orders.CreateOrderFromCart;
+using EcommerceWeb.Application.Orders.GetorderByUserId;
 using EcommerceWeb.Application.Orders.UpdateOrderStatus;
 using EcommerceWeb.Domain.Common.Enum;
+using EcommerceWeb.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +40,19 @@ namespace EcommerceWeb.WebApi.Controllers
                 var command = new UpdateOrderStatusCommand(OrderId, status);
                 await _mediator.Send(command);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("{OrderId}")]
+        public async Task<IActionResult> GetOrderUserAsync(string OrderId)
+        {
+            try
+            {
+                var query = new GetOrderIdQuery(OrderId);
+                return Ok(await _mediator.Send(query));
             }
             catch (Exception ex)
             {
