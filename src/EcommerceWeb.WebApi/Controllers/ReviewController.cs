@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using EcommerceWeb.Application.Reviews.CreateReview;
 using EcommerceWeb.Application.Reviews.DeleteReview;
+using EcommerceWeb.Application.Reviews.GetReviewList;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Presentation.Reviews;
 using MediatR;
@@ -40,6 +41,20 @@ namespace EcommerceWeb.WebApi.Controllers
                 var command = new DeleteReviewCommand(ReviewId);
                 await _mediator.Send(command);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetReviewList()
+        {
+            try
+            {
+                var query = new GetReivewListQuery();
+
+                return Ok(await _mediator.Send(query));
             }
             catch (Exception ex)
             {

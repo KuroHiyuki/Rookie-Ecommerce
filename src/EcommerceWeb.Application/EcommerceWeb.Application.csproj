@@ -21,7 +21,6 @@
     <Folder Include="Carts\Common\Errors\" />
     <Folder Include="Products\Common\Errors\" />
     <Folder Include="Reviews\GetReviewListByProduct\" />
-    <Folder Include="Reviews\GetReviewList\" />
     <Folder Include="Reviews\UpdateReview\" />
   </ItemGroup>
 

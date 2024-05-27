@@ -11,7 +11,7 @@ namespace EcommerceWeb.Domain.Entities
     {
         public string? Comment { get; set; }
         public int Rating { get; set; }
-        public DateTime? UpdateAt { get; set; } = DateTime.Now;
+        public DateTime UpdateAt { get; set; } = DateTime.Now;
         public string? ProductId { get; set; }
         public string? UserId { get; set; }
         public virtual Product? Product { get; set; }

@@ -1,5 +1,5 @@
 ﻿using EcommerceWeb.Application.Common.Interface;
-using EcommerceWeb.Application.Reviews.Common;
+using EcommerceWeb.Application.Reviews.Common.Repository;
 using MediatR;
 using System;
 using System.Collections.Generic;

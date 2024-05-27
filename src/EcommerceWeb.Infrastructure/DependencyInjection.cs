@@ -5,7 +5,7 @@ using EcommerceWeb.Application.Common.Interface;
 using EcommerceWeb.Application.Common.Services;
 using EcommerceWeb.Application.Orders.Common.Repository;
 using EcommerceWeb.Application.Products.Common.Interfaces;
-using EcommerceWeb.Application.Reviews.Common;
+using EcommerceWeb.Application.Reviews.Common.Repository;
 using EcommerceWeb.Application.Users.Common.Repository;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Infrastructure.Authentication;

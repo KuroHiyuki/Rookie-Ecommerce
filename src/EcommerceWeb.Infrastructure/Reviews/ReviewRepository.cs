@@ -1,5 +1,4 @@
-﻿
-using EcommerceWeb.Application.Reviews.Common;
+﻿using EcommerceWeb.Application.Reviews.Common.Repository;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Infrastructure.Common.BaseRepository;
 using EcommerceWeb.Presentation.Persistences;
@@ -40,6 +39,13 @@ namespace EcommerceWeb.Infrastructure.Reviews
 
             _dbContext.Reviews.Remove(review);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<List<Review>> GetReviewsListAsync()
+        {
+            return await _dbContext.Reviews
+            .Include(r => r.User)
+            .ToListAsync();
         }
     }
 }
