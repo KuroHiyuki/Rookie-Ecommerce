@@ -16,7 +16,7 @@ namespace EcommerceWeb.Application.Carts.Common.Repositories
         Task AddProductToCart(string userId, string productId, int quantity, CancellationToken cancellationToken = default);
         Task<Cart> GetCartByUserId(string userId);
         Task UpdateProductQuantity(string CartId, string productId, int quantity);
-        Task DeleteProductFromCart(string CartId, int productId);
+        Task DeleteProductFromCart(string CartId, string productId);
         Task<List<CartModelAppLayer>> GetProductsInCart(string CartId);
         Task<CartDetail> GetCartDetail(string ProductId, string CartId);
     }

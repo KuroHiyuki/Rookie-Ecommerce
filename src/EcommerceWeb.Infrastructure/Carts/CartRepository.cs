@@ -51,17 +51,22 @@ namespace EcommerceWeb.Infrastructure.Carts
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public Task DeleteProductFromCart(string UserId, int productId)
+        public async Task DeleteProductFromCart(string CartId, string productId)
         {
-            throw new NotImplementedException();
+            var cartDetail = await _dbContext.CartDetails
+            .FirstOrDefaultAsync(cd => cd.CartId == CartId && cd.ProductId == productId);
+
+            if (cartDetail != null)
+            {
+                _dbContext.CartDetails.Remove(cartDetail);
+                await _dbContext.SaveChangesAsync();
+            }
         }
 
         public async Task<Cart> GetCartByUserId(string userId)
         {
             var cart = await _dbContext.Carts
-                .Include(c => c.CartDetails)
-                .ThenInclude(cd => cd.Product)
-                .FirstOrDefaultAsync(c => c.UserId == userId && c.CartDetails.Any());
+                .FirstOrDefaultAsync(c => c.UserId == userId);
             if(cart is null)
             {
                 throw new Exception($"User id {userId} haven't added a product to the cart yet");

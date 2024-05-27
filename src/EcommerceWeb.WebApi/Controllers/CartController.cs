@@ -1,5 +1,7 @@
 ﻿using EcommerceWeb.Application.Carts.AddProduct;
+using EcommerceWeb.Application.Carts.GetCartIdByUser;
 using EcommerceWeb.Application.Carts.GetProductInCart;
+using EcommerceWeb.Application.Carts.RemoveProductInCart;
 using EcommerceWeb.Application.Carts.UpdateProductQuantity;
 using EcommerceWeb.Application.Products.GetbyCategory;
 using EcommerceWeb.Presentation.Carts;
@@ -55,6 +57,33 @@ namespace EcommerceWeb.WebApi.Controllers
                 return Ok(await _mediator.Send(query));
             }
             catch (Exception e )
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpDelete("{CartId},{ProductId}")]
+        public async Task<IActionResult> DeleteProductFromCartAsync(string CartId, string ProductId)
+        {
+            try
+            {
+                var command = new RemoveProductInCartCommand(ProductId, CartId);
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("getID/{UserId}")]
+        public async Task<IActionResult> GetCartIdAsync(string UserId)
+        {
+            try
+            {
+                var query = new GetCartIdByUserIdQuery(UserId);
+                return Ok(await _mediator.Send(query));
+            }
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
