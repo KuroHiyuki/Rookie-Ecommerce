@@ -55,5 +55,18 @@ namespace EcommerceWeb.Infrastructure.Orders
 
             return order;
         }
+
+        public async Task UpdateOrderStatusAsync(string orderId, OrderStatus status)
+        {
+            var order = await _dbContext.Orders.FindAsync(orderId);
+            if (order == null)
+            {
+                throw new Exception($"Not found Order {orderId}");
+            }
+
+            order.Status = status;
+            await _dbContext.SaveChangesAsync();
+
+        }
     }
 }

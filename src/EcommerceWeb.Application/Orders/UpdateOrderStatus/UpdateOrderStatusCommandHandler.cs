@@ -19,7 +19,7 @@ namespace EcommerceWeb.Application.Orders.UpdateOrderStatus
 
         public async Task Handle(UpdateOrderStatusCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            await _orderRepository.UpdateOrderStatusAsync(request.OrderId, request.Status);
         }
     }
 }
