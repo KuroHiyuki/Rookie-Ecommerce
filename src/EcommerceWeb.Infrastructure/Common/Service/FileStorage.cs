@@ -11,10 +11,7 @@ namespace EcommerceWeb.Infrastructure.Common.Service
         public FileStorage(IHostingEnvironment hostingEnvironment)
         {
             // Đảm bảo rằng hostingEnvironment.WebRootPath không null trước khi sử dụng nó
-            if (hostingEnvironment == null)
-            {
-                throw new ArgumentNullException(nameof(hostingEnvironment));
-            }
+            ArgumentNullException.ThrowIfNull(hostingEnvironment);
 
             _fileContentFolder = Path.Combine(hostingEnvironment.ContentRootPath, FILES_FOLDER_NAME);
         }

@@ -13,7 +13,7 @@ namespace EcommerceWeb.Application.Common.Interface
         void Create(T entity);
         void Update(T entity);
         void Delete(T entity);
-        Task<T?> GetByIdAsync(string id, CancellationToken cancellationToken = default(CancellationToken));
-        Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>>? filter = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<T?> GetByIdAsync(string id, CancellationToken cancellationToken = default);
+        Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>>? filter = null, CancellationToken cancellationToken = default);
     }
 }

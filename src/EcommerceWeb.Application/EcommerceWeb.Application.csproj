@@ -20,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Carts\Common\Errors\" />
     <Folder Include="Products\Common\Errors\" />
-    <Folder Include="Users\GetList\" />
     <Folder Include="Users\UpdateUser\" />
   </ItemGroup>
 

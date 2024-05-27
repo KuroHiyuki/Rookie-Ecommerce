@@ -51,5 +51,10 @@ namespace EcommerceWeb.Infrastructure.Users
             }
             return user;
         }
+
+        public async Task<List<User>> GetUsersListAsync()
+        {
+            return await _dbcontext.Users.ToListAsync();
+        }
     }
 }
