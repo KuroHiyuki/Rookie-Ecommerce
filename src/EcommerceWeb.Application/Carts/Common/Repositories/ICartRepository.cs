@@ -18,5 +18,6 @@ namespace EcommerceWeb.Application.Carts.Common.Repositories
         Task UpdateProductQuantity(string CartId, string productId, int quantity);
         Task DeleteProductFromCart(string CartId, int productId);
         Task<List<CartModelAppLayer>> GetProductsInCart(string CartId);
+        Task<CartDetail> GetCartDetail(string ProductId, string CartId);
     }
 }

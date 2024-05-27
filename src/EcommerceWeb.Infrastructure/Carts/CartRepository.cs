@@ -80,6 +80,16 @@ namespace EcommerceWeb.Infrastructure.Carts
                     .FirstOrDefaultAsync(e => e.UserId!.Equals(userId));
         }
 
+        public async Task<CartDetail> GetCartDetail(string ProductId, string CartId)
+        {
+            var cartDetail = await _dbContext.CartDetails!.FirstOrDefaultAsync(c => c.ProductId == ProductId && c.CartId == CartId);
+            if (cartDetail is null)
+            {
+                return new CartDetail();
+            }
+            return cartDetail;
+        }
+
         public async Task<List<CartModelAppLayer>> GetProductsInCart(string CartId)
         {
             var cart = await _dbContext.Carts
