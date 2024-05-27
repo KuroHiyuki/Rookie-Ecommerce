@@ -398,5 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 
-**/uploads
+**/uploads/
 
