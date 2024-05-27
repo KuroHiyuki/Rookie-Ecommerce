@@ -17,16 +17,16 @@ namespace EcommerceWeb.Application.Orders.GetorderByUserId
         public async Task<List<OrderModelAppLayer>> Handle(GetOrderListByUserQuery request, CancellationToken cancellationToken)
         {
             var order = await _orderRepository.GetOrderByIdAsync(request.UserId);
-            var orderDetail = order.Details.Select(c => new OrderModelAppLayer
+            var orderDetail = order.Select(c =>  new OrderModelAppLayer
             {
-                UserName = order.UserName,
-                Address = order.Address,
-                NumberPhone = order.TelephoneNumber,
-                method = order.PaymentMethod,
-                status = order.Status,
-                TotalAmount = order.TotalAmount,
-                Note = order.Note,
-                products = order.Details.Select(x => new ProductOrder
+                UserName = c.UserName,
+                Address = c.Address,
+                NumberPhone = c.TelephoneNumber,
+                method = c.PaymentMethod,
+                status = c.Status,
+                TotalAmount = c.TotalAmount,
+                Note = c.Note,
+                products = c.Details.Select(x => new ProductOrder
                 {
                     ProductId = x.ProductId,
                     ProductName = x.Product!.Name,
@@ -34,9 +34,9 @@ namespace EcommerceWeb.Application.Orders.GetorderByUserId
                     Quantity = x.Quantity,
                     ImageURL = x.Product.ImageURL
                 }).ToList()
-            });
-            var OrderModel = orderDetail.ToList();
-            return OrderModel;
+            }).ToList();
+            
+            return orderDetail;
         }
     }
 }

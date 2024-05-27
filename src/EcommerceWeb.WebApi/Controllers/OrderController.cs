@@ -1,5 +1,6 @@
 ﻿using EcommerceWeb.Application.Orders.CreateOrderFromCart;
 using EcommerceWeb.Application.Orders.GetorderByUserId;
+using EcommerceWeb.Application.Orders.GetOrderList;
 using EcommerceWeb.Application.Orders.UpdateOrderStatus;
 using EcommerceWeb.Domain.Common.Enum;
 using EcommerceWeb.Domain.Entities;
@@ -52,6 +53,19 @@ namespace EcommerceWeb.WebApi.Controllers
             try
             {
                 var query = new GetOrderListByUserQuery(UserId);
+                return Ok(await _mediator.Send(query));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("List")]
+        public async Task<IActionResult> GetOrderListAsync()
+        {
+            try
+            {
+                var query = new GetOrderListQuery();
                 return Ok(await _mediator.Send(query));
             }
             catch (Exception ex)
