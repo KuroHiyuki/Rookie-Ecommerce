@@ -1,5 +1,7 @@
 ﻿using EcommerceWeb.Application.Carts.AddProduct;
+using EcommerceWeb.Application.Carts.GetProductInCart;
 using EcommerceWeb.Application.Carts.UpdateProductQuantity;
+using EcommerceWeb.Application.Products.GetbyCategory;
 using EcommerceWeb.Presentation.Carts;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -42,6 +44,19 @@ namespace EcommerceWeb.WebApi.Controllers
             catch (Exception e)
             {
                 return BadRequest(e.Message);   
+            }
+        }
+        [HttpGet("{CartId}")]
+        public async Task<IActionResult> GetProductListCartAsync(string CartId)
+        {
+            try
+            {
+                var query = new GetProductCartByUserIdQuery(CartId);
+                return Ok(await _mediator.Send(query));
+            }
+            catch (Exception e )
+            {
+                return BadRequest(e.Message);
             }
         }
     }

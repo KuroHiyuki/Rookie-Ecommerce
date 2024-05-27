@@ -147,7 +147,8 @@ namespace EcommerceWeb.Infrastructure.Products
                 Description = model.Description,
                 UnitPrice = model.Price,
                 Inventory = model.Stock,
-                CategoryId = model.CategoryId
+                CategoryId = model.CategoryId,
+                ImageURL = images[0].Url,
             };
             _dbContext.Products.Add(product);
             _dbContext.SaveChanges();

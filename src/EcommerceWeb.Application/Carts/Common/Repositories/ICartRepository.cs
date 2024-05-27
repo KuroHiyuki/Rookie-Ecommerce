@@ -1,4 +1,6 @@
-﻿using EcommerceWeb.Application.Common.Interface;
+﻿using EcommerceWeb.Application.Carts.Common.Response;
+using EcommerceWeb.Application.Common.Interface;
+using EcommerceWeb.Application.Products.Common.Response;
 using EcommerceWeb.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,6 @@ namespace EcommerceWeb.Application.Carts.Common.Repositories
         Task<Cart> GetCartByUserId(string userId);
         Task UpdateProductQuantity(string CartId, string productId, int quantity);
         Task DeleteProductFromCart(string CartId, int productId);
-        Task<List<Product>> GetProductsInCartByUserId(string userId);
+        Task<List<CartModelAppLayer>> GetProductsInCart(string CartId);
     }
 }

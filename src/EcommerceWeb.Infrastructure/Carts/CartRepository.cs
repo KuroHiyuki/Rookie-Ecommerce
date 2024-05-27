@@ -1,4 +1,5 @@
 ﻿using EcommerceWeb.Application.Carts.Common.Repositories;
+using EcommerceWeb.Application.Carts.Common.Response;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Infrastructure.Common.BaseRepository;
 using EcommerceWeb.Presentation.Persistences;
@@ -16,7 +17,7 @@ namespace EcommerceWeb.Infrastructure.Carts
         {
             var cart = await _dbContext.Carts
              .Include(c => c.CartDetails)
-             .FirstOrDefaultAsync(c => c.UserId == userId && c.CartDetails.Any());
+             .FirstOrDefaultAsync(c => c.UserId == userId && c.CartDetails.Any(),cancellationToken);
 
             if (cart == null)
             {
@@ -79,9 +80,28 @@ namespace EcommerceWeb.Infrastructure.Carts
                     .FirstOrDefaultAsync(e => e.UserId!.Equals(userId));
         }
 
-        public Task<List<Product>> GetProductsInCartByUserId(string userId)
+        public async Task<List<CartModelAppLayer>> GetProductsInCart(string CartId)
         {
-            throw new NotImplementedException();
+            var cart = await _dbContext.Carts
+                .Include(c => c.CartDetails)
+                .ThenInclude(cd => cd.Product)
+                .Where(a => a.Id == CartId).FirstOrDefaultAsync();
+            if(cart is null)
+            {
+                return new List<CartModelAppLayer> { };
+            }
+
+            var product =  cart.CartDetails.Select(c => new CartModelAppLayer
+            {
+                ProductId = c.ProductId,
+                Name = c.Product!.Name!,
+                Quantity = c.Quantity,
+                Images = c.Product.ImageURL,
+                Price = c.Product.UnitPrice,
+                Description = c.Product.Description!
+            });
+            List<CartModelAppLayer> List = product.ToList();
+            return List;
         }
 
         public async Task UpdateProductQuantity(string cartId, string productId, int quantity)

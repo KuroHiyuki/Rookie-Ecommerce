@@ -28,6 +28,7 @@ namespace EcommerceWeb.Application.Carts.AddProduct
         }
         public async Task Handle(AddProductToCartCommand command, CancellationToken cancellationToken)
         {
+            //var cart = await _cartRepository.Get
             await _cartRepository.AddProductToCart(command.UserId, command.ProductId, command.Quantity);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
