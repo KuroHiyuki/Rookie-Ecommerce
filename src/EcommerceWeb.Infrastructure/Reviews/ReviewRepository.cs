@@ -41,6 +41,14 @@ namespace EcommerceWeb.Infrastructure.Reviews
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<List<Review>> GetReviewsByProductIdAsync(string productId)
+        {
+            return await _dbContext.Reviews
+            .Include(r => r.User)
+            .Where(r => r.ProductId == productId)
+            .ToListAsync();
+        }
+
         public async Task<List<Review>> GetReviewsListAsync()
         {
             return await _dbContext.Reviews

@@ -13,5 +13,6 @@ namespace EcommerceWeb.Application.Reviews.Common.Repository
         Task AddReviewAsync(string userId, string productId, int rating, string comment);
         Task DeleteReviewAsync(string reviewId);
         Task<List<Review>> GetReviewsListAsync();
+        Task<List<Review>> GetReviewsByProductIdAsync(string productId);
     }
 }
