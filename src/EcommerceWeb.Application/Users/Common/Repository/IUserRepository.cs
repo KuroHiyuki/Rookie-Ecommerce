@@ -6,5 +6,6 @@ namespace EcommerceWeb.Application.Users.Common.Repository
     {
         Task<User> GetUserByEmailAsync(string email);
         Task<User> GetUserByIdAsync(string id);
+        Task DeleteUserAsync(string UserId);
     }
 }

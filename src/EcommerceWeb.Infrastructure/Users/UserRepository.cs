@@ -20,6 +20,18 @@ namespace EcommerceWeb.Infrastructure.Users
             _dbcontext = dbcontext;
         }
 
+        public async Task DeleteUserAsync(string UserId)
+        {
+            var user = await _dbcontext.Users.FindAsync(UserId);
+            if (user is null)
+            {
+                throw new Exception($"Not found this User {UserId}");
+            }
+
+            _dbcontext.Users.Remove(user);
+            await _dbcontext.SaveChangesAsync();
+        }
+
         public async Task<User> GetUserByEmailAsync(string email)
         {
             var user = await _dbcontext.Users.FirstOrDefaultAsync(x => x.Email == email);
