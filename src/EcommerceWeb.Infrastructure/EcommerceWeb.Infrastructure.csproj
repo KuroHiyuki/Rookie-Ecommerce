@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Middleware\" />
+    <Folder Include="Reviews\" />
   </ItemGroup>
 
 </Project>

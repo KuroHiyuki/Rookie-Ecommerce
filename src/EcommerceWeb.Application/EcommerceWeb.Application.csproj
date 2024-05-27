@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Carts\Common\Errors\" />
+    <Folder Include="Reviews\" />
     <Folder Include="Products\Common\Errors\" />
   </ItemGroup>
 
