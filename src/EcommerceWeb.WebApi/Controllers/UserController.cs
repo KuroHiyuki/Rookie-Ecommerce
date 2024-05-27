@@ -1,6 +1,8 @@
 ﻿using EcommerceWeb.Application.Users.DeleteUser;
 using EcommerceWeb.Application.Users.GetList;
-using EcommerceWeb.Domain.Entities;
+using EcommerceWeb.Application.Users.UpdateUser;
+using EcommerceWeb.Application.Users.Common.Response;
+using EcommerceWeb.Presentation.User;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +41,27 @@ namespace EcommerceWeb.WebApi.Controllers
                 var query = new GetUserListQuery();
                 
                 return Ok(await _mediator.Send(query));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut("{UserId}")]
+        public async Task<IActionResult> UpdateUserAsync(string UserId, UserRequest request)
+        {
+            try
+            {
+                var command = new UpdateUserCommand(UserId,new UserUpdateModel
+                {
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,    
+                    Address = request.Address,
+                    NumberPhone = request.NumberPhone,
+                    AvatarURL = request.AvatarURL
+                });
+                await _mediator.Send(command);
+                return NoContent();
             }
             catch (Exception ex)
             {

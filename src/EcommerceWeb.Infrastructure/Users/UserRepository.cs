@@ -1,6 +1,7 @@
 ﻿using EcommerceWeb.Application.Common.Interface;
 using EcommerceWeb.Application.Products.Common.Interfaces;
 using EcommerceWeb.Application.Users.Common.Repository;
+using EcommerceWeb.Application.Users.Common.Response;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Infrastructure.Common.BaseRepository;
 using EcommerceWeb.Presentation.Persistences;
@@ -55,6 +56,24 @@ namespace EcommerceWeb.Infrastructure.Users
         public async Task<List<User>> GetUsersListAsync()
         {
             return await _dbcontext.Users.ToListAsync();
+        }
+
+        public async Task UpdateUserAsync(string UserId, UserUpdateModel model)
+        {
+            var existingUser = await _dbcontext.Users.FindAsync(UserId);
+            if (existingUser is null)
+            {
+                throw new Exception($"Not found User ID: {UserId}");
+            }
+
+            existingUser.FirstName = model.FirstName;
+            existingUser.LastName = model.LastName;
+            existingUser.Address = model.Address;
+            existingUser.PhoneNumber = model.NumberPhone;
+            existingUser.AvatarUrl = model.AvatarURL;
+
+
+            await _dbcontext.SaveChangesAsync();
         }
     }
 }
