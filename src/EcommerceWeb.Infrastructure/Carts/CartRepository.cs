@@ -25,7 +25,7 @@ namespace EcommerceWeb.Infrastructure.Carts
                     Id = Guid.NewGuid().ToString(),
                     UserId = userId,
                     CreatedAt = DateTime.UtcNow,
-                    CartDetails = new List<CartDetail>()
+                    CartDetails = []
                 };
                 _dbContext.Carts.Add(cart);
             }
@@ -102,7 +102,7 @@ namespace EcommerceWeb.Infrastructure.Carts
                 .Where(a => a.Id == CartId).FirstOrDefaultAsync();
             if(cart is null)
             {
-                return new List<CartModelAppLayer> { };
+                return [];
             }
 
             var product =  cart.CartDetails.Select(c => new CartModelAppLayer

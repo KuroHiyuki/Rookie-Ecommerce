@@ -83,7 +83,7 @@ namespace EcommerceWeb.Infrastructure.Orders
         public async Task UpdateOrderStatusAsync(string orderId, OrderStatus status)
         {
             var order = await _dbContext.Orders.FindAsync(orderId);
-            if (order == null)
+            if (order is null)
             {
                 throw new Exception($"Not found Order {orderId}");
             }

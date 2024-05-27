@@ -104,8 +104,8 @@ namespace EcommerceWeb.Infrastructure.Products
 
         public async Task<List<Image>> SaveProductImagesAsync(IFormFileCollection formFiles, string Id)
         {
-            List<Image> productImages = new List<Image>();
-            List<Task<string>> imgSaveTasks = new();
+            List<Image> productImages = [];
+            List<Task<string>> imgSaveTasks = [];
             foreach (var image in formFiles)
             {
                 imgSaveTasks.Add(_fileStorage.SaveFileAsync(image));
@@ -155,7 +155,7 @@ namespace EcommerceWeb.Infrastructure.Products
 
         public async Task RemoveProductImagesAsync(Product product)
         {
-            List<Task> imgDeleteTasks = new();
+            List<Task> imgDeleteTasks = [];
             foreach (var image in product.Images)
             {
                 imgDeleteTasks.Add(_fileStorage.DeleteFileAsync(image.Url));

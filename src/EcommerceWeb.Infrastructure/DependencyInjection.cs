@@ -5,6 +5,7 @@ using EcommerceWeb.Application.Common.Interface;
 using EcommerceWeb.Application.Common.Services;
 using EcommerceWeb.Application.Orders.Common.Repository;
 using EcommerceWeb.Application.Products.Common.Interfaces;
+using EcommerceWeb.Application.Reviews.Common;
 using EcommerceWeb.Application.Users.Common.Repository;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Infrastructure.Authentication;
@@ -15,6 +16,7 @@ using EcommerceWeb.Infrastructure.Common.Interfaces;
 using EcommerceWeb.Infrastructure.Common.Service;
 using EcommerceWeb.Infrastructure.Orders;
 using EcommerceWeb.Infrastructure.Products;
+using EcommerceWeb.Infrastructure.Reviews;
 using EcommerceWeb.Infrastructure.Users;
 using EcommerceWeb.Presentation.Persistences;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -70,6 +72,7 @@ namespace EcommerceWeb.Infrastructure
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
         }

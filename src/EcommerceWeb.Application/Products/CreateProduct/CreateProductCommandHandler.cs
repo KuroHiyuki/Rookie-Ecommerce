@@ -38,8 +38,8 @@ namespace EcommerceWeb.Application.Products.CreateProduct
                 CategoryId = command.CategoryId,
             };
 
-            List<Image> productImages = new List<Image>();
-            if (command.Images is not null && command.Images.Count() > 0)
+            List<Image> productImages = [];
+            if (command.Images is not null && command.Images.Count > 0)
             {
                 productImages = await _productRepository.SaveProductImagesAsync(command.Images, newProduct.Id);
             }

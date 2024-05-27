@@ -19,8 +19,11 @@
 
   <ItemGroup>
     <Folder Include="Carts\Common\Errors\" />
-    <Folder Include="Reviews\" />
     <Folder Include="Products\Common\Errors\" />
+    <Folder Include="Reviews\GetReviewListByProduct\" />
+    <Folder Include="Reviews\DeleteReview\" />
+    <Folder Include="Reviews\GetReviewList\" />
+    <Folder Include="Reviews\UpdateReview\" />
   </ItemGroup>
 
 </Project>
