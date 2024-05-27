@@ -3,6 +3,7 @@ using EcommerceWeb.Application.Reviews.CreateReview;
 using EcommerceWeb.Application.Reviews.DeleteReview;
 using EcommerceWeb.Application.Reviews.GetReviewList;
 using EcommerceWeb.Application.Reviews.GetReviewListByProduct;
+using EcommerceWeb.Application.Reviews.UpdateReview;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Presentation.Reviews;
 using MediatR;
@@ -70,6 +71,20 @@ namespace EcommerceWeb.WebApi.Controllers
                 var query = new GetReviewListByProductQuery(ProductId);
 
                 return Ok(await _mediator.Send(query));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut("{ReviewId}")]
+        public async Task<IActionResult> UpdateReviewAsync(string ReviewId, ReviewRequest request)
+        {
+            try
+            {
+                var command = new UpdateReviewCommand(ReviewId,request.Comment!,request.Rating);
+                await _mediator.Send(command);
+                return NoContent();
             }
             catch (Exception ex)
             {

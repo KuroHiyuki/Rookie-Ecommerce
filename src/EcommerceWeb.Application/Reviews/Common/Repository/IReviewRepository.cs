@@ -14,5 +14,6 @@ namespace EcommerceWeb.Application.Reviews.Common.Repository
         Task DeleteReviewAsync(string reviewId);
         Task<List<Review>> GetReviewsListAsync();
         Task<List<Review>> GetReviewsByProductIdAsync(string productId);
+        Task UpdateReviewAsync(string reviewId, int rating, string comment);
     }
 }

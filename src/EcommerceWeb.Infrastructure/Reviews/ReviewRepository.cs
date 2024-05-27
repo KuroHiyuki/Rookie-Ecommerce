@@ -55,5 +55,18 @@ namespace EcommerceWeb.Infrastructure.Reviews
             .Include(r => r.User)
             .ToListAsync();
         }
+
+        public async Task UpdateReviewAsync(string reviewId, int rating, string comment)
+        {
+            var review = await _dbContext.Reviews.FindAsync(reviewId);
+            if (review is null)
+            {
+                throw new Exception($"Not found {reviewId}");
+            }
+
+            review.Rating = rating;
+            review.Comment = comment;
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
