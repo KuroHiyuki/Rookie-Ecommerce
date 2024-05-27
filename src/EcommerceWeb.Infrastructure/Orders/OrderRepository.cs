@@ -26,7 +26,7 @@ namespace EcommerceWeb.Infrastructure.Orders
             .Include(c => c.User)
             .FirstOrDefaultAsync(c => c.UserId == userId);
 
-            if (cart == null || !cart.CartDetails.Any())
+            if (cart == null || cart.CartDetails.Count > 0)
             {
                 return new Order();
             }

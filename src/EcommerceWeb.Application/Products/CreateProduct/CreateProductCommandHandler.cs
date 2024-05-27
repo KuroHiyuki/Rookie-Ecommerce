@@ -15,16 +15,13 @@ namespace EcommerceWeb.Application.Products.CreateProduct
     {
         private readonly IProductRepository _productRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IFileStorage _fileStorageService;
 
         public CreateProductCommandHandler(
             IProductRepository productRepository,
-            IUnitOfWork unitOfWork,
-            IFileStorage fileStorageService)
+            IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
-            _fileStorageService = fileStorageService;
         }
 
         public async Task Handle(CreateProductCommand command, CancellationToken cancellationToken)

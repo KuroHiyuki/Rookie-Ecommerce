@@ -13,10 +13,10 @@ namespace EcommerceWeb.Infrastructure.Carts
         {
         }
 
-        public async Task AddProductToCart(string userId, string productId, int quantity, CancellationToken cancellationToken = default)
+        public async Task AddProductToCart(string userId, string productId, int quantity)
         {
             var cart = await _dbContext.Carts
-             .FirstOrDefaultAsync(c => c.UserId == userId,cancellationToken);
+             .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart == null)
             {
@@ -47,7 +47,7 @@ namespace EcommerceWeb.Infrastructure.Carts
                 cart.CartDetails.Add(cartDetail);
             }
 
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task DeleteProductFromCart(string CartId, string productId)
