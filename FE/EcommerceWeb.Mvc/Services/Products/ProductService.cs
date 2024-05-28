@@ -1,6 +1,7 @@
 ﻿using EcommerceWeb.Mvc.Models.Products;
 using EcommerceWeb.Presentation.Common;
 using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace EcommerceWeb.Mvc.Services.Products
 {
@@ -32,8 +33,7 @@ namespace EcommerceWeb.Mvc.Services.Products
             response.EnsureSuccessStatusCode();
 
             string content = await response.Content.ReadAsStringAsync();
-            var products = JsonConvert.DeserializeObject<Paginated<ProductVM>>(content);
-
+			var products = JsonConvert.DeserializeObject<Paginated<ProductVM>>(content)!;
 			return products;
         }
 

@@ -11,6 +11,6 @@ namespace EcommerceWeb.Mvc.Models.Products
 		public int Stock { get; set; }
 		public string? CategoryId { get; set; }
 		public CategoryVM Category { get; set; } = null!;
-		public IEnumerable<string>? Images { get; set; } = [];
+		public IEnumerable<string> Images { get; set; } = [];
 	}
 }

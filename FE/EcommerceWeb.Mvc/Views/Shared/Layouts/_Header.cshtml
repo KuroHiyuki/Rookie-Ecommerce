@@ -31,25 +31,19 @@
 			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop container">
 					
-					<!-- Logo desktop -->		
-					<a href="#" class="logo">
-					<img src="~/images/icons/logo-01.png" alt="IMG-LOGO">
+					<!-- Logo desktop -->
+					<a asp-controller="Home" asp-action="Index" class="logo">
+						<img src="~/images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
-
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul>
+								<a asp-controller="Home" asp-action="Index">Home</a>
 							</li>
 
 							<li>
-								<a asp-controller="Product" asp-action="Details">Shop</a>
+								<a asp-controller="Product" asp-action="Index">Shop</a>
 							</li>
 
 							<li class="label1" data-label1="hot">
@@ -106,9 +100,9 @@
                 <div class="sidebar-content flex-w w-full p-lr-65 js-pscroll">
                     <ul class="sidebar-link w-full">
                         <li class="p-b-13">
-                            <a href="index.html" class="stext-102 cl2 hov-cl1 trans-04">
-                                Home
-                            </a>
+							<a asp-controller="Home" asp-action="Index" class="stext-102 cl2 hov-cl1 trans-04">
+								Home
+							</a>
                         </li>
     
                         <li class="p-b-13">
@@ -220,7 +214,9 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+			<a asp-controller="Home" asp-action="Index" class="stext-102 cl2 hov-cl1 trans-04">
+				<img src="images/icons/logo-01.png" alt="IMG-LOGO">
+			</a>
 			</div>
 
 			<!-- Icon header -->
@@ -271,7 +267,7 @@
 						</a>
 
 						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
+							VNĐ
 						</a>
 					</div>
 				</li>
@@ -280,11 +276,6 @@
 			<ul class="main-menu-m">
 				<li>
 					<a href="index.html">Home</a>
-					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</span>
