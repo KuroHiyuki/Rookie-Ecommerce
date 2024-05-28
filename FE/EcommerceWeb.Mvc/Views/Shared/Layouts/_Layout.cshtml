@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - My Application</title>
+    @await Html.PartialAsync("CssAndJsScripts/_Style")
+</head>
+<body>
+    <header>
+        @await Html.PartialAsync("Layouts/_Header")
+    </header>
+    <div class="animsition">
+        <main role="main" class="pb-3">
+            
+            @RenderBody()
+            @await Html.PartialAsync("Partials/_HiddenCart")
+            <!-- Slider -->
+            
+            @* @await Html.PartialAsync("Partials/_Banner") *@
+            <!-- Banner -->
+            <partial name="Partials/_BackTopBtn" />
+
+            <!-- Modal1 -->
+            @await Html.PartialAsync("Partials/_QuickView")
+        </main>
+    </div>
+    <footer class="border-top footer text-muted">
+        @await Html.PartialAsync("Layouts/_Footer")
+    </footer>
+    @await Html.PartialAsync("CssAndJsScripts/_Scripts")
+</body>
+</html>

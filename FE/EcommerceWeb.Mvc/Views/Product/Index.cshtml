@@ -1,0 +1,18 @@
+﻿@using EcommerceWeb.Mvc.Models.Products
+@using EcommerceWeb.Presentation.Common
+@model Paginated<ProductVM> 
+
+@{
+    ViewData["Title"] = "Product List";
+}
+
+<h1>Product List</h1>
+
+<ul>
+    @foreach (var product in Model.Items)
+    {
+        <li>
+            <div>@product.Name</div>
+        </li>
+    }
+</ul>

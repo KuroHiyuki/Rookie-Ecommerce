@@ -5,7 +5,7 @@ namespace EcommerceWeb.Application.Products.GetListProducts
 
 {
     public record GetListProductQuery (
-        PageQuery page) : IRequest<PaginatedList<ProductModelAppLayer>>
+        PageQuery page) : IRequest<Paginated<ProductModelAppLayer>>
     {
     }
 }

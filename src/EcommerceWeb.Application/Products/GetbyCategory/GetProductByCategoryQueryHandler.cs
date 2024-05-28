@@ -13,7 +13,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace EcommerceWeb.Application.Products.GetbyCategory
 {
-    public class GetProductByCategoryQueryHandler : IRequestHandler<GetProductByCategoryQuery, PaginatedList<ProductModelAppLayer>>
+    public class GetProductByCategoryQueryHandler : IRequestHandler<GetProductByCategoryQuery, Paginated<ProductModelAppLayer>>
     {
         private readonly IProductRepository _productRepository;
 
@@ -22,7 +22,7 @@ namespace EcommerceWeb.Application.Products.GetbyCategory
             _productRepository = productRepository;
         }
 
-        public async Task<PaginatedList<ProductModelAppLayer>> Handle(GetProductByCategoryQuery query, CancellationToken cancellationToken)
+        public async Task<Paginated<ProductModelAppLayer>> Handle(GetProductByCategoryQuery query, CancellationToken cancellationToken)
         {
             var products = await _productRepository.GetProductsByCategoryNameAsync(
             query.CategoryName,

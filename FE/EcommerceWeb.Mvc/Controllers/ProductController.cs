@@ -5,15 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceWeb.Mvc.Controllers
 {
-    [Route("products")]
     public class ProductController : Controller
     {
         [BindProperty]
         public AddToCartModel AddToCartInput { get; set; } = new AddToCartModel();
         private readonly ILogger<ProductController> _logger;
         private readonly IProductServices _productServices;
-
-        public ProductController(IProductServices productServices, ILogger<ProductController> logger)
+		public string Test = "a45bcfdc-187a-4cda-ab3e-9cad3492fa6c";
+		public ProductController(IProductServices productServices, ILogger<ProductController> logger)
         {
             _productServices = productServices;
             _logger = logger;
@@ -28,11 +27,12 @@ namespace EcommerceWeb.Mvc.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Details(int id)
+       
+
+		public async Task<IActionResult> Details(string id)
         {
             _logger.LogInformation("Get product by id from API");
-            var product = await _productServices.GetProductByIdAsync(id);
+            var product = await _productServices.GetProductByIdAsync(Test);
             if (product == null)
             {
                 return NotFound();
@@ -42,7 +42,7 @@ namespace EcommerceWeb.Mvc.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> AddToCart(int id)
+        public async Task<IActionResult> AddToCart(string id)
         {
             _logger.LogInformation("Add product to cart");
             var product = await _productServices.GetProductByIdAsync(id);

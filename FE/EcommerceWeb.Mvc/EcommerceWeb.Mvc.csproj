@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Shared\Components\CartDetails\" />
-    <Folder Include="Views\Shared\Components\ProductReviews\" />
+    <Folder Include="Views\Home\Partials\" />
+    <Folder Include="Views\Product\Partial\" />
   </ItemGroup>
 
 </Project>

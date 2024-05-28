@@ -7,37 +7,37 @@ namespace EcommerceWeb.Mvc
 {
     public static class DependencyInjection
     {
-        //public static IServiceCollection AddAuthenticationConfiguration(this IServiceCollection services)
-        //{
-        //    services.AddControllersWithViews();
+        public static IServiceCollection AddAuthenticationConfiguration(this IServiceCollection services)
+        {
+            services.AddControllersWithViews();
 
-        //    services.AddAuthentication(options =>
-        //    {
-        //        options.DefaultScheme = "Cookies";
-        //        options.DefaultChallengeScheme = "oidc";
-        //    })
-        //                .AddCookie("Cookies")
-        //                .AddOpenIdConnect("oidc", options =>
-        //                {
-        //                    options.Authority = "https://localhost:7280"; // IdentityServer Url
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            })
+                        .AddCookie("Cookies")
+                        .AddOpenIdConnect("oidc", options =>
+                        {
+                            options.Authority = "https://localhost:7280"; // IdentityServer Url
 
-        //                    options.ClientId = "EcommerceWeb.Mvc";
-        //                    options.ClientSecret = "This is how it strong to be pass every challenger";
-        //                    options.ResponseType = "code";
-        //                    options.SaveTokens = true;
+                            options.ClientId = "EcommerceWeb.Mvc";
+                            options.ClientSecret = "This is how it strong to be pass every challenger";
+                            options.ResponseType = "code";
+                            options.SaveTokens = true;
 
-        //                    options.Scope.Add("openid");
-        //                    options.Scope.Add("profile");
-        //                    options.Scope.Add("EcommerceWeb.WebApi");
-        //                    options.Scope.Add("offline_access");
+                            options.Scope.Add("openid");
+                            options.Scope.Add("profile");
+                            options.Scope.Add("EcommerceWeb.WebApi");
+                            options.Scope.Add("offline_access");
 
-        //                    options.GetClaimsFromUserInfoEndpoint = true;
-        //                    options.ClaimActions.MapJsonKey(ClaimTypes.Role, "role");
-        //                    options.TokenValidationParameters.NameClaimType = "name";
-        //                    options.TokenValidationParameters.RoleClaimType = "role";
-        //                });
-        //    return services;
-        //}
+                            options.GetClaimsFromUserInfoEndpoint = true;
+                            options.ClaimActions.MapJsonKey(ClaimTypes.Role, "role");
+                            options.TokenValidationParameters.NameClaimType = "name";
+                            options.TokenValidationParameters.RoleClaimType = "role";
+                        });
+            return services;
+        }
 
         public static IServiceCollection AddApiClientConfiguration(this IServiceCollection services)
         {

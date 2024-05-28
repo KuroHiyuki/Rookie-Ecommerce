@@ -21,6 +21,10 @@ namespace EcommerceWeb.Application.Products.GetById
         public async Task<ProductModelAppLayer> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetByIdAsync(query.Id, cancellationToken);
+            if(product is null )
+            {
+                throw new Exception($"Not Found Product Id : {query.Id}");
+            }    
             var result = new ProductModelAppLayer
             {
                 Id = product!.Id,

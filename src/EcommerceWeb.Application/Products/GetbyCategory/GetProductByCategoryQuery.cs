@@ -12,7 +12,7 @@ namespace EcommerceWeb.Application.Products.GetbyCategory
     public record GetProductByCategoryQuery(
         string CategoryName,
         PageQuery Query
-        ) : IRequest<PaginatedList<ProductModelAppLayer>>
+        ) : IRequest<Paginated<ProductModelAppLayer>>
     {
     }
 }

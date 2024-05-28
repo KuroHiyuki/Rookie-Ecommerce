@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Application.Common.Services.Paginations
 {
-    internal class PaginatedList
-    {
+    public class Paginated
+	{
     }
-    public class PaginatedList<T>
+    public class Paginated<T>
     {
-        private PaginatedList(IEnumerable<T> items, int page, int pageSize, int totalCount)
+        private Paginated(IEnumerable<T> items, int page, int pageSize, int totalCount)
         {
             Items = items;
             Page = page;
@@ -27,7 +27,7 @@ namespace EcommerceWeb.Application.Common.Services.Paginations
 
         public bool HasPreviousPage => Page > 1;
 
-        public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> query, int page, int pageSize)
+        public static async Task<Paginated<T>> CreateAsync(IQueryable<T> query, int page, int pageSize)
         {
             var totalCount = await query.CountAsync();
             var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();

@@ -16,14 +16,14 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace EcommerceWeb.Application.Products.GetListProducts
 {
-    public class GetListProductQueryHandler : IRequestHandler<GetListProductQuery, PaginatedList<ProductModelAppLayer>>
+    public class GetListProductQueryHandler : IRequestHandler<GetListProductQuery, Paginated<ProductModelAppLayer>>
     {
         private readonly IProductRepository _productRepository;
         public GetListProductQueryHandler(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }
-        public async Task<PaginatedList<ProductModelAppLayer>> Handle(GetListProductQuery query, CancellationToken cancellationToken)
+        public async Task<Paginated<ProductModelAppLayer>> Handle(GetListProductQuery query, CancellationToken cancellationToken)
         {
             var products = await _productRepository.GetListProductPageAsync(query.page,cancellationToken);
             return products!;

@@ -3,19 +3,20 @@ using EcommerceWeb.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services
+    .AddAuthenticationConfiguration()
+   .AddHttpContextAccessor();
+builder.Services
+  .AddApiClientConfiguration();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
+//builder.Logging.ClearProviders();
+//builder.Logging.AddConsole();
 
 // Add services to the container.
-builder.Services
-    //.AddAuthenticationConfiguration()
-    .AddHttpContextAccessor()
-    .AddApiClientConfiguration();
+
 
 if (!app.Environment.IsDevelopment())
 {
@@ -33,8 +34,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
-    name: "productDetails",
-    pattern: "Products/{productId}",
-    defaults: new { controller = "Products", action = "Details" });
 app.Run();

@@ -1,4 +1,5 @@
 ﻿using EcommerceWeb.Mvc.Models.Products;
+using EcommerceWeb.Presentation.Common;
 using Newtonsoft.Json;
 
 namespace EcommerceWeb.Mvc.Services.Products
@@ -10,12 +11,12 @@ namespace EcommerceWeb.Mvc.Services.Products
         public ProductService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("https://localhost:7273/");
+            _httpClient.BaseAddress = new Uri("https://localhost:7273");
         }
 
-        public async Task<ProductVM?> GetProductByIdAsync(int id)
+        public async Task<ProductVM?> GetProductByIdAsync(string id)
         {
-            var response = await _httpClient.GetAsync($"api/v1/products/{id}");
+            var response = await _httpClient.GetAsync($"product/{id}");
 
             response.EnsureSuccessStatusCode();
 
@@ -24,25 +25,26 @@ namespace EcommerceWeb.Mvc.Services.Products
             return product;
         }
 
-        public async Task<List<ProductVM>> GetProductsAsync()
+        public async Task<Paginated<ProductVM>> GetProductsAsync()
         {
-            var response = await _httpClient.GetAsync("api/v1/products");
+            var response = await _httpClient.GetAsync("/product");
 
             response.EnsureSuccessStatusCode();
 
             string content = await response.Content.ReadAsStringAsync();
-            var products = JsonConvert.DeserializeObject<List<ProductVM>>(content)!;
-            return products;
+            var products = JsonConvert.DeserializeObject<Paginated<ProductVM>>(content);
+
+			return products;
         }
 
-        public async Task<List<ProductVM>> GetProductsByCategoryNameAsync(string categoryName)
+        public async Task<Paginated<ProductVM>> GetProductsByCategoryNameAsync(string categoryName)
         {
             var response = await _httpClient.GetAsync($"api/v1/products/collections/{categoryName}");
 
             response.EnsureSuccessStatusCode();
 
             string content = await response.Content.ReadAsStringAsync();
-            var products = JsonConvert.DeserializeObject<List<ProductVM>>(content)!;
+            var products = JsonConvert.DeserializeObject<Paginated<ProductVM>>(content)!;
             return products;
         }
     }

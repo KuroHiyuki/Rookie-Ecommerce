@@ -43,7 +43,7 @@ namespace EcommerceWeb.Infrastructure.Products
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<PaginatedList<ProductModelAppLayer>> GetProductsByCategoryNameAsync(string categoryName, string? searchTerm, string? sortOrder, string? sortColumn, int page, int pageSize, CancellationToken cancellationToken = default)
+        public async Task<Paginated<ProductModelAppLayer>> GetProductsByCategoryNameAsync(string categoryName, string? searchTerm, string? sortOrder, string? sortColumn, int page, int pageSize, CancellationToken cancellationToken = default)
         {
             IQueryable<Product> productsQuery = _dbContext.Products
                 .Where(p => p.Category!.Name == categoryName)
@@ -67,11 +67,11 @@ namespace EcommerceWeb.Infrastructure.Products
                 Images = p.Images.Select(i => i.Url).ToList()
             });
 
-            return await PaginatedList<ProductModelAppLayer>.CreateAsync(productResponsesQuery, page, pageSize);
+            return await Paginated<ProductModelAppLayer>.CreateAsync(productResponsesQuery, page, pageSize);
         }
         
 
-        public async Task<PaginatedList<ProductModelAppLayer>> GetListProductPageAsync(PageQuery page, CancellationToken cancellationToken = default)
+        public async Task<Paginated<ProductModelAppLayer>> GetListProductPageAsync(PageQuery page, CancellationToken cancellationToken = default)
         {
             IQueryable<Product> productsQuery = _dbContext.Products
                 .Include(p => p.Category)
@@ -93,7 +93,7 @@ namespace EcommerceWeb.Infrastructure.Products
                 Images =p.Images.Select(i => i.Url).ToList()
             });
 
-            return await PaginatedList<ProductModelAppLayer>.CreateAsync(productResponsesQuery, page.Page, page.PageSize);
+            return await Paginated<ProductModelAppLayer>.CreateAsync(productResponsesQuery, page.Page, page.PageSize);
         }
 
         public async Task UpdateAsync(Product product)

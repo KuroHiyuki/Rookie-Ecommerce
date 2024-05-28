@@ -69,7 +69,7 @@ namespace EcommerceWeb.WebApi.Controllers
 
                 return Ok(await _mediator.Send(query));
             }
-            catch (NotFoundException e)
+            catch (Exception e)
             {
                 return NotFound(e.Message);
             }

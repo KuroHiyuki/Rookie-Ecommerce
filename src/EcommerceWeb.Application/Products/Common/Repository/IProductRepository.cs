@@ -16,7 +16,7 @@ namespace EcommerceWeb.Application.Products.Common.Interfaces
     public interface IProductRepository : IBaseRepository<Product>
     {
         void SoftDelete(Product product);
-        Task<PaginatedList<ProductModelAppLayer>> GetProductsByCategoryNameAsync(
+        Task<Paginated<ProductModelAppLayer>> GetProductsByCategoryNameAsync(
         string categoryName,
         string? searchTerm,
         string? sortOrder,
@@ -24,7 +24,7 @@ namespace EcommerceWeb.Application.Products.Common.Interfaces
         int page,
         int pageSize,
         CancellationToken cancellationToken = default);
-        Task<PaginatedList<ProductModelAppLayer>> GetListProductPageAsync(PageQuery page, CancellationToken cancellationToken = default);
+        Task<Paginated<ProductModelAppLayer>> GetListProductPageAsync(PageQuery page, CancellationToken cancellationToken = default);
         Task UpdateAsync(Product product);
         Task RemoveProductImagesAsync(Product product);
         Task<List<Image>> SaveProductImagesAsync(IFormFileCollection formFiles, string Id);
