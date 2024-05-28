@@ -18,7 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
+    <Folder Include="Views\Shared\Components\CartDetails\" />
+    <Folder Include="Views\Shared\Components\Header\" />
+    <Folder Include="Views\Shared\Components\SideBars\" />
+    <Folder Include="Views\Shared\Components\ProductCards\" />
+    <Folder Include="Views\Shared\Components\ProductReviews\" />
   </ItemGroup>
 
 </Project>
