@@ -1,4 +1,4 @@
-﻿namespace EcommerceWeb.Mvc.Models
+﻿namespace EcommerceWeb.Mvc.Models.Categories
 {
     public class CategoryVM
     {

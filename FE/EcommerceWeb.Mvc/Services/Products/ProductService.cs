@@ -1,4 +1,4 @@
-﻿using EcommerceWeb.Mvc.Models;
+﻿using EcommerceWeb.Mvc.Models.Products;
 using Newtonsoft.Json;
 
 namespace EcommerceWeb.Mvc.Services.Products

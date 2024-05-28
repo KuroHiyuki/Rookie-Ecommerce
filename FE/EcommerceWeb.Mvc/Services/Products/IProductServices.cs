@@ -1,4 +1,4 @@
-﻿using EcommerceWeb.Mvc.Models;
+﻿using EcommerceWeb.Mvc.Models.Products;
 
 namespace EcommerceWeb.Mvc.Services.Products
 {

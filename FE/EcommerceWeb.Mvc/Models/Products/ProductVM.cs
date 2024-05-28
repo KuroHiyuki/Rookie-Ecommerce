@@ -1,4 +1,6 @@
-﻿namespace EcommerceWeb.Mvc.Models
+﻿using EcommerceWeb.Mvc.Models.Categories;
+
+namespace EcommerceWeb.Mvc.Models.Products
 {
     public class ProductVM
     {
