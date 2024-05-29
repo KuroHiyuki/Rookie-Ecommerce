@@ -2,7 +2,7 @@
 @using EcommerceWeb.Presentation.Common
 @model Paginated<ProductVM>
 
-<section class="bg0 p-t-100! p-b-140 ">
+<section class="bg0 p-t-24 p-b-140 " >
 	<div class="container">
 		<div class="p-b-10">
 			<h5 class="ltext-103 cl5">
@@ -254,7 +254,7 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a asp-asp-controller="Product" asp-action="Details" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a asp-asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									@product.Name
 								</a>
 								<span class="stext-105 cl3">

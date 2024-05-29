@@ -17,7 +17,7 @@ namespace EcommerceWeb.Mvc.Services.Products
 
         public async Task<ProductVM?> GetProductByIdAsync(string id)
         {
-            var response = await _httpClient.GetAsync($"product/{id}");
+            var response = await _httpClient.GetAsync($"/product/{id}");
 
             response.EnsureSuccessStatusCode();
 

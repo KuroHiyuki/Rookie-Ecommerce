@@ -32,7 +32,7 @@ namespace EcommerceWeb.Mvc.Controllers
 		public async Task<IActionResult> Details(string id)
         {
             _logger.LogInformation("Get product by id from API");
-            var product = await _productServices.GetProductByIdAsync(Test);
+            var product = await _productServices.GetProductByIdAsync(id);
             if (product == null)
             {
                 return NotFound();

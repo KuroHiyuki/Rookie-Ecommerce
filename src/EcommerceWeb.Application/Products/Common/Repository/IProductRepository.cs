@@ -29,5 +29,6 @@ namespace EcommerceWeb.Application.Products.Common.Interfaces
         Task RemoveProductImagesAsync(Product product);
         Task<List<Image>> SaveProductImagesAsync(IFormFileCollection formFiles, string Id);
         Task CreateProductAsync(ProductModelAppLayer model, List<Image> images);
+        Task<Product> GetProdcutByIdAsync(string id);
     }
 }

@@ -85,10 +85,12 @@ namespace EcommerceWeb.Infrastructure.Products
                 Description = p.Description!,
                 Price = p.UnitPrice,
                 Stock = p.Inventory,
+                CategoryId = p.CategoryId,
                 Category = new CategoryModelAppLayer
                 {
                     Id = p.Category!.Id,
-                    Name = p.Category.Name!
+                    Name = p.Category.Name!,
+                    Description = p.Description!
                 },
                 Images =p.Images.Select(i => i.Url).ToList()
             });
@@ -163,6 +165,19 @@ namespace EcommerceWeb.Infrastructure.Products
 
             await Task.WhenAll(imgDeleteTasks);
             product.Images.Clear();
+        }
+
+        public async Task<Product> GetProdcutByIdAsync(string id)
+        {
+            var product = await _dbContext.Products
+                            .Include(c => c.Category)
+                            .Include(i => i.Images)
+                            .FirstOrDefaultAsync(p =>  p.Id == id);
+            if(product is null )
+            {
+                throw new Exception($"Not Found Product Id: {id}");
+            }
+            return product;
         }
     }
 }

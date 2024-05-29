@@ -1,4 +1,4 @@
-﻿using EcommerceWeb.Application.Categories.Common.Response;
+﻿
 using EcommerceWeb.Application.Common.Errors;
 using EcommerceWeb.Application.Common.Interface;
 using EcommerceWeb.Application.Products.Common.Interfaces;
@@ -20,7 +20,7 @@ namespace EcommerceWeb.Application.Products.GetById
 
         public async Task<ProductModelAppLayer> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetByIdAsync(query.Id, cancellationToken);
+            var product = await _productRepository.GetProdcutByIdAsync(query.Id);
             if(product is null )
             {
                 throw new Exception($"Not Found Product Id : {query.Id}");
@@ -34,6 +34,12 @@ namespace EcommerceWeb.Application.Products.GetById
                 CategoryId = product.CategoryId,
                 Description = product.Description!,
                 Images = product.Images!.Select(u => u.Url).ToList(),
+                Category = new Categories.Common.Response.CategoryModelAppLayer
+                {
+                    Id = product.CategoryId,
+                    Name = product.Name,
+                    Description = product.Description
+                }
             };
             return result;
         }
