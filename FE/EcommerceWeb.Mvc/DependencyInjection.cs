@@ -1,5 +1,6 @@
 ﻿using EcommerceWeb.Mvc.Services.Categories;
 using EcommerceWeb.Mvc.Services.Products;
+using EcommerceWeb.Mvc.Services.Reviews;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
@@ -55,13 +56,14 @@ namespace EcommerceWeb.Mvc
 
             services.AddHttpClient<IProductServices, ProductService>(configureClient);
 			services.AddHttpClient<ICategoryServices, CategoryServices>(configureClient);
-			//services.AddHttpClient<ICategoriesApiClient, CategoriesApiClient>(configureClient);
-			//services.AddHttpClient<ICartApiClient, CartApiClient>(configureClient);
-			//services.AddHttpClient<IReviewsApiClient, ReviewsApiClient>(configureClient);
-			//services.AddHttpClient<IOrdersApiClient, OrdersApiClient>(configureClient);
-			//services.AddHttpClient<IAccountApiClient, AccountApiClient>(configureClient);
+            services.AddHttpClient<IReviewServices, ReviewServices>(configureClient);
+            //services.AddHttpClient<ICategoriesApiClient, CategoriesApiClient>(configureClient);
+            //services.AddHttpClient<ICartApiClient, CartApiClient>(configureClient);
+            //services.AddHttpClient<IReviewsApiClient, ReviewsApiClient>(configureClient);
+            //services.AddHttpClient<IOrdersApiClient, OrdersApiClient>(configureClient);
+            //services.AddHttpClient<IAccountApiClient, AccountApiClient>(configureClient);
 
-			return services;
+            return services;
         }
     }
 }

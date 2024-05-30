@@ -36,14 +36,22 @@ namespace EcommerceWeb.Mvc.Services.Products
 				{
 					queryString.Append($"Page={page.Page}&");
 				}
-
-				queryString.Append("PageSize=1&");
-                if (page.SearchTerm is not null)
+                
+                //queryString.Append("PageSize=1&");
+                if (!string.IsNullOrEmpty(page.SearchTerm))
                 {
                     queryString.Append($"SearchTerm={page.SearchTerm}&");
                 }
-				// Xóa dấu & cuối cùng nếu có
-				if (queryString[queryString.Length - 1] == '&')
+
+                if (!string.IsNullOrEmpty(page.SortOrder))
+                {
+                    queryString.Append($"SortOrder={page.SortOrder}&");
+                }
+                if (!string.IsNullOrEmpty(page.SortColumn))
+                {
+                    queryString.Append($"SortColumn={page.SortColumn}&");
+                }
+                if (queryString[queryString.Length - 1] == '&')
 				{
 					queryString.Length -= 1;
 				}
