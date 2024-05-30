@@ -1,6 +1,7 @@
 ﻿using EcommerceWeb.Mvc.Models.Products;
 using EcommerceWeb.Presentation.Common;
 using Newtonsoft.Json;
+using System.Text;
 using System.Text.Json;
 
 namespace EcommerceWeb.Mvc.Services.Products
@@ -12,7 +13,6 @@ namespace EcommerceWeb.Mvc.Services.Products
         public ProductService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("https://localhost:7273");
         }
 
         public async Task<ProductVM?> GetProductByIdAsync(string id)
@@ -26,9 +26,30 @@ namespace EcommerceWeb.Mvc.Services.Products
             return product;
         }
 
-        public async Task<Paginated<ProductVM>> GetProductsAsync()
+        public async Task<Paginated<ProductVM>> GetProductsAsync(PageQuery page = default!)
         {
-            var response = await _httpClient.GetAsync("/product");
+			var url = "/product";
+			if (page != null)
+			{
+				var queryString = new StringBuilder("?");
+				if (page.Page is not 1 and > 0)
+				{
+					queryString.Append($"Page={page.Page}&");
+				}
+
+				queryString.Append("PageSize=1&");
+                if (page.SearchTerm is not null)
+                {
+                    queryString.Append($"SearchTerm={page.SearchTerm}&");
+                }
+				// Xóa dấu & cuối cùng nếu có
+				if (queryString[queryString.Length - 1] == '&')
+				{
+					queryString.Length -= 1;
+				}
+				url += queryString.ToString();
+			}
+			var response = await _httpClient.GetAsync(url);
 
             response.EnsureSuccessStatusCode();
 

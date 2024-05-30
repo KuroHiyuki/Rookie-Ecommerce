@@ -1,5 +1,6 @@
 ﻿using EcommerceWeb.Mvc.Services.Products;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 
@@ -39,13 +40,15 @@ namespace EcommerceWeb.Mvc
             return services;
         }
 
-        public static IServiceCollection AddApiClientConfiguration(this IServiceCollection services)
+        public static IServiceCollection AddApiClientConfiguration(this IServiceCollection services, ConfigurationManager configuration)
         {
-            var configureClient = new Action<IServiceProvider, HttpClient>(async (provider, client) =>
+			var baseUrl = configuration.GetSection("HttpClientConfig:BaseUrl").Value;
+
+			var configureClient = new Action<IServiceProvider, HttpClient>(async (provider, client) =>
             {
                 var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
                 var accessToken = await httpContextAccessor?.HttpContext?.GetTokenAsync("access_token") ?? "";
-                client.BaseAddress = new Uri("https://localhost:7273");
+                client.BaseAddress = new Uri(baseUrl);
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             });
 

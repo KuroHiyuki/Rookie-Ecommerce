@@ -1,4 +1,5 @@
 ﻿using EcommerceWeb.Mvc.Services.Products;
+using EcommerceWeb.Presentation.Common;
 using EcommerceWeb.Presentation.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,6 @@ namespace EcommerceWeb.Mvc.Controllers
         public AddToCartModel AddToCartInput { get; set; } = new AddToCartModel();
         private readonly ILogger<ProductController> _logger;
         private readonly IProductServices _productServices;
-		public string Test = "a45bcfdc-187a-4cda-ab3e-9cad3492fa6c";
 		public ProductController(IProductServices productServices, ILogger<ProductController> logger)
         {
             _productServices = productServices;
@@ -21,14 +21,11 @@ namespace EcommerceWeb.Mvc.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            _logger.LogInformation("Get products from API");
-            var products = await _productServices.GetProductsAsync();
-            return View(products);
+            await Task.CompletedTask;
+            return View();
         }
 
         [AllowAnonymous]
-       
-
 		public async Task<IActionResult> Details(string id)
         {
             _logger.LogInformation("Get product by id from API");

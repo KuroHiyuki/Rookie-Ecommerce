@@ -9,7 +9,7 @@ builder.Services
     .AddAuthenticationConfiguration()
    .AddHttpContextAccessor();
 builder.Services
-  .AddApiClientConfiguration();
+  .AddApiClientConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
