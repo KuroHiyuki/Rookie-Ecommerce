@@ -1,14 +1,14 @@
-﻿
-@using EcommerceWeb.Presentation.Common
+﻿@using EcommerceWeb.Presentation.Common
 
 @{
     var page = int.TryParse(Context.Request.Query["Page"], out int pageValue) ? pageValue : 1;
     var search = Context.Request.Query["Search"].ToString();
+    var categoryName = Context.Request.Query["categoryName"].ToString();
 
 }
 @{
     ViewData["Title"] = "Product List";
 }
 <div class="m-t-80">
-    @await Component.InvokeAsync("ProductList", new PageQuery { Page = page,SearchTerm =search})
+    @await Component.InvokeAsync("ProductList", new { categoryName = categoryName, page = new PageQuery { Page = page, SearchTerm = search } });
 </div>

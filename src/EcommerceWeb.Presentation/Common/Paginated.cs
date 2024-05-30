@@ -13,7 +13,7 @@ namespace EcommerceWeb.Presentation.Common
         }
         public IEnumerable<T> Items { get; } = new List<T>();
         public int Page { get; } = 1;
-        public int PageSize { get; } = 10;
+        public int PageSize { get; } = 12;
         public int TotalCount { get; } = 0;
         public bool HasNextPage => Page * PageSize < TotalCount;
 

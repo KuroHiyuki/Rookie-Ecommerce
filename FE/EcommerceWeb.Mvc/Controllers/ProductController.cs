@@ -24,8 +24,8 @@ namespace EcommerceWeb.Mvc.Controllers
             await Task.CompletedTask;
             return View();
         }
-
-        [AllowAnonymous]
+		
+		[AllowAnonymous]
 		public async Task<IActionResult> Details(string id)
         {
             _logger.LogInformation("Get product by id from API");

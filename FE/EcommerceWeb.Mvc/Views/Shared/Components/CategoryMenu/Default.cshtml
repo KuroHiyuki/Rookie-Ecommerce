@@ -3,14 +3,14 @@
 
 <div class="flex-w flex-sb-m p-b-52">
 	<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-		<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+		<a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" asp-controller="Product" asp-action="Index">
 			All Products
-		</button>
+		</a>
 		@foreach (var category in Model)
 		{
-			<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".@category.Name">
+			<a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" asp-controller="Product"  asp-action="Index" asp-route-categoryName="@category.Name">
 				@category.Name
-			</button>
+			</a>
 		}
 	</div>
 

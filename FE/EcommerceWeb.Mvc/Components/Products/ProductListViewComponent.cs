@@ -13,17 +13,30 @@ namespace EcommerceWeb.Mvc.Components.Products
 			_productService = productService;
 		}
 
-		public async Task<IViewComponentResult> InvokeAsync(PageQuery page =default!)
+		public async Task<IViewComponentResult> InvokeAsync(string categoryName = default!, PageQuery page = default!)
         {
-
-			var products = await _productService.GetProductsAsync(page);
-
-			if (products is null)
+			if(!string.IsNullOrEmpty(categoryName))
 			{
-				return View("NoProducts");
-			}
+                var products = await _productService.GetProductsByCategoryNameAsync(categoryName, page);
 
-			return View(products);
+                if (products is null)
+                {
+                    return View("NoProducts");
+                }
+
+                return View(products);
+            }
+			else
+			{
+                var products = await _productService.GetProductsAsync(page);
+
+                if (products is null)
+                {
+                    return View("NoProducts");
+                }
+
+                return View(products);
+            }			
 		}
-    }
+	}
 }

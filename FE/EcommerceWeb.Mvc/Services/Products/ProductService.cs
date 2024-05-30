@@ -58,9 +58,9 @@ namespace EcommerceWeb.Mvc.Services.Products
 			return products;
         }
 
-        public async Task<Paginated<ProductVM>> GetProductsByCategoryNameAsync(string categoryName)
+        public async Task<Paginated<ProductVM>> GetProductsByCategoryNameAsync(string categoryName, PageQuery page = default!)
         {
-            var response = await _httpClient.GetAsync($"api/v1/products/collections/{categoryName}");
+            var response = await _httpClient.GetAsync($"product/collections/{categoryName}");
 
             response.EnsureSuccessStatusCode();
 

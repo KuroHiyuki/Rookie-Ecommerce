@@ -4,15 +4,17 @@
 @model Paginated<ProductVM>
 
 
-
 <section class="bg0 p-t-24 p-b-140 " >
 	<div class="container">
+
 		<div class="p-b-10">
 			<h5 class="ltext-103 cl5">
 				Product List
 			</h5>
 		</div>
+
 		@await Component.InvokeAsync("CategoryMenu")
+
 		<div class="row isotope-grid">
 			@foreach (var product in Model.Items)
 			{
@@ -48,8 +50,6 @@
 			}
 		</div>
 
-
-		<!-- Load more -->
 		<div class="flex-c-m flex-w w-full p-t-45">
 			<nav aria-label="...">
 				<ul class="pagination">
@@ -65,7 +65,14 @@
 							<a asp-action="Index" asp-route-Page="@(Model.Page -1)" class="page-link">Previous</a>
 						</li>
 					}
-					@for (int i = 1; i <= Model.TotalCount; i++)
+					@{
+						int count = Model.TotalCount / Model.PageSize;
+						if (Model.TotalCount %Model.PageSize != 0)
+						{
+							count++;
+						}
+					}
+					@for (int i = 1; i <= count; i++)
 					{
 						<li class="page-item @(Model.Page == i ? "active" : "")">
 							<a asp-action="Index" asp-route-Page="@i" class="page-link">@i</a>

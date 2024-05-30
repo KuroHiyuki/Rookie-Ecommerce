@@ -1,4 +1,4 @@
-using EcommerceWeb.Mvc;
+﻿using EcommerceWeb.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using System.Net;
 
@@ -39,5 +39,7 @@ app.UseRouting();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.Run();
