@@ -1,27 +1,29 @@
-﻿using EcommerceWeb.Mvc.Services.Products;
+﻿using EcommerceWeb.Mvc.Services.Categories;
+using EcommerceWeb.Mvc.Services.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceWeb.Mvc.Components.Categories
 {
-	public class CategoryMenuViewComponent
+	public class CategoryMenuViewComponent : ViewComponent
 	{
-		private readonly IProductServices _productService;
-		public CategoryMenuViewComponent(IProductServices productService)
+		private readonly ICategoryServices _categoryServices;
+
+		public CategoryMenuViewComponent(ICategoryServices categoryServices)
 		{
-			_productService = productService;
+			_categoryServices = categoryServices;
 		}
 
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
 
-			var products = await _productService.GetProductsAsync();
+			var category = await _categoryServices.GetListAsync();
 
-			if (products is null)
+			if (category is null)
 			{
 				return View("NoProducts");
 			}
 
-			return View(products);
+			return View(category);
 		}
 	}
 }
