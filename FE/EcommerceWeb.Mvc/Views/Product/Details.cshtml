@@ -6,7 +6,7 @@
     ViewData["Title"] = "Product Detail";
 }
 @{
-    var id = Context.Request.Query["id"].ToString();
+    string value = ViewContext.RouteData.Values["id"] as string;
 }
 <section class="m-t-80">
     <div class="container">
@@ -175,7 +175,7 @@
             </span>
         </div>
 
-        @await Component.InvokeAsync("ReviewList", new { ProdcutId = id}) 
+        @await Component.InvokeAsync("ReviewList", new { ProdcutId = Model.Id}) 
     </section>
 </section>
 
