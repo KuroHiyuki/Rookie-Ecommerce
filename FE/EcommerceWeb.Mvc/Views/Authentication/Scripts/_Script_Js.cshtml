@@ -1,0 +1,42 @@
+﻿<script>
+    const loginText = document.querySelector(".title-text .login");
+    const loginForm = document.querySelector("form.login");
+    const loginBtn = document.querySelector("label.login");
+    const signupBtn = document.querySelector("label.signup");
+    const signupLink = document.querySelector("form .signup-link a");
+    signupBtn.onclick = (() => {
+        loginForm.style.marginLeft = "-50%";
+        loginText.style.marginLeft = "-50%";
+    });
+    loginBtn.onclick = (() => {
+        loginForm.style.marginLeft = "0%";
+        loginText.style.marginLeft = "0%";
+    });
+    signupLink.onclick = (() => {
+        signupBtn.click();
+        return false;
+    });
+    function validateForm() {
+        var email = document.forms["signupForm"]["request.Email"].value;
+        var password = document.forms["signupForm"]["request.Password"].value;
+        var confirmPassword = document.forms["signupForm"]["confirmPassword"].value;
+        var numberPhone = document.forms["signupForm"]["request.NumberPhone"].value;
+        var address = document.forms["signupForm"]["request.Address"].value;
+
+        // Kiểm tra số điện thoại (chỉ cho phép số)
+        var phoneRegex = /^[0-9]+$/;
+        if (!phoneRegex.test(numberPhone)) {
+            alert("Số điện thoại không hợp lệ. Vui lòng chỉ nhập số.");
+            return false;
+        }
+
+        // Kiểm tra xác nhận mật khẩu
+        if (password !== confirmPassword) {
+            alert("Mật khẩu xác nhận không khớp.");
+            return false;
+        }
+
+        // Nếu tất cả điều kiện đều hợp lệ
+        return true;
+    }
+</script>

@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form asp-action="Register" asp-controller="Authentication" method="post" class="signup">
+    <div class="field">
+        <input type="text" placeholder="Email Address" name="request.Email" required>
+    </div>
+    <div class="field">
+        <input type="password" placeholder="Password" name="request.Password" required>
+    </div>
+    <div class="field">
+        <input type="password" placeholder="Confirm password"  required>
+    </div>
+    <div class="field">
+        <input type="tel" placeholder="Number phone" name="request.NumberPhone" required>
+    </div>
+    <div class="field">
+        <input type="text" placeholder="Address" name="request.Address" required>
+    </div>
+    <div class="field btn">
+        <div class="btn-layer"></div>
+        <input type="submit" value="Signup">
+    </div>
+    <div class="signup-link">Already have an account? <a href="">Login</a></div>
+</form>

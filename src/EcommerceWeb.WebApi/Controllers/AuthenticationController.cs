@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceWeb.WebApi.Controllers
 {
-    [Route("auth/[controller]")]
+    [Route("[controller]")]
     public class AuthenticationController : APIController
     {
         private readonly ISender _mediator;
@@ -27,8 +27,6 @@ namespace EcommerceWeb.WebApi.Controllers
                                               request.LastName,
                                               request.Email,
                                               request.Password,
-                                              (Sex)request.Sex,
-                                              request.Birthday,
                                               request.NumberPhone,
                                               request.Address);
             ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);

@@ -11,8 +11,6 @@ namespace EcommerceWeb.Presentation.Authutentication
         string LastName,
         string Email,
         string Password,
-        int Sex,
-        DateTime Birthday,
         string NumberPhone,
         string Address
     );

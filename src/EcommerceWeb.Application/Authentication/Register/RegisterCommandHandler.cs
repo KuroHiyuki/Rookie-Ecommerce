@@ -29,8 +29,6 @@ namespace EcommerceWeb.Application.Authentication.Register
                 LastName = command.LastName,
                 Email = command.Email,
                 PasswordHash = command.Password,
-                Sex = command.Sex,
-                BirthDate = command.Birthday,
                 PhoneNumber = command.NumberPhone,
                 Address = command.Address
             };

@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - My Application</title>
+    @await Html.PartialAsync("CssAndJsScripts/_Style")
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title-text">
+            <div class="title login">Login Form</div>
+            <div class="title signup">Signup Form</div>
+        </div>
+        <div class="form-container">
+            <div class="slide-controls">
+                <input type="radio" name="slide" id="login" checked>
+                <input type="radio" name="slide" id="signup">
+                <label for="login" class="slide login">Login</label>
+                <label for="signup" class="slide signup">Signup</label>
+                <div class="slider-tab"></div>
+            </div>
+            <div class="form-inner">
+                @await Html.PartialAsync("Partials/_Login")
+                @await Html.PartialAsync("Partials/_Register")
+            </div>
+        </div>
+    </div>
+</body>
+<link rel="stylesheet" type="text/css" href="~/css/Auth.css">
+@await Html.PartialAsync("Scripts/_Script_Js.cshtml")
+</html>

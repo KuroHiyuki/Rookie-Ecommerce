@@ -10,8 +10,6 @@ namespace EcommerceWeb.Application.Authentication.Register
         string LastName,
         string Email,
         string Password,
-        Sex Sex,
-        DateTime Birthday,
         string NumberPhone,
         string Address) : IRequest<ErrorOr<AuthenticationResult>>;
 }
