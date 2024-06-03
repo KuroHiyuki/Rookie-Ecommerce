@@ -1,0 +1,8 @@
+﻿<script>
+    function showEditForm(reviewId) {
+        document.querySelectorAll('[id^="editForm_"]').forEach(form => {
+            form.style.display = 'none';
+        });
+        document.getElementById('editForm_' + reviewId).style.display = 'block';
+    }
+</script>

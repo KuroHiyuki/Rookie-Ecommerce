@@ -5,9 +5,7 @@
     string value = ViewContext.RouteData.Values["id"] as string;
 }
 <div class="bor10 m-t-50 p-t-43 p-b-40">
-    <!-- Tab01 -->
     <div class="tab01">
-        <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item p-b-10">
                 <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (@Model.Count())</a>
@@ -18,7 +16,6 @@
                 <div class="row">
                     <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                         <div class="p-b-30 m-lr-15-sm">
-                            <!-- Review -->
                             @foreach(var review in Model)
                             {
                                 <div class="flex-w flex-t p-b-68">
@@ -74,11 +71,4 @@
         </div>
     </div>
 </div>
-<script>
-    function showEditForm(reviewId) {
-        document.querySelectorAll('[id^="editForm_"]').forEach(form => {
-            form.style.display = 'none';
-        });
-        document.getElementById('editForm_' + reviewId).style.display = 'block';
-    }
-</script>
+@await Html.PartialAsync("~/Views/Shared/Components/ReviewList/Partials/_Script_Review.cshtml")
