@@ -9,5 +9,6 @@ namespace EcommerceWeb.Mvc.Services.Reviews
         Task<IEnumerable<ReviewVM>> GetReviewListAsync(string productId);
         Task<bool> CreateReviewProductAsync(string ProductId, ReviewRequest request);
         Task RemoveReviewAsync(string productId, string reviewId);
+        Task UpdateReviewAsync(string ProductId, string reviewId, ReviewRequest request);
     }
 }

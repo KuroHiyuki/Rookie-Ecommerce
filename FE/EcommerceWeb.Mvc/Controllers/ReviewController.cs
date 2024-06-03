@@ -29,7 +29,7 @@ namespace EcommerceWeb.Mvc.Controllers
                 bool success = await _reviewServices.CreateReviewProductAsync(ProductId, request);
                 return RedirectToAction("Details", "Product", new { id = ProductId });
             }
-            return View();
+            return View("Error");
         }
         [HttpPost("delete")]
         public async Task<IActionResult> Delete(string ProductId, string reviewId, [FromForm(Name = "_method")] string method)
@@ -37,6 +37,17 @@ namespace EcommerceWeb.Mvc.Controllers
             if (method == "DELETE")
             {
                 await _reviewServices.RemoveReviewAsync(ProductId,reviewId);
+                return RedirectToAction("Details", "Product", new { id = ProductId });
+
+            }
+            return View("Error");
+        }
+        [HttpPost("Edit")]
+        public async Task<IActionResult> Update(string ProductId, string reviewId, [FromForm(Name = "_method")] string method, ReviewRequest request)
+        {
+            if (method == "PUT")
+            {
+                await _reviewServices.UpdateReviewAsync(ProductId, reviewId,request);
                 return RedirectToAction("Details", "Product", new { id = ProductId });
 
             }

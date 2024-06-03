@@ -32,27 +32,3 @@
         Submit
     </button>
 </form>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const stars = document.querySelectorAll('.item-rating');
-    const ratingInput = document.getElementById('rating-input');
-
-    stars.forEach(star => {
-        star.addEventListener('click', function() {
-            const rating = this.getAttribute('value');
-            ratingInput.value = rating;
-
-            // Cập nhật giao diện các ngôi sao
-            stars.forEach(s => {
-                if (s.getAttribute('value') <= rating) {
-                    s.classList.remove('zmdi-star-outline');
-                    s.classList.add('zmdi-star');
-                } else {
-                    s.classList.remove('zmdi-star');
-                    s.classList.add('zmdi-star-outline');
-                }
-            });
-        });
-    });
-});
-</script>

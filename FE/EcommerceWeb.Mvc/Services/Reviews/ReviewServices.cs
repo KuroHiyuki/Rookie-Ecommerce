@@ -1,6 +1,7 @@
 ﻿using EcommerceWeb.Mvc.Models.Reviews;
 using EcommerceWeb.Presentation.Common;
 using EcommerceWeb.Presentation.Reviews;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -35,6 +36,12 @@ namespace EcommerceWeb.Mvc.Services.Reviews
         public async Task RemoveReviewAsync(string productId, string reviewId)
         {
             var response = await _httpClient.DeleteAsync($"review/{reviewId}");
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task UpdateReviewAsync(string ProductId, string reviewId, ReviewRequest request)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"review/{reviewId}", request);
             response.EnsureSuccessStatusCode();
         }
     }
