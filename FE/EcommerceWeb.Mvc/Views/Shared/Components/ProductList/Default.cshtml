@@ -99,33 +99,3 @@
 		</div>
 	</div>
 </section>
-
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-		// Tìm tất cả các nút quick view
-		const quickViewButtons = document.querySelectorAll('.quick-view-btn');
-
-		quickViewButtons.forEach(button => {
-			button.addEventListener('click', async function () {
-				const productId = this.getAttribute('data-product-id');
-
-				// Hiển thị modal
-				const modal = document.querySelector(`#quickViewModal-${productId}`);
-				if (modal) {
-					modal.style.display = 'block';
-				}
-				
-			});
-		});
-
-		// Đóng modal khi nhấn nút close
-		const closeButtons = document.querySelectorAll('.modal-close');
-		closeButtons.forEach(button => {
-			button.addEventListener('click', function () {
-				const modal = this.closest('.quick-view-modal');
-				modal.style.display = 'none';
-			});
-		});
-	});
-
-</script>
