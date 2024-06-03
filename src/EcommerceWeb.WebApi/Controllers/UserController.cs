@@ -6,6 +6,7 @@ using EcommerceWeb.Presentation.User;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using EcommerceWeb.Application.Users.GetUserByEmail;
 
 namespace EcommerceWeb.WebApi.Controllers
 {
@@ -18,7 +19,19 @@ namespace EcommerceWeb.WebApi.Controllers
         {
             _mediator = mediator;
         }
-
+        [HttpGet("{Email}")]
+        public async Task<IActionResult> GetUserByEmailAsync(string Email)
+        {
+            try
+            {
+                var query = new GetUserByEmailQuery(Email);
+                return Ok(await _mediator.Send(query));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpDelete("{UserId}")]
         public async Task<IActionResult> DeleteUserAsync(string UserId)
         {
