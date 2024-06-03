@@ -23,10 +23,12 @@
 						<div class="block2-pic hov-img0">
 							<img src="~/images/product-06.jpg" alt="IMG-PRODUCT">
 
-							<button data-product-id="123" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 quick-view-btn">
+							<button data-product-id="@product.Id" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 quick-view-btn">
 								Quick View
 							</button>
-							@await Component.InvokeAsync("Quick", new { productId = product.Id })
+							@{
+								await Html.RenderPartialAsync("~/Views/Shared/Components/ProductList/Partials/_QuickView.cshtml", product);
+							}
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
@@ -98,18 +100,32 @@
 	</div>
 </section>
 
-@* <script>
+<script>
 	document.addEventListener('DOMContentLoaded', function () {
+		// Tìm tất cả các nút quick view
 		const quickViewButtons = document.querySelectorAll('.quick-view-btn');
 
-		quickViewButtons.forEach(function (button) {
-			button.addEventListener('click', function () {
-				// Lấy giá trị của thuộc tính data-product-id
-				const productId = button.getAttribute('data-product-id');
+		quickViewButtons.forEach(button => {
+			button.addEventListener('click', async function () {
+				const productId = this.getAttribute('data-product-id');
 
-				// Sử dụng productId ở đây cho mục đích của bạn, ví dụ:
-				console.log('Product ID:', productId);
+				// Hiển thị modal
+				const modal = document.querySelector(`#quickViewModal-${productId}`);
+				if (modal) {
+					modal.style.display = 'block';
+				}
+				
+			});
+		});
+
+		// Đóng modal khi nhấn nút close
+		const closeButtons = document.querySelectorAll('.modal-close');
+		closeButtons.forEach(button => {
+			button.addEventListener('click', function () {
+				const modal = this.closest('.quick-view-modal');
+				modal.style.display = 'none';
 			});
 		});
 	});
-</script> *@
+
+</script>

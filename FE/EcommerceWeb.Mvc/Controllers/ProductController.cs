@@ -12,13 +12,15 @@ namespace EcommerceWeb.Mvc.Controllers
         public AddToCartModel AddToCartInput { get; set; } = new AddToCartModel();
         private readonly ILogger<ProductController> _logger;
         private readonly IProductServices _productServices;
-		public ProductController(IProductServices productServices, ILogger<ProductController> logger)
-        {
-            _productServices = productServices;
-            _logger = logger;
-        }
+		private readonly IViewComponentHelper _viewComponentHelper;
+		public ProductController(IProductServices productServices, ILogger<ProductController> logger, IViewComponentHelper viewComponentHelper)
+		{
+			_productServices = productServices;
+			_logger = logger;
+			_viewComponentHelper = viewComponentHelper;
+		}
 
-        [AllowAnonymous]
+		[AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             await Task.CompletedTask;
@@ -50,6 +52,6 @@ namespace EcommerceWeb.Mvc.Controllers
 
             return Redirect("/cart");
         }
-
-    }
+		
+	}
 }
