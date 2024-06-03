@@ -4,11 +4,11 @@
     var page = int.TryParse(Context.Request.Query["Page"], out int pageValue) ? pageValue : 1;
     var search = Context.Request.Query["Search"].ToString();
     var categoryName = Context.Request.Query["categoryName"].ToString();
-    var SortOder = Context.Request.Query["SortOrder"].ToString();
+    var filter = Context.Request.Query["filter"].ToString();
 }
 @{
     ViewData["Title"] = "Product List";
 }
 <div class="m-t-80">
-    @await Component.InvokeAsync("ProductList", new { categoryName = categoryName, page = new PageQuery { Page = page, SearchTerm = search,SortOrder= SortOder,SortColumn = "4" } });
+    @await Component.InvokeAsync("ProductList", new { categoryName = categoryName, page = new PageQuery { Page = page, SearchTerm = search }, filter = filter });
 </div>

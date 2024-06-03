@@ -12,12 +12,10 @@ namespace EcommerceWeb.Mvc.Controllers
         public AddToCartModel AddToCartInput { get; set; } = new AddToCartModel();
         private readonly ILogger<ProductController> _logger;
         private readonly IProductServices _productServices;
-		private readonly IViewComponentHelper _viewComponentHelper;
-		public ProductController(IProductServices productServices, ILogger<ProductController> logger, IViewComponentHelper viewComponentHelper)
+		public ProductController(IProductServices productServices, ILogger<ProductController> logger)
 		{
 			_productServices = productServices;
 			_logger = logger;
-			_viewComponentHelper = viewComponentHelper;
 		}
 
 		[AllowAnonymous]

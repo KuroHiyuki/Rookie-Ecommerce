@@ -13,9 +13,28 @@ namespace EcommerceWeb.Mvc.Components.Products
 			_productService = productService;
 		}
 
-		public async Task<IViewComponentResult> InvokeAsync(string categoryName = default!, PageQuery page = default!)
+		public async Task<IViewComponentResult> InvokeAsync(string categoryName = default!, PageQuery page = default!,string filter = default!)
         {
-			if(!string.IsNullOrEmpty(categoryName))
+            switch (filter)
+            {
+                case "LowtoHigh":
+                    page.SortColumn = "4";
+                    page.SortOrder = "desc";
+                    break;
+
+                case "HightoLow":
+                    page.SortColumn = "4";
+                    page.SortOrder = "asc";
+                    break;
+                case "Newest": 
+                    page.SortColumn = "5";
+                    page.SortOrder = "asc";
+                    break;
+                default:
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(categoryName))
 			{
                 var products = await _productService.GetProductsByCategoryNameAsync(categoryName, page);
 
