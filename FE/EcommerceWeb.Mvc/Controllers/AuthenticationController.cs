@@ -17,15 +17,20 @@ namespace EcommerceWeb.Mvc.Controllers
 		{
 			_authenticationService = authenticationService;
 		}
-
+        public IActionResult Logout()
+        {
+			foreach (var cookie in Request.Cookies.Keys)
+			{
+				Response.Cookies.Delete(cookie);
+			}
+			return RedirectToAction("Index", "Home");
+		}
 		public IActionResult Index()
 		{
             if (TempData.ContainsKey("ErrorMessage"))
             {
                 ViewBag.ErrorMessage = TempData["ErrorMessage"];
             }
-
-            // Các logic khác ở đây
 
             return View();
         }
@@ -42,55 +47,35 @@ namespace EcommerceWeb.Mvc.Controllers
                 var response = await _authenticationService.LoginAsync(request);
                 if (!response.IsSuccessStatusCode)
                 {
-                    var Content = await response.Content.ReadAsStringAsync();
-                    var error = JsonConvert.DeserializeObject<ErrorResponse>(Content)!;
-                    TempData["ErrorMessage"] = error.title;
+                    await ErrorRespone(response);
                     return RedirectToAction("Index", "Authentication");
                 }
                 else
                 {
                     var Content = await response.Content.ReadAsStringAsync();
                     var user = JsonConvert.DeserializeObject<AuthenticationVM>(Content)!;
-                    Response.Cookies.Append("JWToken", user.Token, new CookieOptions { HttpOnly = true, Secure = true });
+                    CookieSetting(user);
                     return RedirectToAction("Index", "Home");
                 }
             }
             return View("Error");
         }
+
+        
+
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterRequest request,string confirmedPassword)
         {
             if (ModelState.IsValid)
             {
-                if (!ValidationService.IsValidEmail(request.Email!))
+                if(ValidateRequest(request, confirmedPassword))
                 {
-                    TempData["ErrorMessage"] = "Email address is invalid.";
-                    return RedirectToAction("Index", "Authentication");
-                }
-                if (!ValidationService.IsValidPassword(request.Password!))
-                {
-                    TempData["ErrorMessage"] = "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
-                    return RedirectToAction("Index", "Authentication");
-                }
-
-                // Password confirmation validation
-                if (request.Password != confirmedPassword)
-                {
-                    TempData["ErrorMessage"] = "Passwords do not match.";
-                    return RedirectToAction("Index", "Authentication");
-                }
-                // Phone number validation (assuming Vietnamese format)
-                if (!ValidationService.IsValidPhoneNumber(request.NumberPhone!))
-                {
-                    TempData["ErrorMessage"] = "Phone number is invalid. Please enter a valid Vietnamese phone number (starting with 0 and followed by 9 digits).";
                     return RedirectToAction("Index", "Authentication");
                 }
                 var response = await _authenticationService.RegisterAsync(request);
                 if (!response.IsSuccessStatusCode)
                 {
-                    var Content = await response.Content.ReadAsStringAsync();
-                    var error = JsonConvert.DeserializeObject<ErrorResponse>(Content)!;
-                    TempData["ErrorMessage"] = error.title;
+                    await ErrorRespone(response);
                     return RedirectToAction("Index", "Authentication");
                 }
                 TempData["ErrorMessage"] = "Registered success!";
@@ -100,5 +85,45 @@ namespace EcommerceWeb.Mvc.Controllers
            
         }
 
+        private bool ValidateRequest(RegisterRequest request = default!, string confirmedPassword = default!)
+        {
+            if (!ValidationService.IsValidEmail(request.Email!))
+            {
+                TempData["ErrorMessage"] = "Email address is invalid.";
+                return true;
+            }
+            if (!ValidationService.IsValidPassword(request.Password!))
+            {
+                TempData["ErrorMessage"] = "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+                return true;
+            }
+
+            if (request.Password != confirmedPassword)
+            {
+                TempData["ErrorMessage"] = "Passwords do not match.";
+                return true;
+            }
+            if (!ValidationService.IsValidPhoneNumber(request.NumberPhone!))
+            {
+                TempData["ErrorMessage"] = "Phone number is invalid. Please enter a valid Vietnamese phone number (starting with 0 and followed by 9 digits).";
+                return true;
+            }
+            return false;
+        }
+        private async Task ErrorRespone(dynamic response)
+        {
+            var Content = await response.Content.ReadAsStringAsync();
+            var error = JsonConvert.DeserializeObject<ErrorResponse>(Content)!;
+            TempData["ErrorMessage"] = error.title;
+        }
+
+        private void CookieSetting(dynamic user)
+        {
+            Response.Cookies.Append("JWToken", user.Token, new CookieOptions { HttpOnly = true, Secure = true });
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(1);
+            Response.Cookies.Append("UserId", user.Id, options);
+            Response.Cookies.Append("Username", user.FirstName, options);
+        }
     }
 }

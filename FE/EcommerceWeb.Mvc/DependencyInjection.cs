@@ -17,14 +17,20 @@ namespace EcommerceWeb.Mvc
 
             services.AddAuthentication();
             services.AddAuthorization();
-            return services;
+			services.AddDistributedMemoryCache();
+
+			services.AddSession(options =>
+			{
+				options.Cookie.Name = ".MySession";
+				options.IdleTimeout = TimeSpan.FromMinutes(30);
+			});
+			return services;
         }
 
         public static IServiceCollection AddApiClientConfiguration(this IServiceCollection services, ConfigurationManager configuration)
         {
-			var baseUrl = configuration.GetSection("HttpClientConfig:BaseUrl").Value;
-
-            var configureClient = new Action<IServiceProvider, HttpClient>(async (provider, client) =>
+			var baseUrl = configuration.GetSection("HttpClientConfig:BaseUrl").Value ?? throw new ArgumentException("Not found API");
+            var configureClient = new Action<IServiceProvider, HttpClient>((provider, client) =>
             {
                 var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
                 var httpContext = httpContextAccessor.HttpContext;

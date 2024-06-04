@@ -26,7 +26,7 @@ namespace EcommerceWeb.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool success = await _reviewServices.CreateReviewProductAsync(ProductId, request);
+                await _reviewServices.CreateReviewProductAsync(ProductId, request);
                 return RedirectToAction("Details", "Product", new { id = ProductId });
             }
             return View("Error");

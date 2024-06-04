@@ -14,13 +14,6 @@ builder.Services
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-//builder.Logging.ClearProviders();
-//builder.Logging.AddConsole();
-
-// Add services to the container.
-
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -39,7 +32,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseSession();
 app.UseTokenMiddleware();
 app.UseRouting();
 
