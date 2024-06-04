@@ -1,17 +1,16 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<form asp-action="Register" asp-controller="Authentication" method="post" class="signup">
+﻿@using EcommerceWeb.Mvc.Models.Authentication
+@model RegisterRequest
+
+<form asp-action="Register" asp-controller="Authentication" method="post" class="signup" id="myForm">
     <div class="field">
         <input type="text" placeholder="Email Address" name="request.Email" required>
     </div>
+    <div id="msg" data-message="@ViewBag.ErrorMessage"></div>
     <div class="field">
         <input type="password" placeholder="Password" name="request.Password" required>
     </div>
     <div class="field">
-        <input type="password" placeholder="Confirm password"  required>
+        <input type="password" placeholder="Confirm password" name="confirmedPassword" required>
     </div>
     <div class="field">
         <input type="tel" placeholder="Number phone" name="request.NumberPhone" required>
@@ -21,7 +20,7 @@
     </div>
     <div class="field btn">
         <div class="btn-layer"></div>
-        <input type="submit" value="Signup">
+        <input type="submit" value="Signup" id="signup-btn">
     </div>
     <div class="signup-link">Already have an account? <a href="">Login</a></div>
 </form>

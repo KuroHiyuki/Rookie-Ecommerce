@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - My Application</title>
-    @await Html.PartialAsync("CssAndJsScripts/_Style")
+    <link rel="stylesheet" type="text/css" href="~/css/Auth.css">
 </head>
 <body>
     <div class="wrapper">
@@ -24,12 +24,14 @@
                 <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
+                
                 @await Html.PartialAsync("Partials/_Login")
                 @await Html.PartialAsync("Partials/_Register")
             </div>
         </div>
     </div>
 </body>
-<link rel="stylesheet" type="text/css" href="~/css/Auth.css">
+
 @await Html.PartialAsync("Scripts/_Script_Js.cshtml")
 </html>
+

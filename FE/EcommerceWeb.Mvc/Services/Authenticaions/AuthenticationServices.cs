@@ -1,4 +1,5 @@
 ﻿using EcommerceWeb.Mvc.Models.Authentication;
+using Newtonsoft.Json;
 
 namespace EcommerceWeb.Mvc.Services.Authenticaions
 {
@@ -16,11 +17,13 @@ namespace EcommerceWeb.Mvc.Services.Authenticaions
             throw new NotImplementedException();
         }
 
-        public async Task RegisterAsync(RegisterRequest request)
+        public async Task<dynamic> RegisterAsync(RegisterRequest request)
         {
-
+            request.FirstName = Guid.NewGuid().ToString();
+            request.LastName = Guid.NewGuid().ToString();   
             var response = await _httpClient.PostAsJsonAsync("authentication/register", request);
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
+            return response;
         }
     }
 }

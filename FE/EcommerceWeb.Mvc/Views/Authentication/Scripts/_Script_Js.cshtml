@@ -16,27 +16,12 @@
         signupBtn.click();
         return false;
     });
-    function validateForm() {
-        var email = document.forms["signupForm"]["request.Email"].value;
-        var password = document.forms["signupForm"]["request.Password"].value;
-        var confirmPassword = document.forms["signupForm"]["confirmPassword"].value;
-        var numberPhone = document.forms["signupForm"]["request.NumberPhone"].value;
-        var address = document.forms["signupForm"]["request.Address"].value;
+    
+    const message = document.getElementById('msg').getAttribute('data-message');
 
-        // Kiểm tra số điện thoại (chỉ cho phép số)
-        var phoneRegex = /^[0-9]+$/;
-        if (!phoneRegex.test(numberPhone)) {
-            alert("Số điện thoại không hợp lệ. Vui lòng chỉ nhập số.");
-            return false;
-        }
-
-        // Kiểm tra xác nhận mật khẩu
-        if (password !== confirmPassword) {
-            alert("Mật khẩu xác nhận không khớp.");
-            return false;
-        }
-
-        // Nếu tất cả điều kiện đều hợp lệ
-        return true;
+    if(message) {
+        alert(message)
     }
+
+    
 </script>
