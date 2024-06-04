@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace EcommerceWeb.Mvc.Services.Authenticaions
 {
-    public class ValidationService
+    public static class ValidationService
     {
         public static bool IsValidEmail(string email)
         {

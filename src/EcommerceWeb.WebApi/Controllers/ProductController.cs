@@ -39,7 +39,7 @@ namespace EcommerceWeb.WebApi.Controllers
             }
             catch (NotFoundException e)
             {
-                return NotFound(e.Message);
+                return Problem(e.Message);
             }
             
         }

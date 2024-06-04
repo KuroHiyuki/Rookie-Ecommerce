@@ -10,13 +10,12 @@ namespace EcommerceWeb.Mvc.Services.Reviews
     public class ReviewServices : IReviewServices
     {
         private readonly HttpClient _httpClient;
-        const string UserId = "12dec763-64c7-405c-b914-9f9d3d33e5fe";
         public ReviewServices(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<bool> CreateReviewProductAsync(string ProductId, ReviewRequest request)
+        public async Task<bool> CreateReviewProductAsync(string ProductId,string UserId, ReviewRequest request)
         {
             var response = await _httpClient.PostAsJsonAsync($"review/{UserId},{ProductId}", request);
             return response.IsSuccessStatusCode;
@@ -33,13 +32,13 @@ namespace EcommerceWeb.Mvc.Services.Reviews
             return reviews;
         }
 
-        public async Task RemoveReviewAsync(string productId, string reviewId)
+        public async Task RemoveReviewAsync(string UserId, string reviewId)
         {
             var response = await _httpClient.DeleteAsync($"review/{reviewId}");
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task UpdateReviewAsync(string ProductId, string reviewId, ReviewRequest request)
+        public async Task UpdateReviewAsync(string UserId, string reviewId, ReviewRequest request)
         {
             var response = await _httpClient.PutAsJsonAsync($"review/{reviewId}", request);
             response.EnsureSuccessStatusCode();

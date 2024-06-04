@@ -34,7 +34,7 @@ namespace EcommerceWeb.Mvc.Controllers
 			}
 			if (ModelState.IsValid)
             {
-                await _reviewServices.CreateReviewProductAsync(ProductId, request);
+                await _reviewServices.CreateReviewProductAsync(ProductId,userId ,request);
                 return RedirectToAction("Details", "Product", new { id = ProductId });
             }
             return View("Error");
@@ -42,9 +42,10 @@ namespace EcommerceWeb.Mvc.Controllers
         [HttpPost("delete")]
         public async Task<IActionResult> Delete(string ProductId, string reviewId, [FromForm(Name = "_method")] string method)
         {
+            string userId = Request.Cookies["UserId"]!;
             if (method == "DELETE")
             {
-                await _reviewServices.RemoveReviewAsync(ProductId,reviewId);
+                await _reviewServices.RemoveReviewAsync(userId, reviewId);
                 return RedirectToAction("Details", "Product", new { id = ProductId });
 
             }
@@ -53,9 +54,10 @@ namespace EcommerceWeb.Mvc.Controllers
         [HttpPost("Edit")]
         public async Task<IActionResult> Update(string ProductId, string reviewId, [FromForm(Name = "_method")] string method, ReviewRequest request)
         {
+            string userId = Request.Cookies["UserId"]!;
             if (method == "PUT")
             {
-                await _reviewServices.UpdateReviewAsync(ProductId, reviewId,request);
+                await _reviewServices.UpdateReviewAsync(userId,reviewId, request);
                 return RedirectToAction("Details", "Product", new { id = ProductId });
 
             }

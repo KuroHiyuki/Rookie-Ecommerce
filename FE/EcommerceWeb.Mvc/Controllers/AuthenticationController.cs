@@ -1,4 +1,5 @@
-﻿using EcommerceWeb.Mvc.Models.Authentication;
+﻿using EcommerceWeb.Mvc.Extensions;
+using EcommerceWeb.Mvc.Models.Authentication;
 using EcommerceWeb.Mvc.Models.Common;
 using EcommerceWeb.Mvc.Models.Products;
 using EcommerceWeb.Mvc.Services.Authenticaions;
@@ -6,6 +7,7 @@ using EcommerceWeb.Presentation.Reviews;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EcommerceWeb.Mvc.Controllers
 {
@@ -47,8 +49,8 @@ namespace EcommerceWeb.Mvc.Controllers
                 var response = await _authenticationService.LoginAsync(request);
                 if (!response.IsSuccessStatusCode)
                 {
-                    await ErrorRespone(response);
-                    return RedirectToAction("Index", "Authentication");
+					TempData["ErrorMessage"] = await Extension.ErrorRespone(response);
+					return RedirectToAction("Index", "Authentication");
                 }
                 else
                 {
@@ -75,7 +77,7 @@ namespace EcommerceWeb.Mvc.Controllers
                 var response = await _authenticationService.RegisterAsync(request);
                 if (!response.IsSuccessStatusCode)
                 {
-                    await ErrorRespone(response);
+                    TempData["ErrorMessage"] = await Extension.ErrorRespone(response);
                     return RedirectToAction("Index", "Authentication");
                 }
                 TempData["ErrorMessage"] = "Registered success!";
@@ -110,12 +112,7 @@ namespace EcommerceWeb.Mvc.Controllers
             }
             return false;
         }
-        private async Task ErrorRespone(dynamic response)
-        {
-            var Content = await response.Content.ReadAsStringAsync();
-            var error = JsonConvert.DeserializeObject<ErrorResponse>(Content)!;
-            TempData["ErrorMessage"] = error.title;
-        }
+        
 
         private void CookieSetting(dynamic user)
         {
