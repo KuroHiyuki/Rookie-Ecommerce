@@ -1,4 +1,5 @@
-﻿using EcommerceWeb.Mvc.Models.Reviews;
+﻿using EcommerceWeb.Mvc.Extensions;
+using EcommerceWeb.Mvc.Models.Reviews;
 using EcommerceWeb.Mvc.Services.Reviews;
 using EcommerceWeb.Presentation.Reviews;
 using Microsoft.AspNetCore.Mvc;
@@ -45,8 +46,13 @@ namespace EcommerceWeb.Mvc.Controllers
             string userId = Request.Cookies["UserId"]!;
             if (method == "DELETE")
             {
-                await _reviewServices.RemoveReviewAsync(userId, reviewId);
-                return RedirectToAction("Details", "Product", new { id = ProductId });
+                var response = await _reviewServices.RemoveReviewAsync(userId, reviewId);
+				if (!response.IsSuccessStatusCode)
+				{
+					TempData["ErrorMessage"] = await response.Content.ReadAsStringAsync();
+					return RedirectToAction("Details", "Product", new { id = ProductId });
+				}
+				return RedirectToAction("Details", "Product", new { id = ProductId });
 
             }
             return View("Error");
@@ -57,7 +63,12 @@ namespace EcommerceWeb.Mvc.Controllers
             string userId = Request.Cookies["UserId"]!;
             if (method == "PUT")
             {
-                await _reviewServices.UpdateReviewAsync(userId,reviewId, request);
+				var response = await _reviewServices.UpdateReviewAsync(userId, reviewId, request);
+				if (!response.IsSuccessStatusCode)
+				{
+					TempData["ErrorMessage"] = await response.Content.ReadAsStringAsync();
+					return RedirectToAction("Details", "Product", new { id = ProductId });
+				}
                 return RedirectToAction("Details", "Product", new { id = ProductId });
 
             }

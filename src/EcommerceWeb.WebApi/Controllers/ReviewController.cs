@@ -33,7 +33,7 @@ namespace EcommerceWeb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
         [Authorize]
@@ -48,7 +48,7 @@ namespace EcommerceWeb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
         [HttpGet]
@@ -62,8 +62,8 @@ namespace EcommerceWeb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
-            }
+				return BadRequest(ex.Message);
+			}
         }
         [HttpGet("{ProductId}")]
         public async Task<IActionResult> GetReviewList(string ProductId)
@@ -76,8 +76,8 @@ namespace EcommerceWeb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
-            }
+				return BadRequest(ex.Message);
+			}
         }
         [HttpPut("{ReviewId},{UserId}")]
         public async Task<IActionResult> UpdateReviewAsync(string ReviewId, string UserId, ReviewRequest request)
@@ -90,7 +90,7 @@ namespace EcommerceWeb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }

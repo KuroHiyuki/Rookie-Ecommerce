@@ -32,16 +32,17 @@ namespace EcommerceWeb.Mvc.Services.Reviews
             return reviews;
         }
 
-        public async Task RemoveReviewAsync(string UserId, string reviewId)
+        public async Task<dynamic> RemoveReviewAsync(string UserId, string reviewId)
         {
-            var response = await _httpClient.DeleteAsync($"review/{reviewId}");
-            response.EnsureSuccessStatusCode();
-        }
+            var response = await _httpClient.DeleteAsync($"review/{reviewId},{UserId}");
+            return response;
+			
+		}
 
-        public async Task UpdateReviewAsync(string UserId, string reviewId, ReviewRequest request)
+        public async Task<dynamic> UpdateReviewAsync(string UserId, string reviewId, ReviewRequest request)
         {
-            var response = await _httpClient.PutAsJsonAsync($"review/{reviewId}", request);
-            response.EnsureSuccessStatusCode();
-        }
+            var response = await _httpClient.PutAsJsonAsync($"review/{reviewId},{UserId}", request);
+			return response;
+		}
     }
 }

@@ -32,12 +32,16 @@ namespace EcommerceWeb.Infrastructure.Reviews
         public async Task DeleteReviewAsync(string UserId, string reviewId)
         {
             var review = await _dbContext.Reviews.FindAsync(reviewId);
-            if (review == null)
-            {
-                throw new Exception($"Invalid Comment {reviewId}");
-            }
+			if (review is null)
+			{
+				throw new Exception($"Not found {reviewId}");
+			}
+			if (review!.UserId != UserId)
+			{
+				throw new Exception("This is not your comment!");
+			}
 
-            _dbContext.Reviews.Remove(review);
+			_dbContext.Reviews.Remove(review);
             await _dbContext.SaveChangesAsync();
         }
 
