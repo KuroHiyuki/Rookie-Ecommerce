@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+<div id="errorPopup" class="popup">
+    <div class="popup-content">
+        <span class="close-btn">&times;</span>
+        <h2>Error</h2>
+        <p id="errorMessage">@ViewBag.ErrorMessage</p>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorPopup = document.getElementById('errorPopup');
+        var closeBtn = document.querySelector('.close-btn');
+        var errorMessage = document.getElementById('errorMessage');
+        var overlay = document.getElementById('overlay');
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorPopup.style.display = 'flex';
+            overlay.style.display = 'block';
+        }
+
+        function hideError() {
+            errorPopup.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+
+        closeBtn.addEventListener('click', hideError);
+
+        if (errorMessage.textContent == "") {
+            var errorOccurred = false;
+        }
+        else 
+        {
+            var errorOccurred = true;
+        }
+        var errorText = errorMessage.textContent;
+
+        if (errorOccurred) {
+            showError(errorText);
+        }
+    });
+</script>

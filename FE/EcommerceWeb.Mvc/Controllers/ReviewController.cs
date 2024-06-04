@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EcommerceWeb.Mvc.Controllers
 {
@@ -19,12 +20,19 @@ namespace EcommerceWeb.Mvc.Controllers
         }
         public IActionResult Index()
         {
+
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(string ProductId, ReviewRequest request)
         {
-            if (ModelState.IsValid)
+			string userId = Request.Cookies["UserId"]!;
+            if(string.IsNullOrEmpty(userId) )
+            {
+				TempData["ErrorMessage"] = "Please login before the review";
+				return RedirectToAction("Details", "Product", new { id = ProductId });
+			}
+			if (ModelState.IsValid)
             {
                 await _reviewServices.CreateReviewProductAsync(ProductId, request);
                 return RedirectToAction("Details", "Product", new { id = ProductId });

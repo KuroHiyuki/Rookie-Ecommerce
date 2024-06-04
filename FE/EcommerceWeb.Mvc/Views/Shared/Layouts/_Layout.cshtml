@@ -14,9 +14,10 @@
         <main role="main" class="pb-3">
             
             @RenderBody()
+
             @await Html.PartialAsync("Partials/_HiddenCart")
             <!-- Slider -->
-            
+            @await Html.PartialAsync("Partials/_Popup")
             @* @await Html.PartialAsync("Partials/_Banner") *@
             <!-- Banner -->
             <partial name="Partials/_BackTopBtn" />

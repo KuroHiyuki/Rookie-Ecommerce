@@ -28,7 +28,11 @@ namespace EcommerceWeb.Mvc.Controllers
 		[AllowAnonymous]
 		public async Task<IActionResult> Details(string id)
         {
-            _logger.LogInformation("Get product by id from API");
+			if (TempData.ContainsKey("ErrorMessage"))
+			{
+				ViewBag.ErrorMessage = TempData["ErrorMessage"];
+			}
+			_logger.LogInformation("Get product by id from API");
             var product = await _productServices.GetProductByIdAsync(id);
             if (product == null)
             {
