@@ -4,7 +4,7 @@ namespace EcommerceWeb.Mvc.Services.Authenticaions
 {
 	public interface IAuthenticationServices
 	{
-		Task<AuthenticationVM> LoginAsync(string Email, string password);
+		Task<dynamic> LoginAsync(LoginRequest request);
 		Task<dynamic> RegisterAsync(RegisterRequest request);
 	}
 }

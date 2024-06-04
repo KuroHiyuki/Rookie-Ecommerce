@@ -15,31 +15,8 @@ namespace EcommerceWeb.Mvc
         {
             services.AddControllersWithViews();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = "Cookies";
-                options.DefaultChallengeScheme = "oidc";
-            })
-                        .AddCookie("Cookies")
-                        .AddOpenIdConnect("oidc", options =>
-                        {
-                            options.Authority = "https://localhost:7280"; // IdentityServer Url
-
-                            options.ClientId = "EcommerceWeb.Mvc";
-                            options.ClientSecret = "This is how it strong to be pass every challenger";
-                            options.ResponseType = "code";
-                            options.SaveTokens = true;
-
-                            options.Scope.Add("openid");
-                            options.Scope.Add("profile");
-                            options.Scope.Add("EcommerceWeb.WebApi");
-                            options.Scope.Add("offline_access");
-
-                            options.GetClaimsFromUserInfoEndpoint = true;
-                            options.ClaimActions.MapJsonKey(ClaimTypes.Role, "role");
-                            options.TokenValidationParameters.NameClaimType = "name";
-                            options.TokenValidationParameters.RoleClaimType = "role";
-                        });
+            services.AddAuthentication();
+            services.AddAuthorization();
             return services;
         }
 
@@ -47,10 +24,11 @@ namespace EcommerceWeb.Mvc
         {
 			var baseUrl = configuration.GetSection("HttpClientConfig:BaseUrl").Value;
 
-			var configureClient = new Action<IServiceProvider, HttpClient>(async (provider, client) =>
+            var configureClient = new Action<IServiceProvider, HttpClient>(async (provider, client) =>
             {
                 var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
-                var accessToken = await httpContextAccessor?.HttpContext?.GetTokenAsync("access_token") ?? "";
+                var httpContext = httpContextAccessor.HttpContext;
+                var accessToken = httpContext?.Items["access_token"] as string ?? "";
                 client.BaseAddress = new Uri(baseUrl);
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             });
@@ -60,11 +38,6 @@ namespace EcommerceWeb.Mvc
             services.AddHttpClient<IReviewServices, ReviewServices>(configureClient);
 
             services.AddHttpClient<IAuthenticationServices, AuthenticationServices>(configureClient);
-            //services.AddHttpClient<ICategoriesApiClient, CategoriesApiClient>(configureClient);
-            //services.AddHttpClient<ICartApiClient, CartApiClient>(configureClient);
-            //services.AddHttpClient<IReviewsApiClient, ReviewsApiClient>(configureClient);
-            //services.AddHttpClient<IOrdersApiClient, OrdersApiClient>(configureClient);
-            //services.AddHttpClient<IAccountApiClient, AccountApiClient>(configureClient);
 
             return services;
         }

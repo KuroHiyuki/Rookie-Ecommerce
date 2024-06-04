@@ -3,14 +3,14 @@
 *@
 @{
 }
-<form action="#" class="login">
+<form asp-action="Login" asp-controller="Authentication" class="login">
     <pre>
             </pre>
     <div class="field">
-        <input type="text" placeholder="Email Address" required>
+        <input type="text" placeholder="Email Address" name="request.Email" required>
     </div>
     <div class="field">
-        <input type="password" placeholder="Password" required>
+        <input type="password" placeholder="Password" name="request.Password" required>
     </div>
     <div class="pass-link"><a href="#">Forgot password?</a></div>
     <div class="field btn">

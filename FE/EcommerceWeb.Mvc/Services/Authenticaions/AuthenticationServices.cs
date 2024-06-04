@@ -12,9 +12,11 @@ namespace EcommerceWeb.Mvc.Services.Authenticaions
             _httpClient = httpClient;
         }
 
-        public Task<AuthenticationVM> LoginAsync(string Email, string password)
+        public async Task<dynamic> LoginAsync(LoginRequest request)
         {
-            throw new NotImplementedException();
+
+            var response = await _httpClient.PostAsJsonAsync("authentication/login", request);
+            return response;
         }
 
         public async Task<dynamic> RegisterAsync(RegisterRequest request)

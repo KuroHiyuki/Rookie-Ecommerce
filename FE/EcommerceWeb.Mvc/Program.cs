@@ -1,4 +1,5 @@
 ﻿using EcommerceWeb.Mvc;
+using EcommerceWeb.Mvc.Services.Middleware;
 using Microsoft.AspNetCore.Rewrite;
 using System.Net;
 
@@ -34,6 +35,12 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseTokenMiddleware();
 app.UseRouting();
 
 app.MapControllerRoute(

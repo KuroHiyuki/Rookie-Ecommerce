@@ -7,6 +7,7 @@ using EcommerceWeb.Application.Reviews.UpdateReview;
 using EcommerceWeb.Domain.Entities;
 using EcommerceWeb.Presentation.Reviews;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +36,7 @@ namespace EcommerceWeb.WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpDelete("{ReviewId}")]
         public async Task<IActionResult> DeleteReviewProductAsync(string ReviewId)
         {
