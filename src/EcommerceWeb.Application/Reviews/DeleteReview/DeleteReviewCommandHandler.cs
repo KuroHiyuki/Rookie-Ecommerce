@@ -21,7 +21,7 @@ namespace EcommerceWeb.Application.Reviews.DeleteReview
 
         public async Task Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
         {
-            await _reviewRepository.DeleteReviewAsync(request.ReviewId);
+            await _reviewRepository.DeleteReviewAsync(request.UserId,request.ReviewId);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }

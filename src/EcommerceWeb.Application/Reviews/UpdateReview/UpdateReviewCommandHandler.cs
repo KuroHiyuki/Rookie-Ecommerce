@@ -19,7 +19,7 @@ namespace EcommerceWeb.Application.Reviews.UpdateReview
 
         public async Task Handle(UpdateReviewCommand request, CancellationToken cancellationToken)
         {
-            await _reviewRepository.UpdateReviewAsync(request.ReviewId, request.Rating, request.Comment);
+            await _reviewRepository.UpdateReviewAsync(request.UserId,request.ReviewId, request.Rating, request.Comment);
 
         }
     }

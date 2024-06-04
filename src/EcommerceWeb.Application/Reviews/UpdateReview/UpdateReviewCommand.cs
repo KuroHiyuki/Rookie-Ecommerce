@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Application.Reviews.UpdateReview
 {
-    public record UpdateReviewCommand(string ReviewId, string Comment, int Rating) : IRequest
+    public record UpdateReviewCommand(string UserId, string ReviewId, string Comment, int Rating) : IRequest
     {
     }
 }

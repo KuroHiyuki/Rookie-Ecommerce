@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Application.Reviews.DeleteReview
 {
-    public record DeleteReviewCommand (string ReviewId) : IRequest
+    public record DeleteReviewCommand (string UserId, string ReviewId) : IRequest
     {
     }
 }

@@ -29,7 +29,7 @@ namespace EcommerceWeb.Infrastructure.Reviews
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteReviewAsync(string reviewId)
+        public async Task DeleteReviewAsync(string UserId, string reviewId)
         {
             var review = await _dbContext.Reviews.FindAsync(reviewId);
             if (review == null)
@@ -56,15 +56,19 @@ namespace EcommerceWeb.Infrastructure.Reviews
             .ToListAsync();
         }
 
-        public async Task UpdateReviewAsync(string reviewId, int rating, string comment)
+        public async Task UpdateReviewAsync(string UserId, string reviewId, int rating, string comment)
         {
             var review = await _dbContext.Reviews.FindAsync(reviewId);
+            
             if (review is null)
             {
                 throw new Exception($"Not found {reviewId}");
             }
-
-            review.Rating = rating;
+			if (review!.UserId != UserId)
+            {
+                throw new Exception("This is not your comment!");
+            }
+			review.Rating = rating;
             review.Comment = comment;
             await _dbContext.SaveChangesAsync();
         }

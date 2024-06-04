@@ -33,22 +33,22 @@ namespace EcommerceWeb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return Problem(ex.Message);
             }
         }
         [Authorize]
-        [HttpDelete("{ReviewId}")]
-        public async Task<IActionResult> DeleteReviewProductAsync(string ReviewId)
+        [HttpDelete("{ReviewId},{UserId}")]
+        public async Task<IActionResult> DeleteReviewProductAsync(string ReviewId, string UserId)
         {
             try
             {
-                var command = new DeleteReviewCommand(ReviewId);
+                var command = new DeleteReviewCommand(UserId,ReviewId);
                 await _mediator.Send(command);
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return Problem(ex.Message);
             }
         }
         [HttpGet]
@@ -62,7 +62,7 @@ namespace EcommerceWeb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return Problem(ex.Message);
             }
         }
         [HttpGet("{ProductId}")]
@@ -76,21 +76,21 @@ namespace EcommerceWeb.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return Problem(ex.Message);
             }
         }
-        [HttpPut("{ReviewId}")]
-        public async Task<IActionResult> UpdateReviewAsync(string ReviewId, ReviewRequest request)
+        [HttpPut("{ReviewId},{UserId}")]
+        public async Task<IActionResult> UpdateReviewAsync(string ReviewId, string UserId, ReviewRequest request)
         {
             try
             {
-                var command = new UpdateReviewCommand(ReviewId,request.Comment!,request.Rating);
+                var command = new UpdateReviewCommand(UserId,ReviewId, request.Comment!,request.Rating);
                 await _mediator.Send(command);
                 return NoContent();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return Problem(ex.Message);
             }
         }
     }
