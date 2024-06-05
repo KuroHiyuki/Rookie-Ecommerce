@@ -24,10 +24,11 @@
 
         </main>
     </div>
-    <footer class="border-top footer text-muted">
-        @await Html.PartialAsync("Layouts/_Footer")
-    </footer>
-    @await Html.PartialAsync("CssAndJsScripts/_Scripts")
+    
+    
 </body>
-
+<footer class="border-top footer text-muted">
+    @await Html.PartialAsync("Layouts/_Footer")
+</footer>
 </html>
+@await Html.PartialAsync("CssAndJsScripts/_Scripts")

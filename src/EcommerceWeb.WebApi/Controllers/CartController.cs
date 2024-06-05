@@ -48,12 +48,12 @@ namespace EcommerceWeb.WebApi.Controllers
                 return BadRequest(e.Message);   
             }
         }
-        [HttpGet("{CartId}")]
-        public async Task<IActionResult> GetProductListCartAsync(string CartId)
+        [HttpGet("{CartId},{userId}")]
+        public async Task<IActionResult> GetProductListCartAsync(string CartId, string userId)
         {
             try
             {
-                var query = new GetProductCartByUserIdQuery(CartId);
+                var query = new GetProductCartByUserIdQuery(CartId, userId);
                 return Ok(await _mediator.Send(query));
             }
             catch (Exception e )

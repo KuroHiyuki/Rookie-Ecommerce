@@ -20,7 +20,7 @@ namespace EcommerceWeb.Application.Carts.GetProductInCart
 
         public async Task<List<CartModelAppLayer>> Handle(GetProductCartByUserIdQuery request, CancellationToken cancellationToken)
         {
-            return await _cartRepository.GetProductsInCart(request.CartId);
+            return await _cartRepository.GetProductsInCart(request.CartId,request.userId);
         }
     }
 }

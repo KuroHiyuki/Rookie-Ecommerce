@@ -68,21 +68,19 @@ namespace EcommerceWeb.Infrastructure.Carts
                 .FirstOrDefaultAsync(c => c.UserId == userId);
             if(cart is null)
             {
-                throw new Exception($"User id {userId} haven't added a product to the cart yet");
-            }
+				cart = new Cart
+				{
+					Id = Guid.NewGuid().ToString(),
+					UserId = userId,
+					CreatedAt = DateTime.UtcNow,
+					CartDetails = []
+				};
+				_dbContext.Carts.Add(cart);
+                await _dbContext.SaveChangesAsync();
+			}
             return cart;
         }
 
-        public async Task<Cart?> GetCartByUserIdAsync(string userId)
-        {
-            return await _dbContext.Carts
-                    .Include(e => e.CartDetails)
-                        .ThenInclude(cd => cd.Product)
-                    .Include(e => e.CartDetails)
-                        .ThenInclude(cd => cd.Product)
-                            .ThenInclude(p => p!.Category)
-                    .FirstOrDefaultAsync(e => e.UserId!.Equals(userId));
-        }
 
         public async Task<CartDetail> GetCartDetail(string ProductId, string CartId)
         {
@@ -94,7 +92,7 @@ namespace EcommerceWeb.Infrastructure.Carts
             return cartDetail;
         }
 
-        public async Task<List<CartModelAppLayer>> GetProductsInCart(string CartId)
+        public async Task<List<CartModelAppLayer>> GetProductsInCart(string CartId,string userId)
         {
             var cart = await _dbContext.Carts
                 .Include(c => c.CartDetails)
@@ -102,8 +100,15 @@ namespace EcommerceWeb.Infrastructure.Carts
                 .Where(a => a.Id == CartId).FirstOrDefaultAsync();
             if(cart is null)
             {
-                return [];
-            }
+				cart = new Cart
+				{
+					Id = Guid.NewGuid().ToString(),
+					UserId = userId,
+					CreatedAt = DateTime.UtcNow,
+					CartDetails = []
+				};
+				_dbContext.Carts.Add(cart);
+			}
 
             var product =  cart.CartDetails.Select(c => new CartModelAppLayer
             {

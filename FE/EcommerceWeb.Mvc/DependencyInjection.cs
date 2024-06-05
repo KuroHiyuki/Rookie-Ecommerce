@@ -1,4 +1,5 @@
 ﻿using EcommerceWeb.Mvc.Services.Authenticaions;
+using EcommerceWeb.Mvc.Services.Carts;
 using EcommerceWeb.Mvc.Services.Categories;
 using EcommerceWeb.Mvc.Services.Products;
 using EcommerceWeb.Mvc.Services.Reviews;
@@ -45,7 +46,9 @@ namespace EcommerceWeb.Mvc
 
             services.AddHttpClient<IAuthenticationServices, AuthenticationServices>(configureClient);
 
-            return services;
+			services.AddHttpClient<ICartServices, CartServices>(configureClient);
+
+			return services;
         }
     }
 }

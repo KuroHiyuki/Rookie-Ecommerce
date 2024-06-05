@@ -19,7 +19,7 @@ namespace EcommerceWeb.Application.Carts.GetCartIdByUser
 
         public async Task<string> Handle(GetCartIdByUserIdQuery request, CancellationToken cancellationToken)
         {
-            var cart =  await _cartRepository.GetCartByUserIdAsync(request.UserId);
+            var cart =  await _cartRepository.GetCartByUserId(request.UserId);
             if(cart!.Id is null)
             {
                 return $"User Id {request.UserId} haven't add a product to the cart yet";

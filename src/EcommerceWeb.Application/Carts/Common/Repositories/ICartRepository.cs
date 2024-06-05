@@ -12,12 +12,11 @@ namespace EcommerceWeb.Application.Carts.Common.Repositories
 {
     public interface ICartRepository : IBaseRepository<Cart>
     {
-        Task<Cart?> GetCartByUserIdAsync(string userId);
         Task AddProductToCart(string userId, string productId, int quantity);
         Task<Cart> GetCartByUserId(string userId);
         Task UpdateProductQuantity(string CartId, string productId, int quantity);
         Task DeleteProductFromCart(string CartId, string productId);
-        Task<List<CartModelAppLayer>> GetProductsInCart(string CartId);
+        Task<List<CartModelAppLayer>> GetProductsInCart(string CartId,string userId);
         Task<CartDetail> GetCartDetail(string ProductId, string CartId);
     }
 }

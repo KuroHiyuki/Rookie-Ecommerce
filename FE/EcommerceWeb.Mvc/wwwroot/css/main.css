@@ -3337,12 +3337,12 @@ input.num-product::-webkit-inner-spin-button {
 
 @media (max-width: 767px) {
     .m-t-80 {
-        margin-top: 20px;
+        margin-top: 10px;
     }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
     .m-t-80 {
-        margin-top: 40px; 
+        margin-top: 20px; 
     }
 }

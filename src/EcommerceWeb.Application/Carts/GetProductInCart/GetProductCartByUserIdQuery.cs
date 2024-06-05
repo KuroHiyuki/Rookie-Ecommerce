@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Application.Carts.GetProductInCart
 {
-    public record GetProductCartByUserIdQuery(string CartId) : IRequest<List<CartModelAppLayer>>
+    public record GetProductCartByUserIdQuery(string CartId, string userId) : IRequest<List<CartModelAppLayer>>
     {
     }
 }
