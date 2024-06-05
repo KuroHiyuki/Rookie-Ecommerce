@@ -15,7 +15,7 @@
             
             @RenderBody()
 
-            @await Html.PartialAsync("Partials/_HiddenCart")
+            @await Component.InvokeAsync("QuickCart")
             <!-- Slider -->
             @await Html.PartialAsync("Partials/_Popup")
             @* @await Html.PartialAsync("Partials/_Banner") *@

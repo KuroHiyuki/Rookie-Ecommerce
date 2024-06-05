@@ -1,12 +1,8 @@
 ﻿@using EcommerceWeb.Mvc.Models.Carts
 @model List<CartVM>
 @{
-    if(Model is null)
-    {
-
-    }
     var CartList = new List<CartVM>();
-    var total = CartList.Sum(cart => cart.Price * cart.Quantity);
+    var total = Model.Sum(cart => cart.Price * cart.Quantity);
 }
 <div class="m-t-80 new-cart">
     <div class="container ">
@@ -36,7 +32,7 @@
                                     <th class="column-5">Total</th>
                                 </tr>
 
-                                @foreach (var cart in CartList)
+                                @foreach (var cart in Model)
                                 {
                                     <tr class="table_row">
                                         <td class="column-1">

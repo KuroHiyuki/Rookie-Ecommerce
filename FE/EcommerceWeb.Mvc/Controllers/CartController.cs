@@ -1,4 +1,5 @@
-﻿using EcommerceWeb.Mvc.Services.Carts;
+﻿using EcommerceWeb.Mvc.Models.Carts;
+using EcommerceWeb.Mvc.Services.Carts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceWeb.Mvc.Controllers
@@ -29,6 +30,28 @@ namespace EcommerceWeb.Mvc.Controllers
 				return View(response);
 			}
 			return View("Error");
+		}
+		[HttpPost]
+		public async Task<IActionResult> AddtoCart(CartRequest request)
+		{
+			string userId = Request.Cookies["UserId"]!;
+			string refererUrl = Request.Headers["Referer"].ToString();
+			if (string.IsNullOrEmpty(userId))
+			{
+				TempData["ErrorMessage"] = "Please login before adding product to cart";
+				if (!string.IsNullOrEmpty(refererUrl))
+				{
+					return Redirect(refererUrl);
+				}
+				return RedirectToAction("Index", "Home");
+			}
+			request.UserId = userId;
+			await _cartServices.AddToCartAsync(request);
+			if (!string.IsNullOrEmpty(refererUrl))
+			{
+				return Redirect(refererUrl);
+			}
+			return RedirectToAction("Index", "Home");
 		}
 	}
 }

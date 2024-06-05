@@ -15,7 +15,7 @@ namespace EcommerceWeb.Infrastructure.Carts
 
         public async Task AddProductToCart(string userId, string productId, int quantity)
         {
-            var cart = await _dbContext.Carts
+            var cart = await _dbContext.Carts.Include(c=> c.CartDetails)
              .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart == null)

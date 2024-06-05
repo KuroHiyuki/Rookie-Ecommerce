@@ -15,7 +15,21 @@ namespace EcommerceWeb.Mvc.Components.Carts
 
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
-			return View();
+			string userId = Request.Cookies["UserId"]!;
+			if (ModelState.IsValid)
+			{
+				var cartId = await _cartServices.GetCardIdAsync(userId);
+				if (cartId == null)
+				{
+					if (TempData.ContainsKey("ErrorMessage"))
+					{
+						ViewBag.ErrorMessage = TempData[cartId!];
+					}
+				}
+				var response = await _cartServices.GetProductInCartAsynce(cartId, userId);
+				return View(response);
+			}
+			return View("Error");
 		}
 	}
 }

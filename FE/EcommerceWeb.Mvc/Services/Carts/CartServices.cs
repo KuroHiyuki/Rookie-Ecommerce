@@ -13,9 +13,10 @@ namespace EcommerceWeb.Mvc.Services.Carts
 			_httpClient = httpClient;
 		}
 
-		public Task AddToCartAsync(CartRequest request)
+		public async Task AddToCartAsync(CartRequest request)
 		{
-			throw new NotImplementedException();
+			var response = await _httpClient.PostAsJsonAsync($"cart", request);
+			response.EnsureSuccessStatusCode();
 		}
 
 		public Task<dynamic> DeleteCartAsync(string CartId, string ProductId)

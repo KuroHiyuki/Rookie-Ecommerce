@@ -16,7 +16,11 @@ namespace EcommerceWeb.Mvc.Controllers
 
         public IActionResult Index()
         {
-            return View();
+			if (TempData.ContainsKey("ErrorMessage"))
+			{
+				ViewBag.ErrorMessage = TempData["ErrorMessage"];
+			}
+			return View();
         }
 
         public IActionResult Privacy()
