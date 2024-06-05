@@ -982,9 +982,12 @@
 
 /*---------------------------------------------*/
 .header-cart-item-txt {
-  width: calc(100% - 80px);
-}
 
+}
+.header-cart-item-btn {
+    with: calc(100%- 80px - 20px);
+
+}
 .header-cart-item-name {
   display: block;
   font-family: Poppins-Regular;

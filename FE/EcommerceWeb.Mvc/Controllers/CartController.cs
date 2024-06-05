@@ -16,21 +16,17 @@ namespace EcommerceWeb.Mvc.Controllers
 		public async Task<IActionResult> Index()
 		{
 			string userId = Request.Cookies["UserId"]!;
-			if (ModelState.IsValid)
+			var cartId = await _cartServices.GetCardIdAsync(userId);
+			if (cartId == null)
 			{
-				var cartId = await _cartServices.GetCardIdAsync(userId);
-				if (cartId == null)
+				if (TempData.ContainsKey("ErrorMessage"))
 				{
-					if (TempData.ContainsKey("ErrorMessage"))
-					{
-						ViewBag.ErrorMessage = TempData[cartId!];
-					}
+					ViewBag.ErrorMessage = TempData[cartId!];
 				}
-				var response = await _cartServices.GetProductInCartAsynce(cartId,userId);
-				return View(response);
 			}
-			return View("Error");
-		}
+			var response = await _cartServices.GetProductInCartAsynce(cartId,userId);
+			return View(response);
+	}
 		[HttpPost]
 		public async Task<IActionResult> AddtoCart(CartRequest request)
 		{
@@ -39,11 +35,7 @@ namespace EcommerceWeb.Mvc.Controllers
 			if (string.IsNullOrEmpty(userId))
 			{
 				TempData["ErrorMessage"] = "Please login before adding product to cart";
-				if (!string.IsNullOrEmpty(refererUrl))
-				{
-					return Redirect(refererUrl);
-				}
-				return RedirectToAction("Index", "Home");
+				return Redirect(refererUrl);
 			}
 			request.UserId = userId;
 			await _cartServices.AddToCartAsync(request);
@@ -53,5 +45,55 @@ namespace EcommerceWeb.Mvc.Controllers
 			}
 			return RedirectToAction("Index", "Home");
 		}
-	}
+		[HttpPost("UpdateCart")]
+		public async Task<IActionResult> Update(CartRequest request)
+		{
+            string userId = Request.Cookies["UserId"]!;
+            string refererUrl = Request.Headers["Referer"].ToString();
+            if (string.IsNullOrEmpty(userId))
+            {
+                TempData["ErrorMessage"] = "Please login before update product to cart";
+                return Redirect(refererUrl);
+            }
+            var cartId = await _cartServices.GetCardIdAsync(userId);
+            if (cartId == null)
+            {
+                TempData["ErrorMessage"] = "Not found CartID";
+                return Redirect(refererUrl);
+            }
+            request.UserId = userId;
+			var response = await _cartServices.UpdateCartAsync(cartId, request);
+			if(!response.IsSuccessStatusCode)
+			{
+                TempData["ErrorMessage"] = "Not found CartID";
+                return Redirect(refererUrl);
+            }
+            return Redirect(refererUrl);
+        }
+        [HttpPost("DeleteProduct")]
+        public async Task<IActionResult> DeleteProduct(CartRequest request)
+        {
+            string userId = Request.Cookies["UserId"]!;
+            string refererUrl = Request.Headers["Referer"].ToString();
+            if (string.IsNullOrEmpty(userId))
+            {
+                TempData["ErrorMessage"] = "Please login before update product to cart";
+                return Redirect(refererUrl);
+            }
+            var cartId = await _cartServices.GetCardIdAsync(userId);
+            if (cartId == null)
+            {
+                TempData["ErrorMessage"] = "Not found CartID";
+                return Redirect(refererUrl);
+            }
+            request.UserId = userId;
+            var response = await _cartServices.DeleteCartAsync(cartId, request.ProductId!);
+            if (!response.IsSuccessStatusCode)
+            {
+                TempData["ErrorMessage"] = "Not found CartID";
+                return Redirect(refererUrl);
+            }
+            return Redirect(refererUrl);
+        }
+    }
 }

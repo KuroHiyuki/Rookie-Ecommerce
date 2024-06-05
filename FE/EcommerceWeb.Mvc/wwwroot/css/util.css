@@ -3310,6 +3310,7 @@ iframe {border: none;}
 	display: -moz-box;
 	display: -ms-flexbox;
 	display: flex;
+	justify-content: space-between;
 }
 
 /*------------------------------------------------------------------

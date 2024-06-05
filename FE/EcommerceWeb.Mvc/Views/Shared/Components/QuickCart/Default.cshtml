@@ -1,7 +1,6 @@
 ﻿@using EcommerceWeb.Mvc.Models.Carts
 @model List<CartVM>
 @{
-	var CartList = new List<CartVM>();
 	var total = Model.Sum(cart => cart.Price * cart.Quantity);
 }
 <div class="wrap-header-cart js-panel-cart">
@@ -22,20 +21,31 @@
 			<ul class="header-cart-wrapitem w-full">
 				@foreach(var product in Model)
 				{
-					<li class="header-cart-item flex-w flex-t m-b-12">
-					<div class="header-cart-item-img">
-						<img src="images/item-cart-01.jpg" alt="IMG">
-					</div>
+				<li>
+						<form asp-action="DeleteProduct" asp-controller="Cart" method="post" class="header-cart-item flex-w flex-t m-b-12" style="align-items: center;">
+						<div  class="header-cart-item-img">
+							<input type="hidden" name="request.ProductId" value="@product.ProductId" />
+							<img src="images/item-cart-01.jpg" alt="IMG">
+							
 
-					<div class="header-cart-item-txt p-t-8">
-						<a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-							@product.Name
-						</a>
+						</div>
 
-						<span class="header-cart-item-info">
-							@product.Quantity x $@product.Price
-						</span>
-					</div>
+						<div class="header-cart-item-txt p-t-6">
+							<a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+								@product.Name
+							</a>
+
+							<span class="header-cart-item-info">
+								@product.Quantity x $@product.Price
+							</span>
+						</div>
+						<div class="header-cart-item-btn">
+							<button type="submit" >
+								<i class="zmdi zmdi-close-circle"></i>
+							</button>
+						</div>
+						
+					</form>	
 				</li>
 				}
 			</ul>

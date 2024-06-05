@@ -19,10 +19,11 @@ namespace EcommerceWeb.Mvc.Services.Carts
 			response.EnsureSuccessStatusCode();
 		}
 
-		public Task<dynamic> DeleteCartAsync(string CartId, string ProductId)
+		public async Task<dynamic> DeleteCartAsync(string CartId, string ProductId)
 		{
-			throw new NotImplementedException();
-		}
+            var response = await _httpClient.DeleteAsync($"cart/{CartId},{ProductId}");
+            return response;
+        }
 
 		public async Task<List<CartVM>> GetProductInCartAsynce(string CartId, string userId)
 		{
@@ -46,9 +47,10 @@ namespace EcommerceWeb.Mvc.Services.Carts
 			return content;
 		}
 
-		public Task<dynamic> UpdateCartAsync(string CartId, CartRequest request)
+		public async Task<dynamic> UpdateCartAsync(string CartId, CartRequest request)
 		{
-			throw new NotImplementedException();
-		}
+            var response = await _httpClient.PutAsJsonAsync($"cart/{CartId}", request);
+            return response;
+        }
 	}
 }

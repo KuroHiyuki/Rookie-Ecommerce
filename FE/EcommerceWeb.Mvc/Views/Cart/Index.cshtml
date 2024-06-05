@@ -36,9 +36,9 @@
                                 {
                                     <tr class="table_row">
                                         <td class="column-1">
-                                            <div class="how-itemcart1">
+                                            <a class="how-itemcart1" asp-controller="Cart" asp-action="Update">
                                                 <img src="images/item-cart-04.jpg" alt="IMG">
-                                            </div>
+                                            </a>
                                         </td>
                                         <td class="column-2">@cart.Name</td>
                                         <td class="column-3">$ @cart.Price</td>
@@ -68,9 +68,9 @@
                                     </div>
                                 </div>
 
-                                <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+                                <a asp-controller="Cart" asp-action="DeleteProduct" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
                                     Update Cart
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
