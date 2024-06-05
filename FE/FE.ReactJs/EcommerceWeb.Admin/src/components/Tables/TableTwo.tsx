@@ -1,8 +1,6 @@
 import { Product } from '../../types/product';
 import ProductOne from '../../images/product/product-01.png';
 import ProductTwo from '../../images/product/product-02.png';
-import ProductThree from '../../images/product/product-03.png';
-import ProductFour from '../../images/product/product-04.png';
 
 const productData: Product[] = [
   {
@@ -10,33 +8,21 @@ const productData: Product[] = [
     name: 'Apple Watch Series 7',
     category: 'Electronics',
     price: 296,
-    sold: 22,
-    profit: 45,
+    description: "Hàng tồn",
+    CreatedDate: '24/02/2024',
+    UpdatedDate: "3/2/2024",
+    Inventory: 10
   },
   {
     image: ProductTwo,
     name: 'Macbook Pro M1',
     category: 'Electronics',
     price: 546,
-    sold: 12,
-    profit: 125,
-  },
-  {
-    image: ProductThree,
-    name: 'Dell Inspiron 15',
-    category: 'Electronics',
-    price: 443,
-    sold: 64,
-    profit: 247,
-  },
-  {
-    image: ProductFour,
-    name: 'HP Probook 450',
-    category: 'Electronics',
-    price: 499,
-    sold: 72,
-    profit: 103,
-  },
+    description: "Hàng tồn",
+    CreatedDate: '24/02/2024',
+    UpdatedDate: "3/2/2024",
+    Inventory: 10
+  }
 ];
 
 const TableTwo = () => {
@@ -48,21 +34,21 @@ const TableTwo = () => {
         </h4>
       </div>
 
-      <div className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
+      <div className="grid grid-cols-8 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
         <div className="col-span-3 flex items-center">
           <p className="font-medium">Product Name</p>
         </div>
-        <div className="col-span-2 hidden items-center sm:flex">
+        <div className="col-span-1 hidden items-center sm:flex">
           <p className="font-medium">Category</p>
         </div>
         <div className="col-span-1 flex items-center">
           <p className="font-medium">Price</p>
         </div>
-        <div className="col-span-1 flex items-center">
-          <p className="font-medium">Sold</p>
+        <div className="col-span-2 flex items-center">
+          <p className="font-medium">Description</p>
         </div>
         <div className="col-span-1 flex items-center">
-          <p className="font-medium">Profit</p>
+          <p className="font-medium">Created Date</p>
         </div>
       </div>
 
@@ -81,7 +67,7 @@ const TableTwo = () => {
               </p>
             </div>
           </div>
-          <div className="col-span-2 hidden items-center sm:flex">
+          <div className="col-span-1 hidden items-center sm:flex">
             <p className="text-sm text-black dark:text-white">
               {product.category}
             </p>
@@ -91,11 +77,11 @@ const TableTwo = () => {
               ${product.price}
             </p>
           </div>
-          <div className="col-span-1 flex items-center">
-            <p className="text-sm text-black dark:text-white">{product.sold}</p>
+          <div className="col-span-2 flex items-center">
+            <p className="text-sm text-black dark:text-white">{product.description}</p>
           </div>
           <div className="col-span-1 flex items-center">
-            <p className="text-sm text-meta-3">${product.profit}</p>
+            <p className="text-sm text-meta-3">{product.CreatedDate}</p>
           </div>
         </div>
       ))}
