@@ -27,6 +27,7 @@ namespace EcommerceWeb.Mvc.Components.Carts
 					}
 				}
 				var response = await _cartServices.GetProductInCartAsynce(cartId, userId);
+                HttpContext.Response.Cookies.Append("Count-cart", response.Count().ToString());
 				return View(response);
 			}
 			return View("Error");

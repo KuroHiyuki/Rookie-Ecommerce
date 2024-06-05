@@ -41,8 +41,6 @@ namespace EcommerceWeb.Mvc.Services.Carts
 		{
 			var response = await _httpClient.GetAsync($"cart/getID/{UserId}");
 
-			response.EnsureSuccessStatusCode();
-
 			string content = await response.Content.ReadAsStringAsync() as string;
 			return content;
 		}

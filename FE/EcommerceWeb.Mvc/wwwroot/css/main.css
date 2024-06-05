@@ -982,7 +982,7 @@
 
 /*---------------------------------------------*/
 .header-cart-item-txt {
-
+    width: calc(50%)
 }
 .header-cart-item-btn {
     with: calc(100%- 80px - 20px);

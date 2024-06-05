@@ -20,7 +20,12 @@ namespace EcommerceWeb.Mvc.Controllers
 			{
 				ViewBag.ErrorMessage = TempData["ErrorMessage"];
 			}
-			return View();
+
+            int count = int.Parse(Request.Cookies["Count-cart"]);
+
+            Response.Cookies.Append("Count-cart", (count).ToString());
+
+            return View();
         }
 
         public IActionResult Privacy()

@@ -21,12 +21,13 @@ namespace EcommerceWeb.Mvc.Controllers
 		}
         public IActionResult Logout()
         {
-			foreach (var cookie in Request.Cookies.Keys)
+            string refererUrl = Request.Headers["Referer"].ToString();
+            foreach (var cookie in Request.Cookies.Keys)
 			{
 				Response.Cookies.Delete(cookie);
 			}
-			return RedirectToAction("Index", "Home");
-		}
+            return Redirect(refererUrl);
+        }
 		public IActionResult Index()
 		{
             if (TempData.ContainsKey("ErrorMessage"))
@@ -44,19 +45,25 @@ namespace EcommerceWeb.Mvc.Controllers
                 if (!ValidationService.IsValidEmail(request.Email!))
                 {
                     TempData["ErrorMessage"] = "Email address is invalid.";
+                    
                     return RedirectToAction("Index", "Authentication");
                 }
                 var response = await _authenticationService.LoginAsync(request);
+                
                 if (!response.IsSuccessStatusCode)
                 {
 					TempData["ErrorMessage"] = await Extension.ErrorRespone(response);
-					return RedirectToAction("Index", "Authentication");
+					
+                    return RedirectToAction("Index", "Authentication");
                 }
                 else
                 {
                     var Content = await response.Content.ReadAsStringAsync();
+                    
                     var user = JsonConvert.DeserializeObject<AuthenticationVM>(Content)!;
+                    
                     CookieSetting(user);
+                    
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -74,13 +81,17 @@ namespace EcommerceWeb.Mvc.Controllers
                 {
                     return RedirectToAction("Index", "Authentication");
                 }
+                
                 var response = await _authenticationService.RegisterAsync(request);
+                
                 if (!response.IsSuccessStatusCode)
                 {
                     TempData["ErrorMessage"] = await Extension.ErrorRespone(response);
+                    
                     return RedirectToAction("Index", "Authentication");
                 }
                 TempData["ErrorMessage"] = "Registered success!";
+                
                 return RedirectToAction("Index", "Authentication");
             }
             return View("Error");
@@ -92,22 +103,26 @@ namespace EcommerceWeb.Mvc.Controllers
             if (!ValidationService.IsValidEmail(request.Email!))
             {
                 TempData["ErrorMessage"] = "Email address is invalid.";
+                
                 return true;
             }
             if (!ValidationService.IsValidPassword(request.Password!))
             {
                 TempData["ErrorMessage"] = "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+                
                 return true;
             }
 
             if (request.Password != confirmedPassword)
             {
                 TempData["ErrorMessage"] = "Passwords do not match.";
+                
                 return true;
             }
             if (!ValidationService.IsValidPhoneNumber(request.NumberPhone!))
             {
                 TempData["ErrorMessage"] = "Phone number is invalid. Please enter a valid Vietnamese phone number (starting with 0 and followed by 9 digits).";
+                
                 return true;
             }
             return false;
@@ -117,9 +132,13 @@ namespace EcommerceWeb.Mvc.Controllers
         private void CookieSetting(dynamic user)
         {
             Response.Cookies.Append("JWToken", user.Token, new CookieOptions { HttpOnly = true, Secure = true });
+
             CookieOptions options = new CookieOptions();
+
             options.Expires = DateTime.Now.AddDays(1);
+
             Response.Cookies.Append("UserId", user.Id, options);
+
             Response.Cookies.Append("Username", user.FirstName, options);
         }
     }

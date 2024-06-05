@@ -1,6 +1,7 @@
 ﻿@using EcommerceWeb.Mvc.Models.Carts
 @model List<CartVM>
 @{
+    ViewData["Title"] = "Shopping Cart";
     var CartList = new List<CartVM>();
     var total = Model.Sum(cart => cart.Price * cart.Quantity);
 }
