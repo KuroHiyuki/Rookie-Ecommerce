@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { useEffect } from 'react';
 import { getProducts } from '../../Redux/Slice/productSlice';
 import CircularPagination from '../Pagination/CircularPagination';
-import AddProductForm from './AddProduct';
+import { BASE_URL } from '../../config';
 
 const ProductList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ const ProductList: React.FC = () => {
   } = useAppSelector((state) => state.product);
 
   useEffect(() => {
-    dispatch(getProducts({ page: 1, pageSize: 2 }));
+    dispatch(getProducts({ page: 1, pageSize: 10 }));
   }, [dispatch]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -51,7 +51,7 @@ const ProductList: React.FC = () => {
           <div className="col-span-3 flex items-center">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <div className="h-12.5 w-15 rounded-md">
-                <img src={product.image} alt="Product" />
+                <img className="h-12.5 w-15 rounded-md" src={`${BASE_URL}/uploads/${product.image}`} alt="Product" />
               </div>
               <p className="text-sm text-black dark:text-white">
                 {product.name}
@@ -78,10 +78,9 @@ const ProductList: React.FC = () => {
           </div>
         </div>
       ))}
-      <div className='flex items-center'>
+      <div className='col-span-6 flex items-center'>
         <CircularPagination/>
       </div>
-      <AddProductForm/>
     </div>
   );
 };
