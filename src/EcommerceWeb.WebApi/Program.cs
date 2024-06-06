@@ -1,6 +1,7 @@
 using EcommerceWeb.Application;
 using EcommerceWeb.Infrastructure;
 using EcommerceWeb.WebApi;
+using Microsoft.Extensions.FileProviders;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
@@ -18,8 +19,13 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors();
 
-app.UseExceptionHandler("/errorHandle");
-
+//app.UseExceptionHandler("/errorHandle");
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "uploads")),
+    RequestPath = "/uploads"
+});
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

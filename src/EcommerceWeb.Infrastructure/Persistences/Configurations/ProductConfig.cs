@@ -9,6 +9,7 @@ namespace EcommerceWeb.Infrastructure.Persistences.Configurations
 
         public void Configure(EntityTypeBuilder<Product> builder)
         {
+            builder.Property(e => e.CreatedAt).HasDefaultValueSql("getdate()");
         }
     }
 }

@@ -86,6 +86,7 @@ namespace EcommerceWeb.Infrastructure.Products
                 Price = p.UnitPrice,
                 Stock = p.Inventory,
                 CategoryId = p.CategoryId,
+                CreatedAt = p.CreatedAt,
                 Category = new CategoryModelAppLayer
                 {
                     Id = p.Category!.Id,
@@ -144,6 +145,7 @@ namespace EcommerceWeb.Infrastructure.Products
                 Inventory = model.Stock,
                 CategoryId = model.CategoryId,
                 ImageURL = images[0].Url,
+                CreatedAt = DateTime.Now
             };
             _dbContext.Products.Add(product);
             _dbContext.SaveChanges();
