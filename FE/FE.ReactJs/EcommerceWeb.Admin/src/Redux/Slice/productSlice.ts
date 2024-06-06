@@ -42,7 +42,7 @@ export const addProduct = createAsyncThunk('products/addProduct', async (product
     return response;
 });
 
-export const editProduct = createAsyncThunk('products/editProduct', async ({ id, product }: { id: string; product: any }) => {
+export const editProduct = createAsyncThunk('products/editProduct', async ({ id, product }: { id: string; product: ProductRequest }) => {
     const response = await updateProduct(id, product);
     return response;
 });
@@ -87,6 +87,17 @@ const productSlice = createSlice({
             //     state.loading = false;
             //     state.error = action.error.message || 'Failed to create product';
             // });
+            .addCase(editProduct.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(editProduct.fulfilled, (state, action) => {
+                state.loading = false;
+                const index = state.items.findIndex((p) => p.id === action.payload.id);
+                if (index !== -1) {
+                    state.items[index] = action.payload;
+                }
+            })
     },
 });
 
