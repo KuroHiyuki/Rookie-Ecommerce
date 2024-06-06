@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
@@ -13,9 +12,7 @@ import FormLayout from './pages/Form/FormLayout';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import Alerts from './pages/UiElements/Alerts';
-import Buttons from './pages/UiElements/Buttons';
 import Product from './pages/Product';
-import UserList from './UserList';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -93,7 +90,7 @@ function App() {
           element={
             <>
               <PageTitle title="Product"/>
-              <UserList/>
+              <Product/>
             </>
           }
         />
@@ -124,7 +121,7 @@ function App() {
             </>
           }
         />
-        <Route
+        {/* <Route
           path="/ui/buttons"
           element={
             <>
@@ -132,7 +129,7 @@ function App() {
               <Buttons />
             </>
           }
-        />
+        /> */}
         <Route
           path="/auth/signin"
           element={
