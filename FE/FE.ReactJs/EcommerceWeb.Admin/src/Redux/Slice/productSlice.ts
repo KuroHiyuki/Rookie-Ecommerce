@@ -84,10 +84,10 @@ const productSlice = createSlice({
                 state.loading = false;
                 state.items.push(action.payload);
             })
-            .addCase(addProduct.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.error.message || 'Failed to create product';
-            });
+            // .addCase(addProduct.rejected, (state, action) => {
+            //     state.loading = false;
+            //     state.error = action.error.message || 'Failed to create product';
+            // });
     },
 });
 
