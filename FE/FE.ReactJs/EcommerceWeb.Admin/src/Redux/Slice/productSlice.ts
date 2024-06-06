@@ -1,8 +1,6 @@
-// src/redux/slices/productSlice.ts
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { fetchProducts, createProduct, updateProduct, deleteProduct } from '../../API/ProductAPI';
-import { Product } from '../../types/product';
-import { Query } from '../../types/Commons/Query';
+import { Product, ProductRequest } from '../../types/product';
 import { Paginated } from '../../types/Commons/Paginated';
 
 type ProductState = Paginated<Product> & {
@@ -21,11 +19,13 @@ const initialState: ProductState = {
 	totalCount: 0,
 };
 
+
 // Async thunks
-export const getProducts = createAsyncThunk('products/getProducts', async (query:Query ) => {
+export const getProducts = createAsyncThunk('products/getProducts', async (query:any ) => {
     const response = await fetchProducts(query);
     const products = response.items.map((product: any) => ({
         ...product,
+        Inventory: product.stock,
         CreatedDate: new Date(product.createdAt).toLocaleDateString('en-GB'),
         category: product.category.name,
         image: product.images.length > 0 ? product.images[0] : 'N/A',
@@ -37,12 +37,12 @@ export const getProducts = createAsyncThunk('products/getProducts', async (query
     };
 });
 
-export const addProduct = createAsyncThunk('products/addProduct', async (product: Product) => {
+export const addProduct = createAsyncThunk('products/addProduct', async (product: ProductRequest) => {
     const response = await createProduct(product);
     return response;
 });
 
-export const editProduct = createAsyncThunk('products/editProduct', async ({ id, product }: { id: string; product: Product }) => {
+export const editProduct = createAsyncThunk('products/editProduct', async ({ id, product }: { id: string; product: any }) => {
     const response = await updateProduct(id, product);
     return response;
 });
@@ -74,19 +74,20 @@ const productSlice = createSlice({
             .addCase(getProducts.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || 'Failed to fetch products';
+            });
+        builder
+            .addCase(addProduct.pending, (state) => {
+                state.loading = true;
+                state.error = null;
             })
-            // .addCase(addProduct.fulfilled, (state, action) => {
-            //     state.products.push(action.payload);
-            // })
-            // .addCase(editProduct.fulfilled, (state, action) => {
-            //     const index = state.products.findIndex(product => product.id === action.payload.id);
-            //     if (index !== -1) {
-            //         state.products[index] = action.payload;
-            //     }
-            // })
-            // .addCase(removeProduct.fulfilled, (state, action) => {
-            //     state.products = state.products.filter(product => product.id !== action.payload);
-            // });
+            .addCase(addProduct.fulfilled, (state, action: PayloadAction<Product>) => {
+                state.loading = false;
+                state.items.push(action.payload);
+            })
+            .addCase(addProduct.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || 'Failed to create product';
+            });
     },
 });
 

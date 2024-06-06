@@ -1,6 +1,6 @@
                                                                                                               import { BASE_URL } from '../config';
 import { Query } from '../types/Commons/Query';
-import { Product } from '../types/product';
+import { ProductRequest } from '../types/product';
 
 
 export const fetchProducts = async (query: Query) => {
@@ -13,7 +13,7 @@ export const fetchProducts = async (query: Query) => {
     return response.json();
 };
 
-export const createProduct = async (product:Product) => {
+export const createProduct = async (product:ProductRequest) => {
     const response = await fetch(`${BASE_URL}/product`, {
         method: 'POST',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
         headers: {
@@ -24,7 +24,7 @@ export const createProduct = async (product:Product) => {
     return response.json();
 };
 
-export const updateProduct = async (id:string, product:Product) => {
+export const updateProduct = async (id:string, product:ProductRequest) => {
     const response = await fetch(`${BASE_URL}/product/${id}`, {
         method: 'PUT',
         headers: {

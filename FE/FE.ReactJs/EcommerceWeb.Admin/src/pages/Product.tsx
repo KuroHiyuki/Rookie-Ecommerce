@@ -1,14 +1,14 @@
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import TableTwo from '../components/Tables/TableTwo';
+import ProductList from '../components/Products/ProductList';
 
 const Product = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Tables" />
+      <Breadcrumb pageName="Product Panel" />
 
       <div className="flex flex-col gap-10">
-        <TableTwo />
+        <ProductList/>
       </div>
     </DefaultLayout>
   )

@@ -1,7 +1,7 @@
 // src/components/CircularPagination.tsx
 import React from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { Button, IconButton, IconButtonProps } from "@material-tailwind/react";
+import { useDispatch } from 'react-redux';
+import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { RootState, AppDispatch } from '../../Redux/store';
 import { getProducts } from '../../Redux/Slice/productSlice';
