@@ -115,11 +115,11 @@ namespace EcommerceWeb.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProductById(string id, [FromForm] UpdateProductRequest request)
+        public async Task<IActionResult> UpdateProductById(string id, [FromForm] ProductRequest request)
         {
             try
             {
-                var command = new UpdateProductCommand( id, request.Name, request.Description, request.UnitPrice, request.Inventorry, request.CategoryId, request.Images );
+                var command = new UpdateProductCommand( id, request.Name, request.Description, request.Price, request.Stock, request.CategoryId, request.Images );
 
                 await _mediator.Send(command);
 

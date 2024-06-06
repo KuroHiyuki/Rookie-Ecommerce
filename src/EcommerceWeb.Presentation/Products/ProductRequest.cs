@@ -12,8 +12,8 @@ namespace EcommerceWeb.Presentation.Products
     public record UpdateProductRequest(
         string Name,
         string Description,
-        decimal UnitPrice,
-        int Inventorry,
+        decimal Price,
+        int Stock,
         string CategoryId,
         IFormFileCollection? Images
         );
