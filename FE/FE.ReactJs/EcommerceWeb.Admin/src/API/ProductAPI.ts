@@ -31,7 +31,6 @@ export const createProduct = async (product: ProductRequest) => {
   if (!response.ok) {
     throw new Error('Failed to create product');
   }
-  console.log(response);
   return response.json();
 };
 
@@ -54,9 +53,16 @@ export const updateProduct = async (id: string, product: ProductRequest) => {
   return response.json();
 };
 
-export const deleteProduct = async (id: string) => {
-  const response = await fetch(`${BASE_URL}/products/${id}`, {
-    method: 'DELETE',
-  });
-  return response.json();
-};
+// export const deleteProduct = async (id: string) => {
+//   const response = await fetch(`${BASE_URL}/product/${id}`, {
+//     method: 'DELETE',
+//   });
+//   return response.json();
+// };
+
+export const GetProductById = async (id:string) => {
+    const response = await fetch(`${BASE_URL}/product/${id}`,{
+        method: 'GET',
+    })
+    return response.json();
+}
