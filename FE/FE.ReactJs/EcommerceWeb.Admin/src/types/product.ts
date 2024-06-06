@@ -18,7 +18,5 @@ export type ProductRequest = {
 	price: number;
 	inventory: number;
   categoryId: string;
-  imgUrls: string[];
-	CreatedDate: string;
-	updatedAt: string;
+  imgUrls: File[];
 };
