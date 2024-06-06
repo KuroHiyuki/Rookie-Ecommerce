@@ -101,6 +101,15 @@ function App() {
           }
         />
         <Route
+          path="/Product/Edit/:id"
+          element={
+            <>
+              <PageTitle title="Edit"/>
+              <CreateProduct/>
+            </>
+          }
+        />
+        <Route
           path="/settings"
           element={
             <>
