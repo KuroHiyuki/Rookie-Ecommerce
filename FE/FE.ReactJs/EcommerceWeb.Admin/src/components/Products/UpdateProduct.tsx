@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { editProduct } from '../../Redux/Slice/productSlice';
-import { RootState, AppDispatch } from '../../Redux/store';
+import { GetbyId, editProduct } from '../../Redux/Slice/productSlice';
+import { AppDispatch } from '../../Redux/store';
 import { useAppSelector } from '../../Redux/hooks';
 import { ProductRequest } from '../../types/product';
 import SelectGroupOne from '../Forms/SelectGroup/SelectGroupOne';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const EditProductForm: React.FC = () => {
-    const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
@@ -17,14 +17,30 @@ const EditProductForm: React.FC = () => {
   const [imgUrls, setImgUrls] = useState<File[]>([]);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { loading, error } = useAppSelector(
-    (state: RootState) => state.product,
-  );
+  const { loading, items, error } = useAppSelector((state) => state.product);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setImgUrls(Array.from(e.target.files));
     }
   };
+  useEffect(() => {
+    if (id) {
+      dispatch(GetbyId(id));
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (items && id) {
+      const product = items.find((item) => item.id === id);
+      if (product) {
+        setName(product.name);
+        setDescription(product.description);
+        setPrice(product.price);
+        setInventory(product.Inventory);
+        setCategoryId(product.category);
+      }
+    }
+  }, [items, id]);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const product = {
@@ -35,7 +51,7 @@ const EditProductForm: React.FC = () => {
       categoryId,
       imgUrls,
     } as ProductRequest;
-    dispatch(editProduct({id:id!, product: product}));
+    dispatch(editProduct({ id: id!, product: product }));
     setName('');
     setDescription('');
     setPrice(0);
@@ -53,7 +69,7 @@ const EditProductForm: React.FC = () => {
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
             <h3 className="font-medium text-black dark:text-white">
-              Create Product
+              Edit Product
             </h3>
           </div>
           <div className="p-6.5">
@@ -132,7 +148,6 @@ const EditProductForm: React.FC = () => {
                   type="file"
                   onChange={handleFileChange}
                   multiple
-                  required
                   className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
                 />
               </div>
