@@ -74,8 +74,7 @@ const productSlice = createSlice({
             .addCase(getProducts.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || 'Failed to fetch products';
-            });
-        builder
+            })
             .addCase(addProduct.pending, (state) => {
                 state.loading = true;
                 state.error = null;

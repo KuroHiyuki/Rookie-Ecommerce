@@ -6,6 +6,7 @@ import { RootState, AppDispatch } from '../../Redux/store';
 import { useAppSelector } from '../../Redux/hooks';
 import { ProductRequest } from '../../types/product';
 import SelectGroupOne from '../Forms/SelectGroup/SelectGroupOne';
+import { useNavigate } from 'react-router-dom';
 
 const AddProductForm: React.FC = () => {
     const [name, setName] = useState('');
@@ -15,6 +16,7 @@ const AddProductForm: React.FC = () => {
     const [categoryId, setCategoryId] = useState('');
     const [imgUrls, setImgUrls] = useState<File[]>([]);
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate()
     const { loading, error } = useAppSelector((state: RootState) => state.product);
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -33,7 +35,7 @@ const AddProductForm: React.FC = () => {
         setInventory(0);
         setCategoryId('');
         setImgUrls([]);
-        
+        navigate('/product')
     };
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
