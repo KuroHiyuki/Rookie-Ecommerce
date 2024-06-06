@@ -2,7 +2,7 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import EditProductForm from '../../components/Products/UpdateProduct';
 
-const CreateProduct = () => {
+const EditProduct = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Edit" />
@@ -14,4 +14,4 @@ const CreateProduct = () => {
   )
 }
 
-export default CreateProduct
+export default EditProduct
