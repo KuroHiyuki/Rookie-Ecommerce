@@ -1,6 +1,6 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import AddProductForm from '../../components/Products/AddProduct';
+import AddProductForm from '../../components/Products/AddProductForm';
 
 const CreateProduct = () => {
   return (
