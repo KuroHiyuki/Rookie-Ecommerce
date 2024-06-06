@@ -1,9 +1,7 @@
-import { Product } from '../../types/product';
-import ProductOne from '../../images/product/product-01.png';
-import ProductTwo from '../../images/product/product-02.png';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { useEffect } from 'react';
 import { getProducts } from '../../Redux/Slice/productSlice';
+import CircularPagination from '../Pagination/CircularPagination';
 
 const TableTwo: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -95,15 +93,7 @@ const TableTwo: React.FC = () => {
           </div>
         </div>
       ))}
-      <div>
-        <button onClick={handlePreviousPage} disabled={!hasPreviousPage}>
-          Previous
-        </button>
-        <span>Page {page}</span>
-        <button onClick={handleNextPage} disabled={!hasNextPage}>
-          Next
-        </button>
-      </div>
+      <CircularPagination/>
     </div>
   );
 };

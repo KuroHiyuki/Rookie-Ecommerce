@@ -1,23 +1,25 @@
 // src/components/CircularPagination.tsx
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, IconButton } from "@material-tailwind/react";
+import { Button, IconButton, IconButtonProps } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { RootState, AppDispatch } from '../../Redux/store';
 import { getProducts } from '../../Redux/Slice/productSlice';
+import { useAppSelector } from "../../Redux/hooks";
 
 const CircularPagination: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { page, pageSize, totalCount, hasNextPage, hasPreviousPage } = useSelector((state: RootState) => state.products);
+    const { page, pageSize, totalCount, hasNextPage, hasPreviousPage } = useAppSelector((state:RootState) => state.product);
     
     const totalPages = Math.ceil(totalCount / pageSize);
 
-    const getItemProps = (index: number) => ({
+    const getItemProps = (index: number)=> ({
         variant: page === index ? "filled" : "text",
         color: "gray",
         onClick: () => dispatch(getProducts({ page: index, pageSize })),
         className: "rounded-full",
-    });
+
+    } as any);
 
     const next = () => {
         if (hasNextPage) {
@@ -38,6 +40,9 @@ const CircularPagination: React.FC = () => {
                 className="flex items-center gap-2 rounded-full"
                 onClick={prev}
                 disabled={!hasPreviousPage}
+                placeholder={undefined} 
+                onPointerEnterCapture={undefined} 
+                onPointerLeaveCapture={undefined}
             >
                 <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
             </Button>
@@ -51,6 +56,9 @@ const CircularPagination: React.FC = () => {
                 className="flex items-center gap-2 rounded-full"
                 onClick={next}
                 disabled={!hasNextPage}
+                placeholder={undefined} 
+                onPointerEnterCapture={undefined} 
+                onPointerLeaveCapture={undefined}
             >
                 Next
                 <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
