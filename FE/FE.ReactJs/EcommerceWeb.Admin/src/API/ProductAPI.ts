@@ -36,24 +36,20 @@ export const createProduct = async (product: ProductRequest) => {
 };
 
 export const updateProduct = async (id: string, product: ProductRequest) => {
-  // const formData = new FormData();
-  // formData.append('Name', product.name);
-  // formData.append('Description', product.description);
-  // formData.append('Price', product.price.toString());
-  // formData.append('CreatedAt', product.CreatedDate);
-  // formData.append('Stock', product.inventory.toString());
-  // formData.append('CategoryId', product.categoryId);
-
-  // product.imgUrls.forEach((image, index) => {
-  //     formData.append(`Images[${index}]`, image);
-  // });
+    const formData = new FormData();
+    formData.append('Name', product.name);
+    formData.append('Description', product.description);
+    formData.append('Price', product.price.toString());
+    formData.append('Stock', product.inventory.toString());
+    formData.append('CategoryId', product.categoryId);
+  
+    product.imgUrls.forEach((image) => {
+      formData.append('images', image);
+    });
 
   const response = await fetch(`${BASE_URL}/product/${id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'jsonbody',
-    },
-    body: JSON.stringify(product),
+    body: formData
   });
   return response.json();
 };
