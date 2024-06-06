@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import Product from './pages/Product/Product';
 import CreateProduct from './pages/Product/AddProduct';
+import EditProduct from './pages/Product/EditProduct';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -105,7 +106,7 @@ function App() {
           element={
             <>
               <PageTitle title="Edit"/>
-              <CreateProduct/>
+              <EditProduct/>
             </>
           }
         />
