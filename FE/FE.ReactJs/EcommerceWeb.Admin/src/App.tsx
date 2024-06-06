@@ -8,7 +8,8 @@ import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
-import Product from './pages/Product';
+import Product from './pages/Product/Product';
+import CreateProduct from './pages/Product/AddProduct';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -87,6 +88,15 @@ function App() {
             <>
               <PageTitle title="Product"/>
               <Product/>
+            </>
+          }
+        />
+        <Route
+          path="/Product/Create"
+          element={
+            <>
+              <PageTitle title="Create"/>
+              <CreateProduct/>
             </>
           }
         />
