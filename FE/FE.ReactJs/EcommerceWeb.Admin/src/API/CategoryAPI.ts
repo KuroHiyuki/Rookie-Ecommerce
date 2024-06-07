@@ -37,3 +37,9 @@ export const deleteCategory = async (id:string) => {
     });
     return response.json();
 };
+export const fetchCategoryId = async (id:string) => {
+    const response = await fetch(`${BASE_URL}/category/${id}`,{
+        method: 'GET',
+    })
+    return response.json();
+}
