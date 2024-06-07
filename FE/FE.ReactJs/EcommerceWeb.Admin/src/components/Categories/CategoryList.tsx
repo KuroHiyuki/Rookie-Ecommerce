@@ -1,7 +1,7 @@
 // src/components/CategoryList.tsx
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
-import { getCategories, addCategory, editCategory, removeCategory } from '../../Redux/Slice/categorySlice';
+import { getCategories, removeCategory } from '../../Redux/Slice/categorySlice';
 import { Link } from 'react-router-dom';
 
 const CategoryList: React.FC = () => {
@@ -53,7 +53,7 @@ const CategoryList: React.FC = () => {
           </div>
           <div className="col-span-2 flex items-center">
             <Link
-              to={`/product/edit/${category.id}`}
+              to={`/category/edit/${category.id}`}
               className="inline-flex items-center justify-center rounded-md border border-warning py-4 px-10 text-center font-medium text-warning hover:bg-opacity-90 lg:px-8 xl:px-10 gap-10 m-b-sm"
             >
               Edit

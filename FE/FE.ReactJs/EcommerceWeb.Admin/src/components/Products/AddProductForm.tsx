@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../Redux/Slice/productSlice';
+import { addProduct, getProducts } from '../../Redux/Slice/productSlice';
 import { RootState, AppDispatch } from '../../Redux/store';
 import { useAppSelector } from '../../Redux/hooks';
 import { ProductRequest } from '../../types/product';
@@ -34,7 +34,9 @@ const AddProductForm: React.FC = () => {
       categoryId,
       imgUrls,
     } as ProductRequest;
-    dispatch(addProduct(product));
+    dispatch(addProduct(product)).then(() => {
+      dispatch(getProducts({ page: 1, pageSize: 10 }));
+    });
     setName('');
     setDescription('');
     setPrice(0);

@@ -8,6 +8,7 @@ import Product from './pages/Product/Product';
 import CreateProduct from './pages/Product/AddProduct';
 import EditProduct from './pages/Product/EditProduct';
 import Category from './pages/Category/Category';
+import CreateCategory from './pages/Category/CreateCategory';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -53,15 +54,7 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/category"
-          element={
-            <>
-              <PageTitle title="category"/>
-              <Category/>
-            </>
-          }
-        />
+        
         <Route
           path="/Product/Create"
           element={
@@ -77,6 +70,24 @@ function App() {
             <>
               <PageTitle title="Edit"/>
               <EditProduct/>
+            </>
+          }
+        />
+        <Route
+          path="/category"
+          element={
+            <>
+              <PageTitle title="category"/>
+              <Category/>
+            </>
+          }
+        />
+        <Route
+          path="/category/create"
+          element={
+            <>
+              <PageTitle title="Create"/>
+              <CreateCategory/>
             </>
           }
         />
