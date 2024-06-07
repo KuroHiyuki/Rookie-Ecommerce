@@ -93,7 +93,7 @@ const ProductList: React.FC = () => {
             </Link>
             <button
               onClick={() => handleDelete(product.id)}
-              className="ml-1 inline-flex items-center justify-center rounded-md border border-danger py-4 px-10 text-center font-medium text-danger hover:bg-opacity-90 lg:px-8 xl:px-10 gap-10 m-b-sm"
+              className="ml-1inline-flex items-center justify-center rounded-md border border-danger py-4 px-10 text-center font-medium text-danger hover:bg-opacity-90 lg:px-8 xl:px-10 gap-10 m-b-sm"
             >
               Delete
             </button>

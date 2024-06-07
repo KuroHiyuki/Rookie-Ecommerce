@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
 import { getUsers, removeUser } from '../../Redux/Slice/userSlice';
-import { BASE_URL } from '../../config';
 import { Link } from 'react-router-dom';
 
 const UserList: React.FC = () => {

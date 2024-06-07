@@ -1,6 +1,6 @@
 // src/redux/slices/userSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchUsers, updateUser, deleteUser } from '../../API/UserAPI';
+import { fetchUsers, updateUser, deleteUser, fetchUserID } from '../../API/UserAPI';
 import { User, UserRequest } from '../../types/User';
 
 interface UserState {
@@ -31,6 +31,10 @@ export const removeUser = createAsyncThunk('users/removeUser', async (id: string
     return id;
 });
 
+export const getUserId = createAsyncThunk('users/getUserId', async (id: string) => {
+    var response = await fetchUserID(id);
+    return response;
+});
 const userSlice = createSlice({
     name: 'users',
     initialState,
@@ -56,7 +60,14 @@ const userSlice = createSlice({
             })
             .addCase(removeUser.fulfilled, (state, action) => {
                 state.users = state.users.filter(user => user.id !== action.payload);
-            });
+            })
+            .addCase(getUserId.pending, (state) => {
+                state.loading = true;
+              })
+              .addCase(getUserId.fulfilled, (state, action) => {
+                state.loading = false;
+                state.users = state.users.filter((item) => item.id !== action.payload);
+              })
     },
 });
 

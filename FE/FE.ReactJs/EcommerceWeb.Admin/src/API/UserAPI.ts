@@ -23,3 +23,10 @@ export const deleteUser = async (id:string) => {
     });
     return response.json();
 };
+
+export const fetchUserID = async (id:string) => {
+    const response = await fetch(`${BASE_URL}/user/${id}`, {
+        method: 'GET',
+    });
+    return response.json();
+};

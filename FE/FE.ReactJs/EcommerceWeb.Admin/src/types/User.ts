@@ -12,7 +12,6 @@ export type UserRequest = {
     firstName: string;
     lastName: string;
     email: string;
-    avatarURL : string;
     numberPhone: string;
     address: string;
 };
