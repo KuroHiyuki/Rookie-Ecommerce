@@ -2,6 +2,7 @@
 using EcommerceWeb.Application.Categories.CreateCategory;
 using EcommerceWeb.Application.Categories.DeleteCategory;
 using EcommerceWeb.Application.Categories.GetAllCategory;
+using EcommerceWeb.Application.Categories.GetById;
 using EcommerceWeb.Application.Categories.UpdateCategory;
 using EcommerceWeb.Application.Common.Errors;
 using EcommerceWeb.Application.Products.DeleteProduct;
@@ -19,6 +20,19 @@ namespace EcommerceWeb.WebApi.Controllers
         public CategoryController(MediatR.ISender mediator)
         {
             _mediator = mediator;
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCategoryIdAsync(string id)
+        {
+            try
+            {
+
+                return Ok(await _mediator.Send(new GetCategoryByIdQuery(id)));
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(string id)
