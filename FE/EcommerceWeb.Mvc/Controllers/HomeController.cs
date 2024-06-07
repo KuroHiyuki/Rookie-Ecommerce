@@ -21,7 +21,7 @@ namespace EcommerceWeb.Mvc.Controllers
 				ViewBag.ErrorMessage = TempData["ErrorMessage"];
 			}
 
-            int count = int.Parse(Request.Cookies["Count-cart"]);
+            int count = int.Parse(Request.Cookies["Count-cart"] ?? "0");
 
             Response.Cookies.Append("Count-cart", (count).ToString());
 
