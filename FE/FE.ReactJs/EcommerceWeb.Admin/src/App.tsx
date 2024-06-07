@@ -9,6 +9,7 @@ import CreateProduct from './pages/Product/AddProduct';
 import EditProduct from './pages/Product/EditProduct';
 import Category from './pages/Category/Category';
 import CreateCategory from './pages/Category/CreateCategory';
+import EditCategory from './pages/Category/EditCategory';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -88,6 +89,15 @@ function App() {
             <>
               <PageTitle title="Create"/>
               <CreateCategory/>
+            </>
+          }
+        />
+        <Route
+          path="/category/edit/:id"
+          element={
+            <>
+              <PageTitle title="Edit"/>
+              <EditCategory/>
             </>
           }
         />
