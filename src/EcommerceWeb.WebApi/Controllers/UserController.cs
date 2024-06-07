@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EcommerceWeb.Application.Users.GetUserByEmail;
+using EcommerceWeb.Application.Users.GetUserbyId;
 
 namespace EcommerceWeb.WebApi.Controllers
 {
@@ -19,12 +20,25 @@ namespace EcommerceWeb.WebApi.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet("{Email}")]
+        [HttpGet("indeed/{Email}")]
         public async Task<IActionResult> GetUserByEmailAsync(string Email)
         {
             try
             {
                 var query = new GetUserByEmailQuery(Email);
+                return Ok(await _mediator.Send(query));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUserByIdAsync(string userId)
+        {
+            try
+            {
+                var query = new GetUserByIdQuery(userId);
                 return Ok(await _mediator.Send(query));
             }
             catch (Exception ex)
