@@ -10,6 +10,7 @@ import EditProduct from './pages/Product/EditProduct';
 import Category from './pages/Category/Category';
 import CreateCategory from './pages/Category/CreateCategory';
 import EditCategory from './pages/Category/EditCategory';
+import User from './pages/User/User';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -98,6 +99,15 @@ function App() {
             <>
               <PageTitle title="Edit"/>
               <EditCategory/>
+            </>
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            <>
+              <PageTitle title="User"/>
+              <User/>
             </>
           }
         />
