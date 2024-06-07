@@ -29,12 +29,14 @@ namespace EcommerceWeb.Application.Products.UpdateProduct
             if (existingProduct == null)
                 throw new NotFoundException($"Product with id {command.Id} not found!");
 
-            await _productRepository.RemoveProductImagesAsync(existingProduct);
+            
 
             List<Image> productImages = new List<Image>();
             if (command.Images != null && command.Images.Count > 0)
             {
+                await _productRepository.RemoveProductImagesAsync(existingProduct);
                 productImages = await _productRepository.SaveProductImagesAsync(command.Images, command.Id);
+                existingProduct.ImageURL = productImages.Select(e => e.Url).FirstOrDefault();
             }
 
             UpdateProduct(existingProduct, command, productImages);
