@@ -4,6 +4,7 @@ import {
   createProduct,
   updateProduct,
   GetProductById,
+  deleteProduct,
 } from '../../API/ProductAPI';
 import { Product, ProductRequest } from '../../types/product';
 import { Paginated } from '../../types/Commons/Paginated';
@@ -60,13 +61,13 @@ export const editProduct = createAsyncThunk(
   },
 );
 
-// export const removeProduct = createAsyncThunk(
-//   'products/removeProduct',
-//   async (id: string) => {
-//     await deleteProduct(id);
-//     return id;
-//   },
-// );
+export const removeProduct = createAsyncThunk(
+  'products/removeProduct',
+  async (id: string) => {
+    await deleteProduct(id);
+    return id;
+  },
+);
 
 export const GetbyId = createAsyncThunk(
   'products/getbyid',
@@ -120,20 +121,13 @@ const productSlice = createSlice({
           state.items.push(action.payload);
         },
       )
-      // .addCase(addProduct.rejected, (state, action) => {
-      //     state.loading = false;
-      //     state.error = action.error.message || 'Failed to create product';
-      // });
       .addCase(editProduct.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(editProduct.fulfilled, (state, action) => {
         state.loading = false;
-        const index = state.items.findIndex((p) => p.id === action.payload.id);
-        if (index !== -1) {
-          state.items[index] = action.payload;
-        }
+        state.items = state.items.filter((item) => item.id !== action.payload);
       })
       .addCase(GetbyId.pending, (state) => {
         state.loading = true;
@@ -141,19 +135,16 @@ const productSlice = createSlice({
       })
       .addCase(GetbyId.fulfilled, (state, action) => {
         state.loading = false;
-        const index = state.items.findIndex(
-          (product) => product.id === action.payload.id,
-        );
-        if (index === -1) {
-          state.items.push(action.payload);
-        } else {
-          state.items[index] = action.payload;
-        }
+        state.items = state.items.filter((item) => item.id !== action.payload);
       })
-      .addCase(GetbyId.rejected, (state, action) => {
+      .addCase(removeProduct.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(removeProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to fetch product';
-      });
+        state.items = state.items.filter((item) => item.id !== action.payload);
+      })
   },
 });
 

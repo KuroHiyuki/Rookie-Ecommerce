@@ -53,12 +53,12 @@ export const updateProduct = async (id: string, product: ProductRequest) => {
   return response.json();
 };
 
-// export const deleteProduct = async (id: string) => {
-//   const response = await fetch(`${BASE_URL}/product/${id}`, {
-//     method: 'DELETE',
-//   });
-//   return response.json();
-// };
+export const deleteProduct = async (id: string) => {
+  const response = await fetch(`${BASE_URL}/product/${id}`, {
+    method: 'DELETE',
+  });
+  return response.json();
+};
 
 export const GetProductById = async (id:string) => {
     const response = await fetch(`${BASE_URL}/product/${id}`,{
