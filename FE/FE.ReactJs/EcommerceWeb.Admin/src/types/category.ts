@@ -1,10 +1,10 @@
 export type Category = {
+    id:string
     name: string;
     description: string;
 };
 
 export type CategoryRequest = {
-    id: string,
     name: string;
     Description: string
 };
