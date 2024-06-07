@@ -28,10 +28,10 @@ const UserList: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-8 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-        <div className="col-span-3 flex items-center">
+        <div className="col-span-2 flex items-center">
           <p className="font-medium">Name</p>
         </div>
-        <div className="col-span-1 hidden items-center sm:flex">
+        <div className="col-span-2 hidden items-center sm:flex">
           <p className="font-medium">Email</p>
         </div>
         <div className="col-span-1 flex items-center">
@@ -49,7 +49,7 @@ const UserList: React.FC = () => {
           className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
           key={user.id}
         >
-          <div className="col-span-3 flex items-center m-r-2">
+          <div className="col-span-2 flex items-center m-r-2">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               {/* <div className="h-12.5 w-15 rounded-md">
                 <img
@@ -63,7 +63,7 @@ const UserList: React.FC = () => {
               </p>
             </div>
           </div>
-          <div className="col-span-1 hidden items-center sm:flex">
+          <div className="col-span-2 hidden items-center sm:flex">
             <p className="text-sm text-black dark:text-white fit">
               {user.email}
             </p>
@@ -80,7 +80,7 @@ const UserList: React.FC = () => {
           </div>
           <div className="col-span-2 flex items-center">
             <Link
-              to={`/product/edit/${user.id}`}
+              to={`/user/edit/${user.id}`}
               className="inline-flex items-center justify-center rounded-md border border-warning py-4 px-10 text-center font-medium text-warning hover:bg-opacity-90 lg:px-8 xl:px-10 gap-10 m-b-sm"
             >
               Edit

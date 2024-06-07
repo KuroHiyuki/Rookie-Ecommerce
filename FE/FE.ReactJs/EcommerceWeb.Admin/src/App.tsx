@@ -12,6 +12,7 @@ import CreateCategory from './pages/Category/CreateCategory';
 import EditCategory from './pages/Category/EditCategory';
 import User from './pages/User/User';
 import EditUser from './pages/User/EditUset';
+import SignIn from './pages/Authentication/SignIn';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -30,6 +31,15 @@ function App() {
   ) : (
     <>
       <Routes>
+      <Route
+          path="/signin"
+          element={
+            <>
+              <PageTitle title="Sign In"/>
+              <SignIn/>
+            </>
+          }
+        />
         <Route
           index
           element={
@@ -113,7 +123,7 @@ function App() {
           }
         />
         <Route
-          path="/user/edit"
+          path="/user/edit/:id"
           element={
             <>
               <PageTitle title="Edit"/>
