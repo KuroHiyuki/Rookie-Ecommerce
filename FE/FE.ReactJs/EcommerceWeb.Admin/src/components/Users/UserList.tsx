@@ -52,20 +52,20 @@ const UserList: React.FC = () => {
         >
           <div className="col-span-3 flex items-center m-r-2">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              <div className="h-12.5 w-15 rounded-md">
+              {/* <div className="h-12.5 w-15 rounded-md">
                 <img
                   className="h-12.5 w-15 rounded-md"
                   src={`${BASE_URL}/uploads/${user.avatarURL}`}
                   alt="user"
                 />
-              </div>
-              <p className="text-sm text-black dark:text-white">
+              </div> */}
+              <p className="text-sm text-black dark:text-white fit">
                 {`${user.firstName} ${user.lastName}`}
               </p>
             </div>
           </div>
           <div className="col-span-1 hidden items-center sm:flex">
-            <p className="text-sm text-black dark:text-white">
+            <p className="text-sm text-black dark:text-white fit">
               {user.email}
             </p>
           </div>
