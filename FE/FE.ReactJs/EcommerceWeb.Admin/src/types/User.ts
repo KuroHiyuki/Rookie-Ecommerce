@@ -1,18 +1,18 @@
 export type User = {
-    Id:string;
-    FirstName: string;
-    LastName: string;
-    Email: string;
-    AvatarURL : string;
-    NumberPhone: string;
-    Address: string;
+    id:string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    avatarURL : string;
+    numberPhone: string;
+    address: string;
 };
 
 export type UserRequest = {
-    FirstName: string;
-    LastName: string;
-    Email: string;
-    AvatarURL : string;
-    NumberPhone: string;
-    Address: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    avatarURL : string;
+    numberPhone: string;
+    address: string;
 };

@@ -45,60 +45,49 @@ const UserList: React.FC = () => {
           <p className="font-medium">Action</p>
         </div>
       </div>
-      <div>
-            <h1>User List</h1>
-            <ul>
-                {users.map(user => (
-                    <li key={user.Id}>
-                        {user.FirstName}
-                        <button onClick={() => dispatch(removeUser(user.Id))}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
       {users.map((user) => (
         <div
           className="grid grid-cols-6 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
-          key={user.Id}
+          key={user.id}
         >
-          <div className="col-span-2 flex items-center m-r-2">
+          <div className="col-span-3 flex items-center m-r-2">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
               <div className="h-12.5 w-15 rounded-md">
                 <img
                   className="h-12.5 w-15 rounded-md"
-                  src={`${BASE_URL}/uploads/${user.AvatarURL}`}
-                  alt="Product"
+                  src={`${BASE_URL}/uploads/${user.avatarURL}`}
+                  alt="user"
                 />
               </div>
               <p className="text-sm text-black dark:text-white">
-                {`${user.FirstName} +${user.LastName}`}
+                {`${user.firstName} ${user.lastName}`}
               </p>
             </div>
           </div>
           <div className="col-span-1 hidden items-center sm:flex">
             <p className="text-sm text-black dark:text-white">
-              {user.Email}
+              {user.email}
             </p>
           </div>
           <div className="col-span-1 flex items-center">
             <p className="text-sm text-black dark:text-white">
-              ${user.NumberPhone}
+              {user.numberPhone}
             </p>
           </div>
           <div className="col-span-1 flex items-center">
             <p className="text-sm text-black dark:text-white">
-              {user.Address}
+              {user.address}
             </p>
           </div>
           <div className="col-span-2 flex items-center">
             <Link
-              to={`/product/edit/${user.Id}`}
+              to={`/product/edit/${user.id}`}
               className="inline-flex items-center justify-center rounded-md border border-warning py-4 px-10 text-center font-medium text-warning hover:bg-opacity-90 lg:px-8 xl:px-10 gap-10 m-b-sm"
             >
               Edit
             </Link>
             <button
-              onClick={() => handleDelete(user.Id)}
+              onClick={() => handleDelete(user.id)}
               className="ml-1 inline-flex items-center justify-center rounded-md border border-danger py-4 px-10 text-center font-medium text-danger hover:bg-opacity-90 lg:px-8 xl:px-10 gap-10 m-b-sm"
             >
               Delete

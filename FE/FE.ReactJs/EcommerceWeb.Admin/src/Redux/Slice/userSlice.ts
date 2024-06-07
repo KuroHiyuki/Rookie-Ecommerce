@@ -1,7 +1,7 @@
 // src/redux/slices/userSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchUsers, updateUser, deleteUser } from '../../API/UserAPI';
-import { User } from '../../types/User';
+import { User, UserRequest } from '../../types/User';
 
 interface UserState {
     loading: boolean;
@@ -21,7 +21,7 @@ export const getUsers = createAsyncThunk('users/getUsers', async () => {
     return response;
 });
 
-export const editUser = createAsyncThunk('users/editUser', async ({ id, user }: { id: string; user: User }) => {
+export const editUser = createAsyncThunk('users/editUser', async ({ id, user }: { id: string; user: UserRequest }) => {
     const response = await updateUser(id, user);
     return response;
 });
@@ -49,13 +49,13 @@ const userSlice = createSlice({
                 state.error = action.error.message || 'Failed to fetch users';
             })
             .addCase(editUser.fulfilled, (state, action) => {
-                const index = state.users.findIndex(user => user.Id === action.payload.id);
+                const index = state.users.findIndex(user => user.id === action.payload.id);
                 if (index !== -1) {
                     state.users[index] = action.payload;
                 }
             })
             .addCase(removeUser.fulfilled, (state, action) => {
-                state.users = state.users.filter(user => user.Id !== action.payload);
+                state.users = state.users.filter(user => user.id !== action.payload);
             });
     },
 });
