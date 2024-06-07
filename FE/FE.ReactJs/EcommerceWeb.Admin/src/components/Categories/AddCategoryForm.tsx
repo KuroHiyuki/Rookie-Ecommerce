@@ -19,7 +19,7 @@ const AddCategory: React.FC = () => {
         Description
     } as CategoryRequest;
     dispatch(addCategory(category)).then(() => {
-        dispatch(getCategories())});;
+        dispatch(getCategories())});
     setName('');
     setDescription('');
     navigate('/category');
