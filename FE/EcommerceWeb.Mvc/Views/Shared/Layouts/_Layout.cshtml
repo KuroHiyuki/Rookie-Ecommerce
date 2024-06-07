@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+    @{
+        var BASE = "https://localhost:7273/uploads/";
+        ViewBag.Domain = "https://localhost:7273/uploads/";
+    }
     @await Html.PartialAsync("CssAndJsScripts/_Style")
 </head>
 <body>
