@@ -36,8 +36,8 @@ namespace EcommerceWeb.Mvc.Services.Products
 				{
 					queryString.Append($"Page={page.Page}&");
 				}
-                
-                //queryString.Append("PageSize=1&");
+
+                queryString.Append("pagesize=8&");
                 if (!string.IsNullOrEmpty(page.SearchTerm))
                 {
                     queryString.Append($"SearchTerm={page.SearchTerm}&");
