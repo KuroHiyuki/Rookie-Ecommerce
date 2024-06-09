@@ -3,4 +3,5 @@ export type SignIn = {
     firstName: string;
     lastName: string;
     email: string;
+    numberPhone: string
 }
