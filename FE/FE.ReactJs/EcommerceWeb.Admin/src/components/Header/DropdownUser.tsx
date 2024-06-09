@@ -9,7 +9,7 @@ const DropdownUser = () => {
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
-  const { FirstName } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -46,7 +46,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {FirstName}
+            {user?.firstName}
           </span>
         </span>
 

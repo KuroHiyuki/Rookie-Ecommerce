@@ -4,7 +4,7 @@ import userThree from '../images/user/user-03.png';
 import DefaultLayout from '../layout/DefaultLayout';
 
 const Settings = () => {
-  const {FirstName, LastName , Email, numberPhone} = useAppSelector((state) => state.auth)
+  const {user} = useAppSelector((state) => state.auth)
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-270">
@@ -61,7 +61,7 @@ const Settings = () => {
                           id="fullName"
                           placeholder="Devid Jhon"
                           defaultValue="Devid Jhon"
-                          value={`${FirstName} ${LastName}`}
+                          value={`${user?.firstName} ${user?.lastName}`}
                         />
                       </div>
                     </div>
@@ -80,7 +80,7 @@ const Settings = () => {
                         id="phoneNumber"
                         placeholder="+990 3343 7865"
                         defaultValue="+990 3343 7865"
-                        value={numberPhone}
+                        value={user?.numberPhone}
                       />
                     </div>
                   </div>
@@ -125,7 +125,7 @@ const Settings = () => {
                         id="emailAddress"
                         placeholder="devidjond45@gmail.com"
                         defaultValue="devidjond45@gmail.com"
-                        value={Email}
+                        value={user?.email}
                       />
                     </div>
                   </div>
