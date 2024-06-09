@@ -8,12 +8,14 @@ using EcommerceWeb.Application.Common.Errors;
 using EcommerceWeb.Application.Products.DeleteProduct;
 using EcommerceWeb.Presentation.Categories;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceWeb.WebApi.Controllers
 {
     [Route("[controller]")]
+    [Authorize]
     public class CategoryController : APIController
     {
         private readonly MediatR.ISender _mediator;
@@ -34,6 +36,7 @@ namespace EcommerceWeb.WebApi.Controllers
                 return NotFound(e.Message);
             }
         }
+       
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(string id)
         {
@@ -48,6 +51,7 @@ namespace EcommerceWeb.WebApi.Controllers
                 return NotFound(e.Message);
             }
         }
+        
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CategoryRequest model)
         {
@@ -62,7 +66,7 @@ namespace EcommerceWeb.WebApi.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetCategoryListAsync()
         {

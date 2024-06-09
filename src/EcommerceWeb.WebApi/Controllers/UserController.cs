@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EcommerceWeb.Application.Users.GetUserByEmail;
 using EcommerceWeb.Application.Users.GetUserbyId;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EcommerceWeb.WebApi.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     public class UserController : APIController
     {
