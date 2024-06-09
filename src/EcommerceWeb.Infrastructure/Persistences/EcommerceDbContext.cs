@@ -17,7 +17,6 @@ namespace EcommerceWeb.Presentation.Persistences
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Image> Images { get; set; }
-        public virtual DbSet<WishList> WishLists { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(EcommerceDbContext).Assembly);

@@ -164,7 +164,6 @@ namespace EcommerceWeb.Infrastructure.Products
             {
                 imgDeleteTasks.Add(_fileStorage.DeleteFileAsync(image.Url));
             }
-
             await Task.WhenAll(imgDeleteTasks);
             product.Images.Clear();
         }

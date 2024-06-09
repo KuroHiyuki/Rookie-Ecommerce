@@ -20,7 +20,6 @@ namespace EcommerceWeb.Domain.Entities
         public DateTime UpdateAt { get; set; } = DateTime.Now;
         public virtual ICollection<CartDetail> CartDetails { get; set; } = new List<CartDetail>();
         public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
-        public virtual ICollection<WishList> WishList { get; set; } = new List<WishList>();
         public virtual Category? Category { get; set; }
         public string? CategoryId { get; set; }
         public bool IsDeleted { get; set; } = false;
