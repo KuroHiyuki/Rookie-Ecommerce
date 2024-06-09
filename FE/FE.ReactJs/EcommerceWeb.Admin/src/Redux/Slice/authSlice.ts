@@ -1,25 +1,18 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchAuth } from '../../API/AuthAPI';
+import { SignIn } from '../../types/Auth';
 
 interface AuthState {
     token: string | null;
-    id: string | null;
-    FirstName: string |null,
-    Email: string |'',
-    LastName: string|null,
+    user: SignIn|null;
     loading: boolean;
-    numberPhone: string|'',
     error: string | null;
   }
   
   const initialState: AuthState = {
     token: null,
-    id: null,
-    FirstName: null,
-    LastName:null,
-    Email: '',
-    numberPhone: '',
+    user: null,
     loading: false,
     error: null,
   };
@@ -48,11 +41,7 @@ const authSlice = createSlice({
       .addCase(SignInAdmin.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
-        state.id = action.payload.id;
-        state.FirstName = action.payload.firstName,
-        state.LastName = action.payload.lastName,
-        state.Email = action.payload.email,
-        state.numberPhone = action.payload.numberPhone
+        state.user = action.payload
       })
       .addCase(SignInAdmin.rejected, (state, action) => {
         state.loading = false;
