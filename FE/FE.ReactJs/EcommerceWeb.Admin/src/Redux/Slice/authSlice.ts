@@ -9,6 +9,7 @@ interface AuthState {
     Email: string |'',
     LastName: string|null,
     loading: boolean;
+    numberPhone: string|'',
     error: string | null;
   }
   
@@ -18,6 +19,7 @@ interface AuthState {
     FirstName: null,
     LastName:null,
     Email: '',
+    numberPhone: '',
     loading: false,
     error: null,
   };
@@ -49,7 +51,8 @@ const authSlice = createSlice({
         state.id = action.payload.id;
         state.FirstName = action.payload.firstName,
         state.LastName = action.payload.lastName,
-        state.Email = action.payload.email
+        state.Email = action.payload.email,
+        state.numberPhone = action.payload.numberPhone
       })
       .addCase(SignInAdmin.rejected, (state, action) => {
         state.loading = false;

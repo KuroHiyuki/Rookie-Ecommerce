@@ -4,7 +4,7 @@ import userThree from '../images/user/user-03.png';
 import DefaultLayout from '../layout/DefaultLayout';
 
 const Settings = () => {
-  const {FirstName, LastName , Email} = useAppSelector((state) => state.auth)
+  const {FirstName, LastName , Email, numberPhone} = useAppSelector((state) => state.auth)
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-270">
@@ -80,7 +80,7 @@ const Settings = () => {
                         id="phoneNumber"
                         placeholder="+990 3343 7865"
                         defaultValue="+990 3343 7865"
-                        
+                        value={numberPhone}
                       />
                     </div>
                   </div>
