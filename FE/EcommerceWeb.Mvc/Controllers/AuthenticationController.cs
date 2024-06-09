@@ -22,6 +22,7 @@ namespace EcommerceWeb.Mvc.Controllers
         public IActionResult Logout()
         {
             string refererUrl = Request.Headers["Referer"].ToString();
+
             foreach (var cookie in Request.Cookies.Keys)
 			{
 				Response.Cookies.Delete(cookie);

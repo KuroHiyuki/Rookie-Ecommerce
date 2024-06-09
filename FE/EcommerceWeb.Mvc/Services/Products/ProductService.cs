@@ -22,6 +22,7 @@ namespace EcommerceWeb.Mvc.Services.Products
             response.EnsureSuccessStatusCode();
 
             string content = await response.Content.ReadAsStringAsync();
+
             var product = JsonConvert.DeserializeObject<ProductVM?>(content);
             return product;
         }
@@ -32,12 +33,14 @@ namespace EcommerceWeb.Mvc.Services.Products
 			if (page != null)
 			{
 				var queryString = new StringBuilder("?");
+
 				if (page.Page is not 1 and > 0)
 				{
 					queryString.Append($"Page={page.Page}&");
 				}
 
                 queryString.Append("pagesize=8&");
+
                 if (!string.IsNullOrEmpty(page.SearchTerm))
                 {
                     queryString.Append($"SearchTerm={page.SearchTerm}&");
@@ -62,7 +65,9 @@ namespace EcommerceWeb.Mvc.Services.Products
             response.EnsureSuccessStatusCode();
 
             string content = await response.Content.ReadAsStringAsync();
+
 			var products = JsonConvert.DeserializeObject<Paginated<ProductVM>>(content)!;
+
 			return products;
         }
 
@@ -73,7 +78,9 @@ namespace EcommerceWeb.Mvc.Services.Products
             response.EnsureSuccessStatusCode();
 
             string content = await response.Content.ReadAsStringAsync();
+
             var products = JsonConvert.DeserializeObject<Paginated<ProductVM>>(content)!;
+
             return products;
         }
     }

@@ -23,9 +23,11 @@ namespace EcommerceWeb.Mvc.Services.Authenticaions
         public async Task<dynamic> RegisterAsync(RegisterRequest request)
         {
             request.FirstName = Guid.NewGuid().ToString();
+
             request.LastName = Guid.NewGuid().ToString();   
+
             var response = await _httpClient.PostAsJsonAsync("authentication/register", request);
-            //response.EnsureSuccessStatusCode();
+
             return response;
         }
     }

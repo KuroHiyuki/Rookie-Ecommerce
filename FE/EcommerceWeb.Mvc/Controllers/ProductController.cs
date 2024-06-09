@@ -8,13 +8,13 @@ namespace EcommerceWeb.Mvc.Controllers
 {
     public class ProductController : Controller
     {
-        [BindProperty]
-        public AddToCartModel AddToCartInput { get; set; } = new AddToCartModel();
         private readonly ILogger<ProductController> _logger;
+
         private readonly IProductServices _productServices;
 		public ProductController(IProductServices productServices, ILogger<ProductController> logger)
 		{
 			_productServices = productServices;
+
 			_logger = logger;
 		}
 
@@ -22,6 +22,7 @@ namespace EcommerceWeb.Mvc.Controllers
         public async Task<IActionResult> Index()
         {
             await Task.CompletedTask;
+
             return View();
         }
 		
@@ -33,7 +34,9 @@ namespace EcommerceWeb.Mvc.Controllers
 				ViewBag.ErrorMessage = TempData["ErrorMessage"];
 			}
 			_logger.LogInformation("Get product by id from API");
+
             var product = await _productServices.GetProductByIdAsync(id);
+
             if (product == null)
             {
                 return NotFound();
@@ -46,7 +49,9 @@ namespace EcommerceWeb.Mvc.Controllers
         public async Task<IActionResult> AddToCart(string id)
         {
             _logger.LogInformation("Add product to cart");
+
             var product = await _productServices.GetProductByIdAsync(id);
+
             if (product == null)
             {
                 return NotFound();

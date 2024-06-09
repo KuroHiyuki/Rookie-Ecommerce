@@ -6,6 +6,7 @@ namespace EcommerceWeb.Mvc.Services.Categories
 	public class CategoryServices : ICategoryServices
 	{
 		private readonly HttpClient _httpClient;
+
 		const string URL = "/category";
 		public CategoryServices(HttpClient httpClient)
 		{
@@ -18,7 +19,9 @@ namespace EcommerceWeb.Mvc.Services.Categories
 			response.EnsureSuccessStatusCode();
 
 			string content = await response.Content.ReadAsStringAsync();
+
 			var categories = JsonConvert.DeserializeObject<List<CategoryVM>>(content)!;
+
 			return categories;
 		}
 	}

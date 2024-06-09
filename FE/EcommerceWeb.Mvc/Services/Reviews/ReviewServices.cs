@@ -18,6 +18,7 @@ namespace EcommerceWeb.Mvc.Services.Reviews
         public async Task<bool> CreateReviewProductAsync(string ProductId,string UserId, ReviewRequest request)
         {
             var response = await _httpClient.PostAsJsonAsync($"review/{UserId},{ProductId}", request);
+           
             return response.IsSuccessStatusCode;
         }
 
@@ -28,21 +29,24 @@ namespace EcommerceWeb.Mvc.Services.Reviews
             response.EnsureSuccessStatusCode();
 
             string content = await response.Content.ReadAsStringAsync();
+            
             var reviews = JsonConvert.DeserializeObject<IEnumerable<ReviewVM>>(content)!;
+            
             return reviews;
         }
 
         public async Task<dynamic> RemoveReviewAsync(string UserId, string reviewId)
         {
             var response = await _httpClient.DeleteAsync($"review/{reviewId},{UserId}");
+            
             return response;
-			
 		}
 
         public async Task<dynamic> UpdateReviewAsync(string UserId, string reviewId, ReviewRequest request)
         {
             var response = await _httpClient.PutAsJsonAsync($"review/{reviewId},{UserId}", request);
-			return response;
+			
+            return response;
 		}
     }
 }

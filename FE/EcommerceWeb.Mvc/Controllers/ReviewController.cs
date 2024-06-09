@@ -28,14 +28,17 @@ namespace EcommerceWeb.Mvc.Controllers
         public async Task<IActionResult> Create(string ProductId, ReviewRequest request)
         {
 			string userId = Request.Cookies["UserId"]!;
+
             if(string.IsNullOrEmpty(userId) )
             {
 				TempData["ErrorMessage"] = "Please login before the review";
+
 				return RedirectToAction("Details", "Product", new { id = ProductId });
 			}
 			if (ModelState.IsValid)
             {
                 await _reviewServices.CreateReviewProductAsync(ProductId,userId ,request);
+
                 return RedirectToAction("Details", "Product", new { id = ProductId });
             }
             return View("Error");
@@ -44,12 +47,15 @@ namespace EcommerceWeb.Mvc.Controllers
         public async Task<IActionResult> Delete(string ProductId, string reviewId, [FromForm(Name = "_method")] string method)
         {
             string userId = Request.Cookies["UserId"]!;
+
             if (method == "DELETE")
             {
                 var response = await _reviewServices.RemoveReviewAsync(userId, reviewId);
+
 				if (!response.IsSuccessStatusCode)
 				{
 					TempData["ErrorMessage"] = await response.Content.ReadAsStringAsync();
+
 					return RedirectToAction("Details", "Product", new { id = ProductId });
 				}
 				return RedirectToAction("Details", "Product", new { id = ProductId });
@@ -61,12 +67,15 @@ namespace EcommerceWeb.Mvc.Controllers
         public async Task<IActionResult> Update(string ProductId, string reviewId, [FromForm(Name = "_method")] string method, ReviewRequest request)
         {
             string userId = Request.Cookies["UserId"]!;
+
             if (method == "PUT")
             {
 				var response = await _reviewServices.UpdateReviewAsync(userId, reviewId, request);
+
 				if (!response.IsSuccessStatusCode)
 				{
 					TempData["ErrorMessage"] = await response.Content.ReadAsStringAsync();
+
 					return RedirectToAction("Details", "Product", new { id = ProductId });
 				}
                 return RedirectToAction("Details", "Product", new { id = ProductId });

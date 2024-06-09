@@ -21,7 +21,6 @@
   <ItemGroup>
     <Folder Include="Views\Home\Partials\" />
     <Folder Include="Views\Product\Partial\" />
-    <Folder Include="Views\Shared\Components\Quick\" />
   </ItemGroup>
 
 </Project>

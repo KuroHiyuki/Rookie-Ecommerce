@@ -16,22 +16,27 @@ namespace EcommerceWeb.Mvc.Services.Carts
 		public async Task AddToCartAsync(CartRequest request)
 		{
 			var response = await _httpClient.PostAsJsonAsync($"cart", request);
+
 			response.EnsureSuccessStatusCode();
 		}
 
 		public async Task<dynamic> DeleteCartAsync(string CartId, string ProductId)
 		{
             var response = await _httpClient.DeleteAsync($"cart/{CartId},{ProductId}");
+
             return response;
         }
 
 		public async Task<List<CartVM>> GetProductInCartAsynce(string CartId, string userId)
 		{
 			var response = await _httpClient.GetAsync($"cart/{CartId},{userId}");
+
 			if(response.IsSuccessStatusCode) 
 			{
 				string content = await response.Content.ReadAsStringAsync();
+
 				var carts = JsonConvert.DeserializeObject<List<CartVM>>(content)!;
+
 				return carts;
 			}
 			return new List<CartVM>();
@@ -48,6 +53,7 @@ namespace EcommerceWeb.Mvc.Services.Carts
 		public async Task<dynamic> UpdateCartAsync(string CartId, CartRequest request)
 		{
             var response = await _httpClient.PutAsJsonAsync($"cart/{CartId}", request);
+
             return response;
         }
 	}

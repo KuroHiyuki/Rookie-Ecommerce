@@ -44,6 +44,8 @@ namespace EcommerceWeb.Mvc.Controllers
 			{
 				TempData["ErrorMessage"] = "Please login before adding product to cart";
 
+                request = null;
+
 				return Redirect(refererUrl);
 			}
 
@@ -60,7 +62,7 @@ namespace EcommerceWeb.Mvc.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 		[HttpPost("UpdateCart")]
-		public async Task<IActionResult> Update(CartRequest request)
+		public async Task<IActionResult> Update(List<CartRequest> request)
 		{
             string userId = Request.Cookies["UserId"]!;
 
@@ -80,18 +82,35 @@ namespace EcommerceWeb.Mvc.Controllers
 
                 return Redirect(refererUrl);
             }
-            request.UserId = userId;
+            if (ModelState.IsValid)
+            {
+                foreach (var check in request)
+                {
+                    if (check.Quantity == 0)
+                    {
+                        var deleteResponse = await _cartServices.DeleteCartAsync(cartId, check.ProductId!);
 
-			var response = await _cartServices.UpdateCartAsync(cartId, request);
+                        if (!deleteResponse.IsSuccessStatusCode)
+                        {
+                            TempData["ErrorMessage"] = "Failed to delete item from cart";
 
-			if(!response.IsSuccessStatusCode)
-			{
-                TempData["ErrorMessage"] = "Not found CartID";
+                            return Redirect(refererUrl);
+                        }
+                    }
+                    check.UserId = userId;
 
-                return Redirect(refererUrl);
+                    var updateResponse = await _cartServices.UpdateCartAsync(cartId, check);
+
+                    if (!updateResponse.IsSuccessStatusCode)
+                    {
+                        TempData["ErrorMessage"] = "Failed to update cart";
+
+                        return Redirect(refererUrl);
+                    }
+                }
             }
             return Redirect(refererUrl);
-        }
+		}
 
         [HttpPost("DeleteProduct")]
         public async Task<IActionResult> DeleteProduct(CartRequest request)
