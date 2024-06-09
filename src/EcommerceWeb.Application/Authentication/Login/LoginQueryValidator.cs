@@ -12,8 +12,8 @@ namespace EcommerceWeb.Application.Authentication.Login
     {
         public LoginQueryValidator()
         {
-            RuleFor(x => x.Email).NotEmpty();
-            RuleFor(x => x.Password).NotEmpty();
+            RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required.");
+            RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required.");
         }
     }
 }
