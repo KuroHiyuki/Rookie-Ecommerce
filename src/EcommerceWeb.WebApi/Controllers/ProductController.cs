@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceWeb.WebApi.Controllers
 {
-    [Authorize]
+
     [Route("[controller]")]
     public class ProductController : APIController
     {
