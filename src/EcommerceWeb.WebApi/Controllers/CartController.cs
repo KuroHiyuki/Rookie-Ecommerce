@@ -66,7 +66,7 @@ namespace EcommerceWeb.WebApi.Controllers
         {
             try
             {
-                var command = new RemoveProductInCartCommand(ProductId, CartId);
+                var command = new RemoveProductInCartCommand(CartId, ProductId);
                 await _mediator.Send(command);
                 return NoContent();
             }
