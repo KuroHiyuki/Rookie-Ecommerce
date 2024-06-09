@@ -4,7 +4,7 @@ import { GetbyId, editProduct, getProducts } from '../../Redux/Slice/productSlic
 import { AppDispatch } from '../../Redux/store';
 import { useAppSelector } from '../../Redux/hooks';
 import { ProductRequest } from '../../types/product';
-import SelectGroupOne from '../Forms/SelectGroup/SelectGroupOne';
+import SelectGroupOne from '../Categories/CategorySelect';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const EditProductForm: React.FC = () => {

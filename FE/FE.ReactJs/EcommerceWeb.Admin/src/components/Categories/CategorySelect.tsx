@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../Redux/hooks';
-import { getCategories } from '../../../Redux/Slice/categorySlice';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+import { getCategories } from '../../Redux/Slice/categorySlice';
 interface SelectGroupOneProps {
   onOptionChange: (selectedOption: string) => void;
 }
 
-const SelectGroupOne: React.FC<SelectGroupOneProps> = ({ onOptionChange }) => {
+const CategorySelect: React.FC<SelectGroupOneProps> = ({ onOptionChange }) => {
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
   const {categories} = useAppSelector((state) => state.category)
@@ -69,4 +69,4 @@ const SelectGroupOne: React.FC<SelectGroupOneProps> = ({ onOptionChange }) => {
   );
 };
 
-export default SelectGroupOne;
+export default CategorySelect;
