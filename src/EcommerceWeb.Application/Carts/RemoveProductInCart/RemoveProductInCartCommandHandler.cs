@@ -21,7 +21,7 @@ namespace EcommerceWeb.Application.Carts.RemoveProductInCart
 
         public async Task Handle(RemoveProductInCartCommand request, CancellationToken cancellationToken)
         {
-            await _cartRepository.DeleteProductFromCart(request.CartId, request.ProductId);
+            await _cartRepository.DeleteProductFromCart(request.cartId, request.ProductId);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }

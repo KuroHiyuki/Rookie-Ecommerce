@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceWeb.Application.Carts.RemoveProductInCart
 {
-    public record RemoveProductInCartCommand(string ProductId, string CartId) : IRequest
+    public record RemoveProductInCartCommand(string cartId, string ProductId) : IRequest
     {
     }
 }
