@@ -1,12 +1,22 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import SignInLayout from '../../layout/SignInLayout';
-import { useDispatch } from 'react-redux';
+import { SignInAdmin } from '../../Redux/Slice/authSlice';
+import { useAppDispatch, useAppSelector } from '../../Redux/hooks';
+
 const SignIn: React.FC = () => {
   const [email, setemail] = useState('');
   const [password, setpasswor] = useState('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { error } = useAppSelector((state) => state.auth);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const credentials = { email, password };
+    dispatch(SignInAdmin(credentials));
+    navigate('/');
+    
+  };
   return (
     <SignInLayout>
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 inner-div">
@@ -14,13 +24,15 @@ const SignIn: React.FC = () => {
               Sign In
             </h2>
 
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
                   Email
                 </label>
                 <div className="relative">
                   <input
+                  value={email}
+                  onChange={(e) => setemail(e.target.value)}
                     type="email"
                     placeholder="Enter your email"
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -52,6 +64,8 @@ const SignIn: React.FC = () => {
                 </label>
                 <div className="relative">
                   <input
+                  value={password}
+                  onChange={(e) => setpasswor(e.target.value)}
                     type="password"
                     placeholder="6+ Characters, 1 Capital letter"
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -88,11 +102,11 @@ const SignIn: React.FC = () => {
                   className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                 />
               </div>
-
+              {error && <p style={{ color: 'red' }}>{error}</p>}
               <div className="mt-6 text-center">
                 <p>
                   Don’t have any account?{' '}
-                  <Link to="/auth/signup" className="text-primary">
+                  <Link to="/" className="text-primary">
                     Sign Up
                   </Link>
                 </p>
