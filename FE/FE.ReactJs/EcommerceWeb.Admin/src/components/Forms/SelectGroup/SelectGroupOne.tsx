@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../Redux/hooks';
+import { getCategories } from '../../../Redux/Slice/categorySlice';
+interface SelectGroupOneProps {
+  onOptionChange: (selectedOption: string) => void;
+}
 
-const SelectGroupOne: React.FC = () => {
+const SelectGroupOne: React.FC<SelectGroupOneProps> = ({ onOptionChange }) => {
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
-
+  const {categories} = useAppSelector((state) => state.category)
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getCategories());
+}, [dispatch]);
   const changeTextColor = () => {
     setIsOptionSelected(true);
   };
-
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newValue = e.target.value;
+    setSelectedOption(newValue);
+    console.log('onOptionChange được gọi với giá trị:', newValue);
+    changeTextColor()
+    onOptionChange(newValue);
+  };
   return (
     <div className="mb-4.5">
       <label className="mb-2.5 block text-black dark:text-white">
@@ -18,26 +33,16 @@ const SelectGroupOne: React.FC = () => {
       <div className="relative z-20 bg-transparent dark:bg-form-input">
         <select
           value={selectedOption}
-          onChange={(e) => {
-            setSelectedOption(e.target.value);
-            changeTextColor();
-          }}
+          onChange={handleSelectChange}
           className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
             isOptionSelected ? 'text-black dark:text-white' : ''
           }`}
         >
-          <option value="sport" disabled className="text-body dark:text-bodydark">
-            Sport
+          {categories.map((category) => (
+            <option value={category.id} className="text-body dark:text-bodydark">
+            {category.name}
           </option>
-          <option value="USA" className="text-body dark:text-bodydark">
-            USA
-          </option>
-          <option value="UK" className="text-body dark:text-bodydark">
-            UK
-          </option>
-          <option value="Canada" className="text-body dark:text-bodydark">
-            Canada
-          </option>
+          ))}
         </select>
 
         <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
