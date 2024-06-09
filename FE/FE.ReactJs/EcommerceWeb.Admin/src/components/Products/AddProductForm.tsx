@@ -24,6 +24,9 @@ const AddProductForm: React.FC = () => {
       setImgUrls(Array.from(e.target.files));
     }
   };
+  const handleOptionChange = (selectedOption: string) => {
+    setCategoryId(selectedOption);
+  };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const product = {
@@ -45,6 +48,7 @@ const AddProductForm: React.FC = () => {
     setImgUrls([]);
     navigate('/product');
   };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   return (
@@ -109,19 +113,12 @@ const AddProductForm: React.FC = () => {
               />
             </div>
             <div className="mb-4.5">
-              <label className="mb-2.5 block text-black dark:text-white">
-                Category
-              </label>
-              <input
-                type="text"
-                value={categoryId}
-                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                onChange={(e) => setCategoryId(e.target.value)}
-                required
+              <SelectGroupOne
+                onOptionChange={handleOptionChange}
               />
             </div>
 
-            <SelectGroupOne />
+           
 
             <div className="mb-6">
               <div>
