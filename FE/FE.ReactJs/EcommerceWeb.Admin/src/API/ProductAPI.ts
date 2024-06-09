@@ -1,6 +1,7 @@
 import { BASE_URL } from '../config';
 import { Query } from '../types/Commons/Query';
 import { ProductRequest } from '../types/product';
+import apiFetch from './APIconfig';
 
 export const fetchProducts = async (query: Query) => {
   const url = new URL(`${BASE_URL}/product`);
@@ -8,7 +9,7 @@ export const fetchProducts = async (query: Query) => {
 
   url.search = params.toString();
 
-  const response = await fetch(url.toString());
+  const response = await apiFetch(url.toString());
   return response.json();
 };
 
@@ -24,7 +25,7 @@ export const createProduct = async (product: ProductRequest) => {
     formData.append('images', image);
   });
 
-  const response = await fetch(`${BASE_URL}/product`, {
+  const response = await apiFetch(`${BASE_URL}/product`, {
     method: 'POST',
     body: formData,
   });
@@ -46,7 +47,7 @@ export const updateProduct = async (id: string, product: ProductRequest) => {
       formData.append('images', image);
     });
 
-  const response = await fetch(`${BASE_URL}/product/${id}`, {
+  const response = await apiFetch(`${BASE_URL}/product/${id}`, {
     method: 'PUT',
     body: formData
   });
@@ -54,14 +55,14 @@ export const updateProduct = async (id: string, product: ProductRequest) => {
 };
 
 export const deleteProduct = async (id: string) => {
-  const response = await fetch(`${BASE_URL}/product/${id}`, {
+  const response = await apiFetch(`${BASE_URL}/product/${id}`, {
     method: 'DELETE',
   });
   return response.json();
 };
 
 export const GetProductById = async (id:string) => {
-    const response = await fetch(`${BASE_URL}/product/${id}`,{
+    const response = await apiFetch(`${BASE_URL}/product/${id}`,{
         method: 'GET',
     })
     return response.json();
