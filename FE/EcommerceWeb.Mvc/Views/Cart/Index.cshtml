@@ -33,9 +33,12 @@
                                     <th class="column-4">Quantity</th>
                                     <th class="column-5">Total</th>
                                 </tr>
-
+                                @{
+                                    int index = 0;
+                                }
                                 @foreach (var cart in Model)
                                 {
+                                    <input type="hidden" name="request[@index].ProductId" value="@cart.ProductId" />
                                     <tr class="table_row">
                                         <td class="column-1">
                                             <a class="how-itemcart1" asp-controller="Cart" asp-action="Update">
@@ -49,9 +52,10 @@
                                                 <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                                     <i class="fs-16 zmdi zmdi-minus"></i>
                                                 </div>
-
-                                                <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="@cart.Quantity">
-
+                                                
+                                                
+                                                <input class="mtext-104 cl3 txt-center num-product" type="number" name="request[@index].Quantity" value="@cart.Quantity">
+                                                
                                                 <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                     <i class="fs-16 zmdi zmdi-plus"></i>
                                                 </div>
@@ -59,6 +63,7 @@
                                         </td>
                                         <td class="column-5">$ @(cart.Price * cart.Quantity)</td>
                                     </tr>
+                                    index++;
                                 }
                             </table>
                             <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
@@ -121,5 +126,3 @@
 </div>
 
 
-
-<!-- Shoping Cart -->
