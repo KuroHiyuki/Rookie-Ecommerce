@@ -97,7 +97,7 @@ const UpdatUser: React.FC = () => {
               type="text"
               name="fullName"
               id="fullName"
-              value = {firstName}
+              value={firstName}
               onChange={(e) => setfirstName(e.target.value)}
             />
           </div>
@@ -115,8 +115,8 @@ const UpdatUser: React.FC = () => {
             type="text"
             name="phoneNumber"
             id="phoneNumber"
-            value = {lastName}
-              onChange={(e) => setlastName(e.target.value)}
+            value={lastName}
+            onChange={(e) => setlastName(e.target.value)}
           />
         </div>
       </div>
@@ -159,8 +159,8 @@ const UpdatUser: React.FC = () => {
             type="email"
             name="emailAddress"
             id="emailAddress"
-            value = {email}
-              onChange={(e) => setemail(e.target.value)}
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
           />
         </div>
       </div>
@@ -177,8 +177,8 @@ const UpdatUser: React.FC = () => {
           type="text"
           name="Username"
           id="Username"
-          value = {numberPhone}
-              onChange={(e) => setnumberPhone(e.target.value)}
+          value={numberPhone}
+          onChange={(e) => setnumberPhone(e.target.value)}
         />
       </div>
 
@@ -226,14 +226,14 @@ const UpdatUser: React.FC = () => {
             name="bio"
             id="bio"
             rows={6}
-            value = {address}
-              onChange={(e) => setaddress(e.target.value)}
+            value={address}
+            onChange={(e) => setaddress(e.target.value)}
           ></textarea>
         </div>
       </div>
 
       <div className="flex justify-end gap-4.5">
-      <Link
+        <Link
           to="/product/create"
           className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
         >

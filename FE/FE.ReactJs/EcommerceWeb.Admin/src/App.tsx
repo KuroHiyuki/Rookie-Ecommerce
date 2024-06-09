@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import ECommerce from './pages/Dashboard/ECommerce';
@@ -13,7 +13,20 @@ import EditCategory from './pages/Category/EditCategory';
 import User from './pages/User/User';
 import EditUser from './pages/User/EditUset';
 import SignIn from './pages/Authentication/SignIn';
+import { useAppSelector } from './Redux/hooks';
+interface PrivateRouteProps {
+  children: React.ReactNode;
+}
 
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+  const isAuthenticated = useAppSelector((state) => state.auth.token);
+
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
+
+  return <>{children}</>;
+};
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -45,7 +58,10 @@ function App() {
           element={
             <>
               <PageTitle title="Rookie Ecommerce" />
+              <PrivateRoute>
               <ECommerce />
+              </PrivateRoute>
+              
             </>
           }
         />
@@ -54,7 +70,10 @@ function App() {
           element={
             <>
               <PageTitle title="Rookie Ecommerce" />
-              <Product/>
+              <PrivateRoute>
+                <Product/>
+              </PrivateRoute>
+              
             </>
           }
         />
