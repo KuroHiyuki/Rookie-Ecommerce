@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
 import UserOne from '../../images/user/user-01.png';
 import { useAppSelector } from '../../Redux/hooks';
 
@@ -27,7 +27,7 @@ const DropdownUser = () => {
   });
 
   const handleLogout = () => {
-    sessionStorage.removeItem('authToken');
+    Cookies.remove('authToken'); 
     window.location.href = '/signin';
 };
 

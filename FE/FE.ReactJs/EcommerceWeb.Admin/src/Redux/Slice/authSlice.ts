@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchAuth } from '../../API/AuthAPI';
 import { SignIn } from '../../types/Auth';
-
+import Cookies from 'js-cookie';
 interface AuthState {
     token: string | null;
     user: SignIn|null;
@@ -23,7 +23,7 @@ interface AuthState {
     async (credentials: { email: string; password: string }) => {
         const response = await fetchAuth(credentials);
         const { token } = response;
-        sessionStorage.setItem('authToken', token);
+        Cookies.set('authToken', token, { expires: 1 });
         return response
     },
 );

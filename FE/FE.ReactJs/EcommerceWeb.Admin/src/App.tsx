@@ -13,15 +13,15 @@ import EditCategory from './pages/Category/EditCategory';
 import User from './pages/User/User';
 import EditUser from './pages/User/EditUset';
 import SignIn from './pages/Authentication/SignIn';
-import { useAppSelector } from './Redux/hooks';
+import Cookies from 'js-cookie';
 interface PrivateRouteProps {
   children: React.ReactNode;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const isAuthenticated = useAppSelector((state) => state.auth.token);
+  const token = Cookies.get('authToken');
 
-  if (!isAuthenticated) {
+  if (token) {
     return <Navigate to="/signin" />;
   }
 
